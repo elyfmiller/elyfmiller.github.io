@@ -1,0 +1,6 @@
+#!/bin/sh
+# Reject AI attribution trailers. This site is authored by Ely F. Miller.
+if grep -qiE '^(co-authored-by|generated-by|assisted-by):|claude|anthropic|🤖' "$1"; then
+  echo "commit-msg: AI attribution trailers or mentions are not allowed in this repo." >&2
+  exit 1
+fi
