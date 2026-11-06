@@ -32,7 +32,7 @@
   function draw() {
     // draw at the container's real width so text stays at its CSS size
     W = Math.max(300, Math.round(plot.clientWidth || 640));
-    H = W < 480 ? 170 : 190;
+    H = W < 480 ? 170 : Math.round(Math.min(300, Math.max(190, W * 0.42)));
     lastW = W;
     var rounds = Object.keys(D.forecasts[MODELS[0].id] || {}).sort();
     var r = rounds[rounds.length - 1];

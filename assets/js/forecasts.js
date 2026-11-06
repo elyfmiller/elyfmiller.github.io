@@ -81,7 +81,7 @@
     wrap.innerHTML = "";
     var W = Math.max(300, Math.round(wrap.clientWidth));
     var narrow = W < 560;
-    var H = narrow ? 320 : 420;
+    var H = narrow ? 320 : Math.round(Math.min(560, Math.max(420, W * 0.36)));
     var m = { t: 16, r: narrow ? 12 : 112, b: 30, l: narrow ? 44 : 56 };
     var iw = W - m.l - m.r, ih = H - m.t - m.b;
 
