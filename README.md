@@ -18,6 +18,10 @@ Plain HTML, CSS and JS; no build step. Preview locally:
 | `data/forecasts.json` | forecast data, built by the script below |
 | `scripts/build_forecasts.py` | rebuilds the data from `cdcepi/FluSight-forecast-hub` |
 | `.github/workflow-proposals/refresh-forecasts.yml` | weekly refresh, **not enabled** |
+| `CNAME` | custom domain, `elymiller.com` |
+| `sitemap.xml`, `robots.txt` | for search engines; add new pages to the sitemap |
+| `404.html` | page shown for broken links (uses `/`-rooted paths) |
+| `images/og-card.jpg`, `favicon.ico`, `images/*icon*` | link-preview card and site icons |
 
 Placeholders for text are marked `<!-- TODO(Ely): ... -->` in the HTML and
 show on the page as grey bracketed hints. Find them all with:
