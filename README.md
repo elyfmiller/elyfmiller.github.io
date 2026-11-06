@@ -13,8 +13,10 @@ Plain HTML, CSS and JS; no build step. Preview locally:
 | --- | --- |
 | `index.html`, `research.html`, `publications.html`, `cv.html`, `forecasts.html` | the pages |
 | `assets/css/site.css` | all styles; colors are CSS variables at the top (light, then dark) |
-| `assets/js/site.js` | dark-mode toggle |
+| `assets/js/site.js` | dark-mode toggle, publication sort, CV section rail |
 | `assets/js/forecasts.js` | the forecast chart |
+| `assets/js/home.js` | the small US forecast chart on the home page |
+| `assets/icons.svg` | link icons (Lucide, ISC; Simple Icons, CC0) |
 | `data/forecasts.json` | forecast data, built by the script below |
 | `scripts/build_forecasts.py` | rebuilds the data from `cdcepi/FluSight-forecast-hub` |
 | `.github/workflows/refresh-forecasts.yml` | refreshes the forecast data each week |

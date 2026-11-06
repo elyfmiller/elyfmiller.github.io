@@ -44,21 +44,39 @@
 
 <!-- Content below is Ely's CV text (Ely_Miller_CV.docx, Nov 2026), verbatim.
      Professional references are left off the web version. -->
-<main id="main">
+<main id="main" class="wide">
   <p class="eyebrow">Curriculum vitae</p>
   <h1>CV</h1>
-  <ul class="links" style="margin:20px 0 0">
-    <li><a href="files/Ely_Miller_CV.pdf">Download full CV (PDF)</a></li>
-  </ul>
-  <nav class="toc" aria-label="CV sections">
-    <a href="#education">Education</a> · <a href="#research">Research</a> · <a href="#training">Invited training</a> ·
-    <a href="#teaching">Teaching</a> · <a href="#awards">Honors and awards</a> · <a href="#media">Media</a> ·
-    <a href="#leadership">Leadership</a> · <a href="#professional">Professional</a> · <a href="#skills">Skills</a>
-  </nav>
+  <div class="cv-top">
+    <a class="btn primary" href="files/Ely_Miller_CV.pdf"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>Download full CV (PDF)</a>
+  </div>
+  <!-- Summary facts are from the Education entry below (Ely_Miller_CV.docx). -->
+  <dl class="cv-summary">
+    <div><dt>Current</dt><dd>Ph.D. Student, Biological Sciences<br>Northern Arizona University</dd></div>
+    <div><dt>Faculty advisor</dt><dd>Dr. Richard Posner</dd></div>
+    <div><dt>Expected</dt><dd>Spring 2028</dd></div>
+  </dl>
 
-  <section id="education" style="margin-top:48px">
+  <div class="cv-layout">
+  <nav class="cv-rail" aria-label="CV sections">
+    <ol>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#training">Invited training</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#awards">Honors and awards</a></li>
+      <li><a href="#media">Media</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#professional">Professional</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ol>
+  </nav>
+  <div class="cv-body">
+
+
+  <section id="education">
     <h2>Education</h2>
-    <div class="cv-row">
+    <div class="cv-row now">
       <div class="when">Expected Spring 2028</div>
       <div><h3>Ph.D. Student, Biological Sciences</h3>
         <p class="meta">Northern Arizona University · Flagstaff, AZ</p>
@@ -77,7 +95,7 @@
 
   <section id="research">
     <h2>Research experience</h2>
-    <div class="cv-row">
+    <div class="cv-row now">
       <div class="when">August 2024 – Present</div>
       <div><h3>Graduate Researcher</h3>
         <p class="meta">Department of Biological Sciences, Northern Arizona University · Flagstaff, AZ<br>Supervisor: Dr. Richard Posner</p>
@@ -86,6 +104,9 @@
           <li>Using Bayesian inference and parameter estimation to generate predictive case trajectories from public health datasets.</li>
           <li>Applying local parallel computing and the BioNetGen Language (BNGL) for rule-based systems biology modeling to enhance computational efficiency and accessibility.</li>
           <li>Designing workflows for both epidemiology and general systems biology mechanistic modeling.</li>
+        </ul>
+        <details class="more"><summary><span class="closed">8 more</span><span class="opened">Show less</span></summary>
+        <ul>
           <li>Automated and improved a previously manual MEK isoform signaling model (reaching faster convergence and improved fits to data). Manuscript published in <em>Frontiers (2026).</em></li>
           <li>Designed and implemented a multi-engine benchmark suite for BNGsim (an open-sourced C++17 simulation engine for BioNetGen rule-based models) to evaluate and compare the performance of other simulators, including libRoadRunner, AMICI, COPASI, and SciPy, across deterministic, stochastic, network-free, steady-state, and forward-sensitivity analyses on increasing numbers of species, from several up to thousands.</li>
           <li>Authored the supplementary materials for the associated BNGsim benchmarking manuscript (in preparation) with the Hlavacek group at Los Alamos National Laboratory.</li>
@@ -94,7 +115,7 @@
           <li>Implemented a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</li>
           <li>Developed FluBNF (an open-source, PyBNF-based influenza forecasting tool) and now submit weekly forecasts of laboratory-confirmed influenza hospital admissions using two models to the CDC FluSight challenge for the 2026-27 season.</li>
           <li>Developing a manuscript (in preparation) evaluating how well large language model agents rebuild published rule-based signaling models in BioNetGen.</li>
-        </ul></div>
+        </ul></details></div>
     </div>
     <div class="cv-row">
       <div class="when">May 2026 – October 2026</div>
@@ -115,9 +136,12 @@
           <li>Constructed data scraping pipelines and leveraged remote parallel computing to produce real-time estimates with four-week forecasting horizons during the SARS-CoV-2 pandemic. These were shared with public health authorities (e.g., NNDOH) and university administration (NAU) and have been published as a peer-reviewed manuscript.</li>
           <li>Collaborated with researchers at Los Alamos, Sandia, and Oak Ridge National Laboratories to develop transmission models in Python that implemented social distancing effects for estimating epidemiological parameters with high-performance parallel computing clusters, and Bayesian uncertainty quantification techniques, for fitting to datasets published by the Centers for Disease Control and Prevention (CDC) and the NNDOH. This work resulted in publications in Emerging Infectious Diseases, Bulletin of Mathematical Biology, and Viruses.</li>
           <li>Estimated the impact of social distancing policies on the spread of SARS-CoV-2 in the Navajo Nation using mechanistic models, which highlighted the differential effect of the analogous policies in adjacent states and was published in PLOS Global Public Health.</li>
+        </ul>
+        <details class="more"><summary><span class="closed">2 more</span><span class="opened">Show less</span></summary>
+        <ul>
           <li>Expanded the utilization of PyBNF to rule-based systems biology modeling using BNGL, applied to signaling pathways in cancer and the role of BRAF-V600E mutations in melanoma in collaboration with the Flinn Foundation and Dr. Matthew Salanga's Zebrafish laboratory at Northern Arizona University (NAU).</li>
           <li>Generated a new Arsenic-3-methyltransferase (AS3MT) knockout zebrafish line using CRISPR-Cas9 microinjection, which I validated using PCR and husbandry strategies before demonstrating increased embryonic sensitivity and developmental defects following arsenic exposure. This work was co-presented with Zack Schmidt (former student) at the NAU Undergraduate Research Symposium in 2022.</li>
-        </ul></div>
+        </ul></details></div>
     </div>
   </section>
 
@@ -170,7 +194,7 @@
           <li>Scored and assessed student quizzes as well as laboratory notebooks to facilitate learning and skill development in microbiological laboratory techniques.</li>
         </ul></div>
     </div>
-    <div class="cv-row">
+    <div class="cv-row now">
       <div class="when">August 2024 – Present</div>
       <div><h3>TRIO STEM Tutor, Student Support Services</h3>
         <p class="meta">Coconino Community College · Flagstaff, AZ</p>
@@ -205,11 +229,13 @@
 
   <section id="awards">
     <h2>Honors and awards</h2>
-    <div class="cv-row"><div class="when">2026</div><div><h3>Best First Author Publication Award</h3><p class="meta">Department of Biological Sciences, Northern Arizona University</p></div></div>
-    <div class="cv-row"><div class="when">2026</div><div><h3>NIH T32 G-RISE Predoctoral Trainee</h3><p class="meta">Northern Arizona University</p></div></div>
-    <div class="cv-row"><div class="when">2026</div><div><h3>RCA Award, Most Promising Graduate Student Research Scholar</h3><p class="meta">Northern Arizona University</p></div></div>
-    <div class="cv-row"><div class="when">2022</div><div><h3>Paul Keim Award for Excellence in Undergraduate Research</h3><p class="meta">Northern Arizona University</p></div></div>
-    <div class="cv-row"><div class="when">2022</div><div><h3>NAU Honors College Outstanding Senior Award</h3></div></div>
+    <div class="award-grid">
+      <div class="award"><span class="yr">2026</span><div><h3>Best First Author Publication Award</h3><p class="meta">Department of Biological Sciences, Northern Arizona University</p></div></div>
+      <div class="award"><span class="yr">2026</span><div><h3>NIH T32 G-RISE Predoctoral Trainee</h3><p class="meta">Northern Arizona University</p></div></div>
+      <div class="award"><span class="yr">2026</span><div><h3>RCA Award, Most Promising Graduate Student Research Scholar</h3><p class="meta">Northern Arizona University</p></div></div>
+      <div class="award"><span class="yr">2022</span><div><h3>Paul Keim Award for Excellence in Undergraduate Research</h3><p class="meta">Northern Arizona University</p></div></div>
+      <div class="award"><span class="yr">2022</span><div><h3>NAU Honors College Outstanding Senior Award</h3></div></div>
+    </div>
   </section>
 
   <section id="media">
@@ -224,7 +250,7 @@
 
   <section id="leadership">
     <h2>Leadership</h2>
-    <div class="cv-row">
+    <div class="cv-row now">
       <div class="when">Jan 2021 – Present</div>
       <div><h3>Research Lead, Posner Lab</h3>
         <p class="meta">Northern Arizona University · Flagstaff, AZ</p>
@@ -255,15 +281,17 @@
 
   <section id="skills">
     <h2>Technical skills</h2>
-    <dl class="skills">
-      <dt>Programming</dt><dd>Python, R, C++ (C++17)</dd>
-      <dt>Scientific Computing &amp; Modeling</dt><dd>PyBioNetFit (PyBNF), BioNetGen / BNGL, NumPy, Pandas, SciPy, R Shiny, MicroHub; benchmarking against libRoadRunner, AMICI, and COPASI</dd>
-      <dt>Statistical Inference</dt><dd>Bayesian inference and uncertainty quantification; MCMC samplers (Adaptive Metropolis, DREAM(ZS), preconditioned DREAM); parameter estimation; compartmental (SIR / SEIR) and stochastic modeling; sequential Monte Carlo (Liu–West particle filtering and IBIS)</dd>
-      <dt>High-Performance Computing</dt><dd>Slurm workload manager, NAU 'Monsoon' cluster, parallel and distributed computing, checkpoint-resume pipelines</dd>
-      <dt>Forecasting &amp; Data</dt><dd>collaborative forecast hubs (FluSight, Hubverse), nowcasting, data-scraping pipelines, Google Colab, FluBNF</dd>
-      <dt>Lab</dt><dd>CRISPR-Cas9 microinjection, PCR genotyping, zebrafish husbandry, aseptic and BSL-2 technique.</dd>
-    </dl>
+    <div class="skill-groups">
+      <div><h3>Programming</h3><ul><li>Python</li><li>R</li><li>C++ (C++17)</li></ul></div>
+      <div><h3>Scientific Computing &amp; Modeling</h3><ul><li>PyBioNetFit (PyBNF)</li><li>BioNetGen / BNGL</li><li>NumPy</li><li>Pandas</li><li>SciPy</li><li>R Shiny</li><li>MicroHub</li><li>benchmarking against libRoadRunner, AMICI, and COPASI</li></ul></div>
+      <div><h3>Statistical Inference</h3><ul><li>Bayesian inference and uncertainty quantification</li><li>MCMC samplers (Adaptive Metropolis, DREAM(ZS), preconditioned DREAM)</li><li>parameter estimation</li><li>compartmental (SIR / SEIR) and stochastic modeling</li><li>sequential Monte Carlo (Liu–West particle filtering and IBIS)</li></ul></div>
+      <div><h3>High-Performance Computing</h3><ul><li>Slurm workload manager</li><li>NAU 'Monsoon' cluster</li><li>parallel and distributed computing</li><li>checkpoint-resume pipelines</li></ul></div>
+      <div><h3>Forecasting &amp; Data</h3><ul><li>collaborative forecast hubs (FluSight, Hubverse)</li><li>nowcasting</li><li>data-scraping pipelines</li><li>Google Colab</li><li>FluBNF</li></ul></div>
+      <div><h3>Lab</h3><ul><li>CRISPR-Cas9 microinjection</li><li>PCR genotyping</li><li>zebrafish husbandry</li><li>aseptic and BSL-2 technique</li></ul></div>
+    </div>
   </section>
+  </div>
+  </div>
 </main>
 
 <footer class="site-footer">

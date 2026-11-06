@@ -48,54 +48,75 @@
   <h1>Papers and presentations</h1>
   <ul class="links" style="margin:20px 0 8px">
     <!-- TODO(Ely): replace href="#" with your Google Scholar profile URL -->
-    <li><a class="todo-link" href="#">Google Scholar</a></li>
-    <li><a href="https://orcid.org/0000-0003-3480-8377">ORCID</a></li>
-    <li><a href="files/Ely_Miller_CV.pdf">CV (PDF)</a></li>
+    <li><a class="todo-link" href="#"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#scholar"/></svg>Google Scholar</a></li>
+    <li><a href="https://orcid.org/0000-0003-3480-8377"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#orcid"/></svg>ORCID</a></li>
+    <li><a href="files/Ely_Miller_CV.pdf"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>CV (PDF)</a></li>
   </ul>
 
   <section style="margin-top:48px">
     <h2>Peer-reviewed publications</h2>
-    <ol class="pubs">
-      <li><strong>Miller, E. F.</strong>, Mallela, A., Neumann, J., Lin, Y. T., Hlavacek, W. S., &amp; Posner, R. G. (2026). Using PyBioNetFit to leverage qualitative and quantitative data in biological model parameterization and uncertainty quantification. <em>Frontiers in Immunology</em>, 17, 1663008. <a href="https://doi.org/10.3389/fimmu.2026.1663008">doi:10.3389/fimmu.2026.1663008</a></li>
-      <li><strong>Miller, E. F.</strong>, Neumann, J., Chen, Y., Mallela, A., Lin, Y. T., Hlavacek, W. S., &amp; Posner, R. G. (2023). Quantification of early nonpharmaceutical interventions aimed at slowing transmission of coronavirus disease 2019 in the Navajo Nation and surrounding states (Arizona, Colorado, New Mexico, and Utah). <em>PLOS Global Public Health</em>, 3(6). <a href="https://doi.org/10.1371/journal.pgph.0001490">doi:10.1371/journal.pgph.0001490</a></li>
-      <li>Mallela, A., Neumann, J., <strong>Miller, E. F.</strong>, Chen, Y., Posner, R. G., Lin, Y. T., &amp; Hlavacek, W. S. (2022). Bayesian inference of state-level COVID-19 basic reproduction numbers across the United States. <em>Viruses</em>, 14(1), 157. <a href="https://doi.org/10.3390/v14010157">doi:10.3390/v14010157</a></li>
-      <li>Lin, Y. T., Neumann, J., <strong>Miller, E. F.</strong>, Posner, R. G., Mallela, A., Safta, C., Ray, J., Thakur, G., Chinthavali, S., &amp; Hlavacek, W. S. (2021). Daily forecasting of regional epidemics of coronavirus disease with Bayesian uncertainty quantification, United States. <em>Emerging Infectious Diseases</em>, 27(3), 767–778. <a href="https://doi.org/10.3201/eid2703.203364">doi:10.3201/eid2703.203364</a></li>
-      <li>Keim, P., Nottingham, R., Guevara, M. A., <strong>Miller, E. F.</strong>, Vogler, A. J., Williamson, C. H. D., Smith, T., Posner, R. G., Pellett, S., Lenski, R. E., &amp; Sahl, J. W. (2026). The historical domestication of a <em>Clostridium botulinum</em> strain used for the industrial production of botulinum neurotoxin. <em>Proceedings of the National Academy of Sciences</em>, 123(42), e2605155123. <a href="https://doi.org/10.1073/pnas.2605155123">doi:10.1073/pnas.2605155123</a></li>
-      <li>Mallela, A., Chen, Y., Lin, Y. T., <strong>Miller, E. F.</strong>, Neumann, J., He, Z., Nelson, K. E., Posner, R. G., &amp; Hlavacek, W. S. (2024). Impacts of vaccination and SARS-CoV-2 variants Alpha and Delta on COVID-19 transmission dynamics in four metropolitan areas of the United States. <em>Bulletin of Mathematical Biology</em>, 86(3). <a href="https://doi.org/10.1007/s11538-024-01258-4">doi:10.1007/s11538-024-01258-4</a></li>
-      <li>Neumann, J., Lin, Y. T., Mallela, A., <strong>Miller, E. F.</strong>, Colvin, J., Duprat, A. T., Chen, Y., Hlavacek, W. S., &amp; Posner, R. G. (2022). Implementation of a practical Markov Chain Monte Carlo sampling algorithm in PyBioNetFit. <em>Bioinformatics</em>, 38(6), 1770–1772. <a href="https://doi.org/10.1093/bioinformatics/btac004">doi:10.1093/bioinformatics/btac004</a></li>
-      <li>Cramer, E. Y., Huang, Y., Wang, Y., and US COVID-19 Forecast Hub Consortium (includes Ye Chen, William Hlavacek, Yen Ting Lin, Abhishek Mallela, <strong>Ely Miller</strong>, Jacob Neumann, Richard Posner) et al. (2022). The United States COVID-19 Forecast Hub dataset. <em>Scientific Data</em>, 9, 462. <a href="https://doi.org/10.1038/s41597-022-01517-w">doi:10.1038/s41597-022-01517-w</a></li>
+    <div class="pub-tools"><span id="sort-label">Order</span>
+      <div class="seg" role="group" aria-labelledby="sort-label" data-sort-for="pubs-peer">
+        <button type="button" aria-pressed="true" data-sort="cv">As in CV</button>
+        <button type="button" aria-pressed="false" data-sort="year">Newest first</button>
+      </div></div>
+    <ol class="pub-list" id="pubs-peer">
+      <li data-year="2026" data-order="0"><span class="yr">2026</span>
+        <div><strong>Miller, E. F.</strong>, Mallela, A., Neumann, J., Lin, Y. T., Hlavacek, W. S., &amp; Posner, R. G. (2026). <span class="ttl">Using PyBioNetFit to leverage qualitative and quantitative data in biological model parameterization and uncertainty quantification.</span> <span class="venue"><em>Frontiers in Immunology</em>, 17, 1663008.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.3389/fimmu.2026.1663008"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.3389/fimmu.2026.1663008</a></li></ul></div></li>
+      <li data-year="2023" data-order="1"><span class="yr">2023</span>
+        <div><strong>Miller, E. F.</strong>, Neumann, J., Chen, Y., Mallela, A., Lin, Y. T., Hlavacek, W. S., &amp; Posner, R. G. (2023). <span class="ttl">Quantification of early nonpharmaceutical interventions aimed at slowing transmission of coronavirus disease 2019 in the Navajo Nation and surrounding states (Arizona, Colorado, New Mexico, and Utah).</span> <span class="venue"><em>PLOS Global Public Health</em>, 3(6).</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.1371/journal.pgph.0001490"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.1371/journal.pgph.0001490</a></li></ul></div></li>
+      <li data-year="2022" data-order="2"><span class="yr">2022</span>
+        <div>Mallela, A., Neumann, J., <strong>Miller, E. F.</strong>, Chen, Y., Posner, R. G., Lin, Y. T., &amp; Hlavacek, W. S. (2022). <span class="ttl">Bayesian inference of state-level COVID-19 basic reproduction numbers across the United States.</span> <span class="venue"><em>Viruses</em>, 14(1), 157.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.3390/v14010157"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.3390/v14010157</a></li></ul></div></li>
+      <li data-year="2021" data-order="3"><span class="yr">2021</span>
+        <div>Lin, Y. T., Neumann, J., <strong>Miller, E. F.</strong>, Posner, R. G., Mallela, A., Safta, C., Ray, J., Thakur, G., Chinthavali, S., &amp; Hlavacek, W. S. (2021). <span class="ttl">Daily forecasting of regional epidemics of coronavirus disease with Bayesian uncertainty quantification, United States.</span> <span class="venue"><em>Emerging Infectious Diseases</em>, 27(3), 767–778.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.3201/eid2703.203364"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.3201/eid2703.203364</a></li></ul></div></li>
+      <li data-year="2026" data-order="4"><span class="yr">2026</span>
+        <div>Keim, P., Nottingham, R., Guevara, M. A., <strong>Miller, E. F.</strong>, Vogler, A. J., Williamson, C. H. D., Smith, T., Posner, R. G., Pellett, S., Lenski, R. E., &amp; Sahl, J. W. (2026). <span class="ttl">The historical domestication of a <em>Clostridium botulinum</em> strain used for the industrial production of botulinum neurotoxin.</span> <span class="venue"><em>Proceedings of the National Academy of Sciences</em>, 123(42), e2605155123.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.1073/pnas.2605155123"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.1073/pnas.2605155123</a></li></ul></div></li>
+      <li data-year="2024" data-order="5"><span class="yr">2024</span>
+        <div>Mallela, A., Chen, Y., Lin, Y. T., <strong>Miller, E. F.</strong>, Neumann, J., He, Z., Nelson, K. E., Posner, R. G., &amp; Hlavacek, W. S. (2024). <span class="ttl">Impacts of vaccination and SARS-CoV-2 variants Alpha and Delta on COVID-19 transmission dynamics in four metropolitan areas of the United States.</span> <span class="venue"><em>Bulletin of Mathematical Biology</em>, 86(3).</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.1007/s11538-024-01258-4"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.1007/s11538-024-01258-4</a></li></ul></div></li>
+      <li data-year="2022" data-order="6"><span class="yr">2022</span>
+        <div>Neumann, J., Lin, Y. T., Mallela, A., <strong>Miller, E. F.</strong>, Colvin, J., Duprat, A. T., Chen, Y., Hlavacek, W. S., &amp; Posner, R. G. (2022). <span class="ttl">Implementation of a practical Markov Chain Monte Carlo sampling algorithm in PyBioNetFit.</span> <span class="venue"><em>Bioinformatics</em>, 38(6), 1770–1772.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.1093/bioinformatics/btac004"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.1093/bioinformatics/btac004</a></li></ul></div></li>
+      <li data-year="2022" data-order="7"><span class="yr">2022</span>
+        <div>Cramer, E. Y., Huang, Y., Wang, Y., and US COVID-19 Forecast Hub Consortium (includes Ye Chen, William Hlavacek, Yen Ting Lin, Abhishek Mallela, <strong>Ely Miller</strong>, Jacob Neumann, Richard Posner) et al. (2022). <span class="ttl">The United States COVID-19 Forecast Hub dataset.</span> <span class="venue"><em>Scientific Data</em>, 9, 462.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.1038/s41597-022-01517-w"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.1038/s41597-022-01517-w</a></li></ul></div></li>
     </ol>
   </section>
 
   <section>
     <h2>Preprints</h2>
-    <ol class="pubs">
-      <li>Davis, J. T., Kaur, G., Hines, A., et al. (97 authors, including <strong>Miller, E. F.</strong>) (2026). Multi-season evaluation and analysis of categorical trend forecasts of influenza hospital admissions in the United States [Preprint]. <em>medRxiv</em>. <a href="https://doi.org/10.64898/2026.08.31.26361843">doi:10.64898/2026.08.31.26361843</a></li>
+    <ol class="pub-list">
+      <li data-year="2026" data-order="0"><span class="yr">2026</span>
+        <div>Davis, J. T., Kaur, G., Hines, A., et al. (97 authors, including <strong>Miller, E. F.</strong>) (2026). <span class="ttl">Multi-season evaluation and analysis of categorical trend forecasts of influenza hospital admissions in the United States [Preprint].</span> <span class="venue"><em>medRxiv</em>.</span>
+          <ul class="pill-links"><li><a href="https://doi.org/10.64898/2026.08.31.26361843"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>doi:10.64898/2026.08.31.26361843</a></li></ul></div></li>
     </ol>
   </section>
 
-  <section>
+  <section id="presentations">
     <h2>Presentations</h2>
-    <div class="entry">
-      <h3>Where's the Flu? Rule Based Forecasting of Influenza Mediated Hospitalizations <span class="meta">(Oral)</span></h3>
-      <p class="meta">NAU Biological Sciences Symposium, February 2026</p>
-      <p class="cv-text">Summarized my work generating forecasts of Influenza hospitalizations across the United States and contributing to the CDC FluSight forecasting ensemble.</p>
-    </div>
-    <div class="entry">
-      <h3>Epidemiological Tracking of SARS-CoV-2 and Quantification of Social Distancing <span class="meta">(Oral)</span></h3>
-      <p class="meta">Northern Arizona University Alumni Association, April 2022</p>
-      <p class="cv-text">Summarized work modeling SARS-CoV-2 transmission dynamics and the effects of social distancing measures.</p>
-    </div>
-    <div class="entry">
-      <h3>Effect of Arsenic Toxicity on Developing AS3MT Knockout Zebrafish <span class="meta">(Poster)</span></h3>
-      <p class="meta">NAU Undergraduate Research Symposium, April 2022</p>
-      <p class="cv-text">Summarized work creating an AS3MT knockout zebrafish line and preliminary results of arsenic toxicity effects on developing knockout embryos.</p>
-    </div>
-    <div class="entry">
-      <h3>Prevalence of Cervical Cancer Among Incarcerated Women in the USA and Canada <span class="meta">(Poster)</span></h3>
-      <p class="meta">NAU Honors College Symposium, November 2020</p>
-      <p class="cv-text">Reviewed medical data on cervical cancer prevalence in incarcerated women.</p>
-    </div>
+    <ol class="pub-list">
+      <li><span class="yr">2026</span>
+        <div><span class="ttl">Where's the Flu? Rule Based Forecasting of Influenza Mediated Hospitalizations <span class="badge">Oral</span></span>
+          <span class="venue">NAU Biological Sciences Symposium, February 2026</span>
+          <p class="cv-text" style="margin-top:6px">Summarized my work generating forecasts of Influenza hospitalizations across the United States and contributing to the CDC FluSight forecasting ensemble.</p></div></li>
+      <li><span class="yr">2022</span>
+        <div><span class="ttl">Epidemiological Tracking of SARS-CoV-2 and Quantification of Social Distancing <span class="badge">Oral</span></span>
+          <span class="venue">Northern Arizona University Alumni Association, April 2022</span>
+          <p class="cv-text" style="margin-top:6px">Summarized work modeling SARS-CoV-2 transmission dynamics and the effects of social distancing measures.</p></div></li>
+      <li><span class="yr">2022</span>
+        <div><span class="ttl">Effect of Arsenic Toxicity on Developing AS3MT Knockout Zebrafish <span class="badge">Poster</span></span>
+          <span class="venue">NAU Undergraduate Research Symposium, April 2022</span>
+          <p class="cv-text" style="margin-top:6px">Summarized work creating an AS3MT knockout zebrafish line and preliminary results of arsenic toxicity effects on developing knockout embryos.</p></div></li>
+      <li><span class="yr">2020</span>
+        <div><span class="ttl">Prevalence of Cervical Cancer Among Incarcerated Women in the USA and Canada <span class="badge">Poster</span></span>
+          <span class="venue">NAU Honors College Symposium, November 2020</span>
+          <p class="cv-text" style="margin-top:6px">Reviewed medical data on cervical cancer prevalence in incarcerated women.</p></div></li>
+    </ol>
   </section>
 </main>
 

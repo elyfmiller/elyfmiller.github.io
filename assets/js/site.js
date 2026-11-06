@@ -28,5 +28,46 @@
     }
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
+    setupSort();
+    setupRail();
   });
+
+  // Publications: "As in CV" / "Newest first" switch. Items carry
+  // data-order (CV position) and data-year; ties keep the CV order.
+  function setupSort() {
+    document.querySelectorAll("[data-sort-for]").forEach(function (seg) {
+      var list = document.getElementById(seg.getAttribute("data-sort-for"));
+      if (!list) return;
+      var items = Array.prototype.slice.call(list.children);
+      seg.addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-sort]");
+        if (!b) return;
+        var byYear = b.getAttribute("data-sort") === "year";
+        items.slice().sort(function (a, c) {
+          var d = byYear ? (+c.dataset.year - +a.dataset.year) : 0;
+          return d || (+a.dataset.order - +c.dataset.order);
+        }).forEach(function (li) { list.appendChild(li); });
+        seg.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      });
+    });
+  }
+
+  // CV: highlight the section in view in the side rail.
+  function setupRail() {
+    var rail = document.querySelector(".cv-rail");
+    if (!rail || !("IntersectionObserver" in window)) return;
+    var links = {};
+    rail.querySelectorAll('a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { visible[en.target.id] = en.isIntersecting; });
+      var first = Object.keys(links).filter(function (id) { return visible[id]; })[0];
+      if (!first) return;
+      Object.keys(links).forEach(function (id) {
+        if (id === first) links[id].setAttribute("aria-current", "true");
+        else links[id].removeAttribute("aria-current");
+      });
+    }, { rootMargin: "-80px 0px -55% 0px" });
+    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+  }
 })();
