@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CV · Ely F. Miller</title>
-  <meta name="description" content="Education, work history, awards and press for Ely F. Miller.">
+  <meta name="description" content="Education, research and teaching experience, awards and media for Ely F. Miller.">
   <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,52 +28,227 @@
   </div>
 </header>
 
+<!-- Content below is Ely's CV text (Ely_Miller_CV.docx, Nov 2026), verbatim.
+     Professional references are left off the web version. -->
 <main id="main">
   <p class="eyebrow">Curriculum vitae</p>
   <h1>CV</h1>
-  <!-- TODO(Ely): put your PDF at files/Miller_CV.pdf and change href="#" to "files/Miller_CV.pdf" -->
-  <ul class="links" style="margin:20px 0 0"><li><a class="todo-link" href="#">Download full CV (PDF)</a></li></ul>
+  <ul class="links" style="margin:20px 0 0">
+    <li><a href="files/Ely_Miller_CV.pdf">Download full CV (PDF)</a></li>
+  </ul>
+  <nav class="toc" aria-label="CV sections">
+    <a href="#education">Education</a> · <a href="#research">Research</a> · <a href="#training">Invited training</a> ·
+    <a href="#teaching">Teaching</a> · <a href="#awards">Honors and awards</a> · <a href="#media">Media</a> ·
+    <a href="#leadership">Leadership</a> · <a href="#professional">Professional</a> · <a href="#skills">Skills</a>
+  </nav>
 
-  <section style="margin-top:56px">
+  <section id="education" style="margin-top:48px">
     <h2>Education</h2>
-    <!-- TODO(Ely): one .cv-row per degree, newest first -->
     <div class="cv-row">
-      <div class="when todo">start year – present</div>
-      <div><h3>PhD, Biological Sciences</h3><p class="meta">Northern Arizona University</p>
-        <p class="todo">advisor, focus (optional)</p></div>
+      <div class="when">Expected Spring 2028</div>
+      <div><h3>Ph.D. Student, Biological Sciences</h3>
+        <p class="meta">Northern Arizona University · Flagstaff, AZ</p>
+        <p class="cv-text">Faculty Advisor: Dr. Richard Posner</p>
+        <p class="cv-text"><strong>Dissertation:</strong> Scaling Rule-Based Modeling with PyBioNetFit: Sequential Bayesian Algorithms, Real-Time Epidemic Forecasting, and LLM-Assisted Construction of Large-Scale Kinetic Models</p></div>
     </div>
     <div class="cv-row">
-      <div class="when todo">years</div>
-      <div><h3 class="todo">degree, field</h3><p class="meta todo">institution</p></div>
+      <div class="when">May 2022</div>
+      <div><h3>B.S., Biological Sciences, Honors</h3><p class="meta">Northern Arizona University · Flagstaff, AZ</p></div>
     </div>
-  </section>
-
-  <section>
-    <h2>Work history</h2>
-    <!-- TODO(Ely): positions, newest first -->
     <div class="cv-row">
-      <div class="when todo">years</div>
-      <div><h3 class="todo">position</h3><p class="meta todo">organization, place</p>
-        <p class="todo">one line on what you did (optional)</p></div>
+      <div class="when">December 2018</div>
+      <div><h3>A.S., General Studies, Summa cum laude</h3><p class="meta">Santa Fe Community College · Santa Fe, NM</p></div>
     </div>
   </section>
 
-  <section>
-    <h2>Awards and funding</h2>
-    <!-- TODO(Ely): awards, fellowships, grants -->
+  <section id="research">
+    <h2>Research experience</h2>
     <div class="cv-row">
-      <div class="when todo">year</div>
-      <div><h3 class="todo">award</h3><p class="meta todo">awarding body</p></div>
+      <div class="when">August 2024 – Present</div>
+      <div><h3>Graduate Researcher</h3>
+        <p class="meta">Department of Biological Sciences, Northern Arizona University · Flagstaff, AZ<br>Supervisor: Dr. Richard Posner</p>
+        <ul>
+          <li>Developing and validating a Python curve fitting framework (PyBioNetFit/PyBNF) to forecast transmissible diseases including Influenza using custom SIR models to real-world epidemiological data.</li>
+          <li>Using Bayesian inference and parameter estimation to generate predictive case trajectories from public health datasets.</li>
+          <li>Applying local parallel computing and the BioNetGen Language (BNGL) for rule-based systems biology modeling to enhance computational efficiency and accessibility.</li>
+          <li>Designing workflows for both epidemiology and general systems biology mechanistic modeling.</li>
+          <li>Automated and improved a previously manual MEK isoform signaling model (reaching faster convergence and improved fits to data). Manuscript published in <em>Frontiers (2026).</em></li>
+          <li>Designed and implemented a multi-engine benchmark suite for BNGsim (an open-sourced C++17 simulation engine for BioNetGen rule-based models) to evaluate and compare the performance of other simulators, including libRoadRunner, AMICI, COPASI, and SciPy, across deterministic, stochastic, network-free, steady-state, and forward-sensitivity analyses on increasing numbers of species, from several up to thousands.</li>
+          <li>Authored the supplementary materials for the associated BNGsim benchmarking manuscript (in preparation) with the Hlavacek group at Los Alamos National Laboratory.</li>
+          <li>Developed and performed benchmarks of Bayesian MCMC samplers including Adaptive Metropolis, DREAM(ZS) and preconditioned DREAM for calibrating rule-based systems biology models in PyBNF across a broad range of analytical targets and BioNetGen models of differing dimensionality/cost.</li>
+          <li>Built Slurm-based pipelines on the NAU Monsoon high-performance computing cluster, enabling multi-day parallel sampling runs. This includes resumable checkpoints, automated result collection, and failure diagnostics.</li>
+          <li>Implemented a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</li>
+          <li>Developed FluBNF (an open-source, PyBNF-based influenza forecasting tool) and now submit weekly forecasts of laboratory-confirmed influenza hospital admissions using two models to the CDC FluSight challenge for the 2026-27 season.</li>
+          <li>Developing a manuscript (in preparation) evaluating how well large language model agents rebuild published rule-based signaling models in BioNetGen.</li>
+        </ul></div>
+    </div>
+    <div class="cv-row">
+      <div class="when">May 2026 – October 2026</div>
+      <div><h3>Graduate Research Assistant</h3>
+        <p class="meta">School of Informatics, Computing, and Cyber Systems, Northern Arizona University · Flagstaff, AZ<br>Supervisor: Dr. Spencer Fox</p>
+        <ul>
+          <li>Generated SARI (severe acute respiratory infection) forecasts for the respiratory disease seasons of Chile, Uruguay, Argentina, and Brazil with a new forecasting application, called MicroHub, written in R and Shiny (inspired by collaborative forecasting hubs like FluSight).</li>
+          <li>Researched and prototyped nowcasting methods for possible inclusion in MicroHub, which does not currently support such methods.</li>
+          <li>Enhanced the MicroHub application through improvements to the user interface, increased functionality, and expanded capabilities, including automatically generated reports, producing time-series plots, supporting multiple languages, etc.</li>
+        </ul></div>
+    </div>
+    <div class="cv-row">
+      <div class="when">January 2020 – May 2023</div>
+      <div><h3>Research Assistant, Posner Lab</h3>
+        <p class="meta">Department of Biological Sciences, Northern Arizona University · Flagstaff, AZ</p>
+        <ul>
+          <li>Helped develop stochastic simulation algorithms for validation within PyBioNetFit (PyBNF), a Python-based software for curve fitting and parameter estimation in mechanistic models, which I applied to forecasting COVID-19 cases in the U.S. and the Navajo Nation.</li>
+          <li>Constructed data scraping pipelines and leveraged remote parallel computing to produce real-time estimates with four-week forecasting horizons during the SARS-CoV-2 pandemic. These were shared with public health authorities (e.g., NNDOH) and university administration (NAU) and have been published as a peer-reviewed manuscript.</li>
+          <li>Collaborated with researchers at Los Alamos, Sandia, and Oak Ridge National Laboratories to develop transmission models in Python that implemented social distancing effects for estimating epidemiological parameters with high-performance parallel computing clusters, and Bayesian uncertainty quantification techniques, for fitting to datasets published by the Centers for Disease Control and Prevention (CDC) and the NNDOH. This work resulted in publications in Emerging Infectious Diseases, Bulletin of Mathematical Biology, and Viruses.</li>
+          <li>Estimated the impact of social distancing policies on the spread of SARS-CoV-2 in the Navajo Nation using mechanistic models, which highlighted the differential effect of the analogous policies in adjacent states and was published in PLOS Global Public Health.</li>
+          <li>Expanded the utilization of PyBNF to rule-based systems biology modeling using BNGL, applied to signaling pathways in cancer and the role of BRAF-V600E mutations in melanoma in collaboration with the Flinn Foundation and Dr. Matthew Salanga's Zebrafish laboratory at Northern Arizona University (NAU).</li>
+          <li>Generated a new Arsenic-3-methyltransferase (AS3MT) knockout zebrafish line using CRISPR-Cas9 microinjection, which I validated using PCR and husbandry strategies before demonstrating increased embryonic sensitivity and developmental defects following arsenic exposure. This work was co-presented with Zack Schmidt (former student) at the NAU Undergraduate Research Symposium in 2022.</li>
+        </ul></div>
     </div>
   </section>
 
-  <section>
-    <h2>Press</h2>
-    <!-- TODO(Ely): media coverage, interviews, outreach; or delete this section -->
+  <section id="training">
+    <h2>Invited training and technical cooperation</h2>
     <div class="cv-row">
-      <div class="when todo">date</div>
-      <div><h3 class="todo">headline, linked</h3><p class="meta todo">outlet</p></div>
+      <div class="when">June 2026</div>
+      <div><h3>Invited Trainer, Joint CDC–PAHO Technical Cooperation</h3>
+        <p class="meta">Pan American Health Organization / World Health Organization (PAHO/WHO) · Santiago, Chile</p>
+        <p class="cv-text">Prediction and Forecasting Respiratory Virus Surveillance Trends; invited by Ciro Ugarte, Director of Health Emergencies, PAHO/WHO (Ref. PHE/IHM/159-26)</p>
+        <ul>
+          <li>Co-delivered a three-day technical training for Chile's Ministry of Health (MINSAL), conducted jointly with PAHO/WHO, the U.S. CDC, and Northern Arizona University.</li>
+          <li>Co-presented with Dr. Spencer Fox on the CDC's forecasting collaboration's background and objectives, collaborative forecast hubs, and the NAU forecast models, including forecast evaluation and historical model performance.</li>
+          <li>Introduced the MicroHub forecasting tool and the Hubverse framework and led installation, setup, and hands-on exercises on the weekly production of Chilean SARI (severe acute respiratory infection) forecasts.</li>
+          <li>Presented advanced MicroHub features and led discussion of forecast targets and metrics, including age groups, virologic data, and the difference between dates of symptom onset and hospitalization.</li>
+        </ul></div>
     </div>
+    <div class="cv-row">
+      <div class="when">September 2026</div>
+      <div><h3>Trainer, Joint CDC–PAHO Technical Cooperation</h3>
+        <p class="meta">Pan American Health Organization / World Health Organization (PAHO/WHO) · Buenos Aires, Argentina</p>
+        <ul>
+          <li>Led MicroHub installation and MicroHub exercises in a three-day training for Argentina's Ministry of Health, conducted jointly with PAHO/WHO and the U.S. CDC.</li>
+          <li>Co-led with Dr. Spencer Fox a discussion of forecast targets and metrics for Argentina's respiratory surveillance data.</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <h2>Teaching experience</h2>
+    <div class="cv-row">
+      <div class="when">July 2026</div>
+      <div><h3>Instructor, Arizona Data Science Corps (AZDSC), Advanced Pathway</h3>
+        <p class="meta">Northern Arizona University (NSF Award #2436761) · Flagstaff, AZ</p>
+        <ul>
+          <li>Co-taught the Advanced (epidemic modeling and inference) pathway of an NSF-funded professional development grant for preparing Arizona 6th–12th grade teachers on integrating more hands-on data science into their classrooms.</li>
+          <li>Led hands-on sessions on Python programming concepts, including variables, functions, NumPy, Pandas, and plotting, using Google Colab notebooks that were designed to be modifiable for classroom use and collaborative editing</li>
+          <li>Taught concepts on compartmental models (SIR and related models such as SIS/SIRS) and guided the class through diagramming, simulation, and visualization</li>
+          <li>Aided instruction on parameter inference, including instruction on the use of mean-squared-error objective functions, grid search, and gradient-descent optimization to fit compartmental models to real-world influenza data from Arizona.</li>
+        </ul></div>
+    </div>
+    <div class="cv-row">
+      <div class="when">August 2024 – May 2026</div>
+      <div><h3>Graduate Teaching Assistant</h3>
+        <p class="meta">Department of Biological Sciences, Northern Arizona University · Flagstaff, AZ</p>
+        <ul>
+          <li>Instructor of record for three sections of introductory biology laboratory (BIO 181L) and microbiology laboratory (BIO 205L), teaching 75 or more undergraduate students per semester.</li>
+          <li>Led microbiology laboratory instruction in a BSL-2 laboratory while enforcing biosafety guidelines and educating students in microbiological techniques and aseptic procedure</li>
+          <li>Developed and presented lecture material relevant to laboratory objectives and course learning outcomes on a weekly basis</li>
+          <li>Scored and assessed student quizzes as well as laboratory notebooks to facilitate learning and skill development in microbiological laboratory techniques.</li>
+        </ul></div>
+    </div>
+    <div class="cv-row">
+      <div class="when">August 2024 – Present</div>
+      <div><h3>TRIO STEM Tutor, Student Support Services</h3>
+        <p class="meta">Coconino Community College · Flagstaff, AZ</p>
+        <ul>
+          <li>Provide individualized and small group tutoring in English, mathematics, chemistry, and biology to first-generation and underrepresented students enrolled in TRIO Student Support Services.</li>
+          <li>Design and facilitate academic success workshops on financial literacy, study, time management, test taking strategies, and career readiness.</li>
+          <li>Mentor students with foundational STEM skills and confidence in navigating higher education.</li>
+        </ul></div>
+    </div>
+    <div class="cv-row">
+      <div class="when">August 2024 – May 2026; August 2020 – December 2020</div>
+      <div><h3>Supplemental Instructor, BIO 344/H</h3>
+        <p class="meta">Department of Biological Sciences, Northern Arizona University · Flagstaff, AZ</p>
+        <ul>
+          <li>Provided supplemental instruction for Cell and Molecular Biology (BIO 344/H), supporting student understanding of complex molecular and cellular concepts.</li>
+          <li>Developed practice materials, such as problem sets and review presentations.</li>
+          <li>Hosted review sessions and mentored students for exam preparation and study strategies.</li>
+        </ul></div>
+    </div>
+    <div class="cv-row">
+      <div class="when">August 2021 – May 2022</div>
+      <div><h3>Undergraduate Research Instructor</h3>
+        <p class="meta">Department of Biological Sciences, Northern Arizona University · Flagstaff, AZ</p>
+        <ul>
+          <li>Delivered peer instruction for an undergraduate research course under Dr. Richard Posner, focused on computational modeling and systems biology.</li>
+          <li>Developed instructional presentations and recorded tutorials on lab-specific methods and modeling software.</li>
+          <li>Led discussions of primary literature, guiding students in experimental design evaluation and comparison of research findings.</li>
+          <li>Mentored students in independent research skills within a pass/fail, research-intensive course structure.</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section id="awards">
+    <h2>Honors and awards</h2>
+    <div class="cv-row"><div class="when">2026</div><div><h3>Best First Author Publication Award</h3><p class="meta">Department of Biological Sciences, Northern Arizona University</p></div></div>
+    <div class="cv-row"><div class="when">2026</div><div><h3>NIH T32 G-RISE Predoctoral Trainee</h3><p class="meta">Northern Arizona University</p></div></div>
+    <div class="cv-row"><div class="when">2026</div><div><h3>RCA Award, Most Promising Graduate Student Research Scholar</h3><p class="meta">Northern Arizona University</p></div></div>
+    <div class="cv-row"><div class="when">2022</div><div><h3>Paul Keim Award for Excellence in Undergraduate Research</h3><p class="meta">Northern Arizona University</p></div></div>
+    <div class="cv-row"><div class="when">2022</div><div><h3>NAU Honors College Outstanding Senior Award</h3></div></div>
+  </section>
+
+  <section id="media">
+    <h2>Media</h2>
+    <div class="cv-row">
+      <div class="when">2026</div>
+      <!-- TODO(Ely): add the article's URL to the headline -->
+      <div><h3>“Northern Arizona University receives NIH grant to support Ph.D. students in health fields”</h3>
+        <p class="meta">Arizona Daily Sun · named as a G-RISE trainee <span class="todo">article link</span></p></div>
+    </div>
+  </section>
+
+  <section id="leadership">
+    <h2>Leadership</h2>
+    <div class="cv-row">
+      <div class="when">Jan 2021 – Present</div>
+      <div><h3>Research Lead, Posner Lab</h3>
+        <p class="meta">Northern Arizona University · Flagstaff, AZ</p>
+        <ul>
+          <li>Leading research projects and managing other undergraduate researchers for computational modeling studies.</li>
+          <li>Directing and mentoring undergraduate researchers, delegating tasks for them and reviewing their progress towards meeting project and publication goals.</li>
+          <li>Hosting weekly team meetings and coordinating individual contributions to the larger research goals.</li>
+          <li>Managing the overall research process, including data collection and preparation, model specification and parameter estimation, and analysis.</li>
+          <li>Acting as the “go-to” resource for troubleshooting modeling and coding issues for other researchers in the lab and group.</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section id="professional">
+    <h2>Professional experience</h2>
+    <div class="cv-row">
+      <div class="when">June 2023 – June 2024</div>
+      <div><h3>Lab Animal Technician</h3>
+        <p class="meta">Department of Animal Resources, University of Southern California · Los Angeles, CA</p>
+        <ul>
+          <li>Performed daily husbandry and care for a variety of research animals including rodents, birds, pigs, reptiles, rabbits, and dogs.</li>
+          <li>Responsible for properly feeding, watering, cage cleanliness, and enriching a variety of animals in accordance with institutional and federal regulations.</li>
+          <li>Monitored and evaluated the health and welfare of animals to ensure their well-being and provided initial clinical treatment and assessment for minor injuries or other illnesses before veterinary intervention.</li>
+          <li>Helped enforce compliance with IACUC regulations and played a role in ensuring standards for our AAALAC-accreditation were met.</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Technical skills</h2>
+    <dl class="skills">
+      <dt>Programming</dt><dd>Python, R, C++ (C++17)</dd>
+      <dt>Scientific Computing &amp; Modeling</dt><dd>PyBioNetFit (PyBNF), BioNetGen / BNGL, NumPy, Pandas, SciPy, R Shiny, MicroHub; benchmarking against libRoadRunner, AMICI, and COPASI</dd>
+      <dt>Statistical Inference</dt><dd>Bayesian inference and uncertainty quantification; MCMC samplers (Adaptive Metropolis, DREAM(ZS), preconditioned DREAM); parameter estimation; compartmental (SIR / SEIR) and stochastic modeling; sequential Monte Carlo (Liu–West particle filtering and IBIS)</dd>
+      <dt>High-Performance Computing</dt><dd>Slurm workload manager, NAU 'Monsoon' cluster, parallel and distributed computing, checkpoint-resume pipelines</dd>
+      <dt>Forecasting &amp; Data</dt><dd>collaborative forecast hubs (FluSight, Hubverse), nowcasting, data-scraping pipelines, Google Colab, FluBNF</dd>
+      <dt>Lab</dt><dd>CRISPR-Cas9 microinjection, PCR genotyping, zebrafish husbandry, aseptic and BSL-2 technique.</dd>
+    </dl>
   </section>
 </main>
 

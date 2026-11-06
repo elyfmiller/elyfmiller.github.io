@@ -28,48 +28,105 @@
   </div>
 </header>
 
+<!-- Project text is Ely's CV bullets (Ely_Miller_CV.docx, Nov 2026), verbatim,
+     grouped by project. Project titles are names taken from those bullets. -->
 <main id="main">
   <p class="eyebrow">Research</p>
   <h1>Projects</h1>
   <!-- TODO(Ely): page intro, 1–2 sentences -->
   <p class="lede todo">page intro: the questions behind your projects</p>
+  <!-- TODO(Ely): add profile links for the people named below (lab pages, NAU or LANL directory) -->
 
   <section>
     <h2>Current</h2>
 
     <article class="entry">
-      <h3>FluBNF: weekly influenza hospitalization forecasts</h3>
-      <p class="meta">Northern Arizona University and Los Alamos National Lab · CDC FluSight 2026–27 ·
+      <h3>FluBNF: influenza hospitalization forecasts for CDC FluSight</h3>
+      <p class="meta">Department of Biological Sciences, Northern Arizona University · 2026–27 season ·
         <a href="https://github.com/elyfmiller/flubnf">github.com/elyfmiller/flubnf</a></p>
-      <!-- TODO(Ely): project blurb, 2–4 sentences: what FluBNF is, your role -->
-      <p class="todo">project blurb: what the project does and what your role is</p>
+      <ul>
+        <li>Developed FluBNF (an open-source, PyBNF-based influenza forecasting tool) and now submit weekly forecasts of laboratory-confirmed influenza hospital admissions using two models to the CDC FluSight challenge for the 2026-27 season.</li>
+        <li>Implemented a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</li>
+        <li>Developing and validating a Python curve fitting framework (PyBioNetFit/PyBNF) to forecast transmissible diseases including Influenza using custom SIR models to real-world epidemiological data.</li>
+      </ul>
       <p><a href="forecasts.html">See this week's forecasts →</a></p>
-      <!-- Team as listed in model-metadata/NAU_PyBNF-*.yml (flubnf repo).
-           TODO(Ely): mark the PI(s)/advisor, and add profile links for each person -->
-      <p class="people"><strong>PI / advisor:</strong> <span class="todo">who to list here</span></p>
+      <p class="people"><strong>Supervisor:</strong> Dr. Richard Posner</p>
+      <!-- Team as listed in model-metadata/NAU_PyBNF-*.yml (flubnf repo) -->
       <p class="people"><strong>Team:</strong>
         Ely Finn Miller (NAU), Richard Posner (NAU), William Scott Hlavacek (Los Alamos National Lab),
-        Yen Ting Lin (Los Alamos National Lab), Ye Chen (NAU), Amir Aman Gill (NAU), Adam Smart (NAU)
-        <span class="todo">add links</span></p>
+        Yen Ting Lin (Los Alamos National Lab), Ye Chen (NAU), Amir Aman Gill (NAU), Adam Smart (NAU)</p>
     </article>
 
-    <!-- TODO(Ely): copy this block for each other current project -->
     <article class="entry">
-      <h3 class="todo">another current project</h3>
-      <p class="meta todo">lab / collaborators · years · link</p>
-      <p class="todo">project blurb</p>
-      <p class="people"><strong>PI:</strong> <span class="todo">name, linked</span> · <strong>Collaborators:</strong> <span class="todo">names, linked</span></p>
+      <h3>PyBioNetFit: calibrating rule-based models</h3>
+      <p class="meta">Department of Biological Sciences, Northern Arizona University · August 2024 – Present</p>
+      <ul>
+        <li>Developed and performed benchmarks of Bayesian MCMC samplers including Adaptive Metropolis, DREAM(ZS) and preconditioned DREAM for calibrating rule-based systems biology models in PyBNF across a broad range of analytical targets and BioNetGen models of differing dimensionality/cost.</li>
+        <li>Automated and improved a previously manual MEK isoform signaling model (reaching faster convergence and improved fits to data). Manuscript published in <a href="https://doi.org/10.3389/fimmu.2026.1663008"><em>Frontiers (2026).</em></a></li>
+        <li>Built Slurm-based pipelines on the NAU Monsoon high-performance computing cluster, enabling multi-day parallel sampling runs. This includes resumable checkpoints, automated result collection, and failure diagnostics.</li>
+      </ul>
+      <p class="people"><strong>Supervisor:</strong> Dr. Richard Posner</p>
+    </article>
+
+    <article class="entry">
+      <h3>BNGsim benchmarking</h3>
+      <p class="meta">With the Hlavacek group, Los Alamos National Laboratory · manuscript in preparation</p>
+      <ul>
+        <li>Designed and implemented a multi-engine benchmark suite for BNGsim (an open-sourced C++17 simulation engine for BioNetGen rule-based models) to evaluate and compare the performance of other simulators, including libRoadRunner, AMICI, COPASI, and SciPy, across deterministic, stochastic, network-free, steady-state, and forward-sensitivity analyses on increasing numbers of species, from several up to thousands.</li>
+        <li>Authored the supplementary materials for the associated BNGsim benchmarking manuscript (in preparation) with the Hlavacek group at Los Alamos National Laboratory.</li>
+      </ul>
+    </article>
+
+    <article class="entry">
+      <h3>Large language model agents and BioNetGen models</h3>
+      <p class="meta">Manuscript in preparation</p>
+      <ul>
+        <li>Developing a manuscript (in preparation) evaluating how well large language model agents rebuild published rule-based signaling models in BioNetGen.</li>
+      </ul>
     </article>
   </section>
 
   <section>
     <h2>Past</h2>
-    <!-- TODO(Ely): past projects, same layout as above, newest first -->
+
     <article class="entry">
-      <h3 class="todo">past project</h3>
-      <p class="meta todo">institution · years · link</p>
-      <p class="todo">project blurb</p>
-      <p class="people"><strong>PI:</strong> <span class="todo">name, linked</span> · <strong>Collaborators:</strong> <span class="todo">names, linked</span></p>
+      <h3>MicroHub: SARI forecasting for South America</h3>
+      <p class="meta">School of Informatics, Computing, and Cyber Systems, Northern Arizona University · May 2026 – October 2026</p>
+      <ul>
+        <li>Generated SARI (severe acute respiratory infection) forecasts for the respiratory disease seasons of Chile, Uruguay, Argentina, and Brazil with a new forecasting application, called MicroHub, written in R and Shiny (inspired by collaborative forecasting hubs like FluSight).</li>
+        <li>Researched and prototyped nowcasting methods for possible inclusion in MicroHub, which does not currently support such methods.</li>
+        <li>Enhanced the MicroHub application through improvements to the user interface, increased functionality, and expanded capabilities, including automatically generated reports, producing time-series plots, supporting multiple languages, etc.</li>
+      </ul>
+      <p><a href="cv.html#training">Related: CDC–PAHO trainings in Chile and Argentina →</a></p>
+      <p class="people"><strong>Supervisor:</strong> Dr. Spencer Fox</p>
+    </article>
+
+    <article class="entry">
+      <h3>COVID-19 forecasting and social distancing</h3>
+      <p class="meta">Posner Lab, Northern Arizona University · January 2020 – May 2023</p>
+      <ul>
+        <li>Helped develop stochastic simulation algorithms for validation within PyBioNetFit (PyBNF), a Python-based software for curve fitting and parameter estimation in mechanistic models, which I applied to forecasting COVID-19 cases in the U.S. and the Navajo Nation.</li>
+        <li>Constructed data scraping pipelines and leveraged remote parallel computing to produce real-time estimates with four-week forecasting horizons during the SARS-CoV-2 pandemic. These were shared with public health authorities (e.g., NNDOH) and university administration (NAU) and have been published as a peer-reviewed manuscript.</li>
+        <li>Collaborated with researchers at Los Alamos, Sandia, and Oak Ridge National Laboratories to develop transmission models in Python that implemented social distancing effects for estimating epidemiological parameters with high-performance parallel computing clusters, and Bayesian uncertainty quantification techniques, for fitting to datasets published by the Centers for Disease Control and Prevention (CDC) and the NNDOH. This work resulted in publications in Emerging Infectious Diseases, Bulletin of Mathematical Biology, and Viruses.</li>
+        <li>Estimated the impact of social distancing policies on the spread of SARS-CoV-2 in the Navajo Nation using mechanistic models, which highlighted the differential effect of the analogous policies in adjacent states and was published in PLOS Global Public Health.</li>
+      </ul>
+      <p><a href="publications.html">Publications →</a></p>
+    </article>
+
+    <article class="entry">
+      <h3>BRAF-V600E signaling in melanoma</h3>
+      <p class="meta">Posner Lab, Northern Arizona University · with the Flinn Foundation and Dr. Matthew Salanga's Zebrafish laboratory</p>
+      <ul>
+        <li>Expanded the utilization of PyBNF to rule-based systems biology modeling using BNGL, applied to signaling pathways in cancer and the role of BRAF-V600E mutations in melanoma in collaboration with the Flinn Foundation and Dr. Matthew Salanga's Zebrafish laboratory at Northern Arizona University (NAU).</li>
+      </ul>
+    </article>
+
+    <article class="entry">
+      <h3>AS3MT knockout zebrafish</h3>
+      <p class="meta">Northern Arizona University · NAU Undergraduate Research Symposium, 2022</p>
+      <ul>
+        <li>Generated a new Arsenic-3-methyltransferase (AS3MT) knockout zebrafish line using CRISPR-Cas9 microinjection, which I validated using PCR and husbandry strategies before demonstrating increased embryonic sensitivity and developmental defects following arsenic exposure. This work was co-presented with Zack Schmidt (former student) at the NAU Undergraduate Research Symposium in 2022.</li>
+      </ul>
     </article>
   </section>
 </main>

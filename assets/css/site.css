@@ -173,6 +173,20 @@ p.todo, li.todo, div.todo { display: block; }
 .pubs { padding-left: 1.2em; }
 .pubs li { margin-bottom: 14px; }
 
+/* CV-style bullet lists and skill table */
+.cv-row ul, .entry ul { margin: 6px 0 0; padding-left: 1.1em; font-size: 15px; color: var(--ink-2); }
+.cv-row li, .entry li { margin-bottom: 6px; }
+.cv-text { font-size: 15px; color: var(--ink-2); margin: 4px 0; }
+.cv-row .meta { margin-bottom: 4px; }
+.toc { margin-top: 24px; font-size: 14px; color: var(--muted); line-height: 2; }
+.toc a { color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+.toc a:hover { color: var(--accent); }
+.skills { display: grid; grid-template-columns: 12rem 1fr; gap: 10px 24px; margin: 0; font-size: 15px; }
+.skills dt { font-weight: 600; }
+.skills dd { margin: 0; color: var(--ink-2); }
+.entry h3 .meta { font-weight: 400; font-size: 14px; }
+section[id] { scroll-margin-top: 80px; }
+
 /* ---------- footer ---------- */
 .site-footer { border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
 .site-footer .inner { max-width: 64rem; margin: 0 auto; padding: 24px; display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: space-between; }
@@ -258,7 +272,8 @@ table.data th { font-weight: 600; color: var(--ink-2); font-size: 13px; }
   main { padding: 36px 16px 64px; }
   .hero { grid-template-columns: 1fr; gap: 20px; }
   .photo { width: 120px; height: 120px; }
-  .cv-row, .disease { grid-template-columns: 1fr; gap: 2px; }
+  .cv-row, .disease, .skills { grid-template-columns: 1fr; gap: 2px; }
+  .skills dd { margin-bottom: 10px; }
   h2 { margin-top: 48px; }
   .control select { min-width: 0; width: 100%; }
   .control { flex: 1 1 9rem; }
