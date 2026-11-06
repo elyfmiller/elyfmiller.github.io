@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forecasts · Ely F. Miller</title>
+  <meta name="description" content="FluBNF's weekly FluSight influenza hospitalization forecasts against observed NHSN admissions.">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/forecasts.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="./">Ely F. Miller</a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">Home</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="forecasts.html" aria-current="page">Forecasts</a>
+      <a href="cv.html">CV</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+  </div>
+</header>
+
+<main id="main" class="wide">
+  <p class="eyebrow">Forecasts · CDC FluSight 2026–27</p>
+  <h1>Weekly influenza hospital admissions</h1>
+  <!-- TODO(Ely): page intro, 2–3 sentences: what FluSight is, what these two
+       models are, and that they are submitted every week -->
+  <p class="lede todo">page intro: what FluSight is and what you submit each week</p>
+
+  <form class="controls" id="fc-controls" onsubmit="return false">
+    <label class="control">Location
+      <select id="fc-loc" aria-label="Location"></select>
+    </label>
+    <label class="control">Round (reference date)
+      <select id="fc-round" aria-label="Forecast round"></select>
+    </label>
+    <div class="control">Models
+      <div class="toggles" id="fc-models" role="group" aria-label="Models"></div>
+    </div>
+    <div class="control">Intervals
+      <div class="toggles" role="group" aria-label="Prediction intervals">
+        <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i50" checked><span class="sw"></span>50%</label>
+        <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i95" checked><span class="sw" style="opacity:.45"></span>95%</label>
+      </div>
+    </div>
+  </form>
+
+  <div class="chart-wrap" id="fc-chart" aria-live="polite">
+    <p class="empty">Loading forecasts…</p>
+  </div>
+  <ul class="legend" id="fc-legend" aria-label="Chart key"></ul>
+  <p class="chart-note" id="fc-note"></p>
+  <!-- TODO(Ely): optional caption under the chart (how to read it) -->
+  <p class="chart-note todo">optional caption: how to read the chart</p>
+
+  <details class="table-view">
+    <summary>Show as a table</summary>
+    <div class="table-scroll" id="fc-table"></div>
+  </details>
+
+  <section style="margin-top:72px">
+    <h2>The models</h2>
+    <!-- Model names and IDs: hub model-metadata cards (flubnf repo, model-metadata/). -->
+    <div class="model-cards">
+      <article class="card" style="--c:var(--s-oracle)">
+        <h3><span class="sw"></span>Oracle SIHRS</h3>
+        <p class="meta"><code>NAU_PyBNF-OracleSIHRS</code> · mechanistic</p>
+        <!-- TODO(Ely): 2–3 sentence description (SIHRS + Liu–West filter + Oracle step) -->
+        <p class="todo">model description</p>
+        <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-OracleSIHRS.yml">Model card on the hub</a>
+      </article>
+      <article class="card" style="--c:var(--s-groundhog)">
+        <h3><span class="sw"></span>Groundhog</h3>
+        <p class="meta"><code>NAU_PyBNF-GroundHogCGR</code> · empirical</p>
+        <!-- TODO(Ely): 2–3 sentence description (calendar-conditional growth ratios) -->
+        <p class="todo">model description</p>
+        <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-GroundHogCGR.yml">Model card on the hub</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Diseases</h2>
+    <!-- Status per the flubnf repo: influenza is the live target; the COVID-19
+         port was tested and archived (docs/MODEL-PROVENANCE.md §5); RSV is a
+         planned direction. TODO(Ely): how each is described is your call. -->
+    <div class="disease">
+      <div><h3 style="margin:0">Influenza</h3><span class="status live">Live</span></div>
+      <p class="todo">how you describe the influenza work</p>
+    </div>
+    <div class="disease">
+      <div><h3 style="margin:0">COVID-19</h3><span class="status">Tested, archived</span></div>
+      <p class="todo">how you describe the COVID-19 port</p>
+    </div>
+    <div class="disease">
+      <div><h3 style="margin:0">RSV</h3><span class="status">Planned</span></div>
+      <p class="todo">how you describe the RSV plans</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <span>© <span id="year">2026</span> Ely F. Miller</span>
+    <a href="https://github.com/elyfmiller/elyfmiller.github.io">Site source</a>
+  </div>
+</footer>
+</body>
+</html>
