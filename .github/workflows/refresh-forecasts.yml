@@ -1,12 +1,12 @@
-# PROPOSED, NOT ENABLED. GitHub only runs workflows in .github/workflows/.
-# To enable after review:  git mv .github/workflow-proposals/refresh-forecasts.yml .github/workflows/
+# Enabled by Ely, 2026-11-06.
 #
-# What it does: once a week (and on demand from the Actions tab) it rebuilds
-# data/forecasts.json from cdcepi/FluSight-forecast-hub and, only if the file
-# changed, commits it to main as github-actions[bot]. Pages then redeploys.
+# What it does: twice a week (and on demand from the Actions tab) it rebuilds
+# data/forecasts.json from cdcepi/FluSight-forecast-hub and, only if the data
+# changed, commits it to main as github-actions[bot], then asks Pages to redeploy.
 # Timing: the hub merges a round's forecasts and the FluSight ensemble on
 # Wednesday/Thursday (ensemble PR for 2026-11-07 merged Thu 2026-11-05 13:15 UTC),
 # so Thursday 20:00 UTC catches the round; Friday 14:00 UTC catches late merges.
+# To turn it off: Actions tab -> Refresh forecast data -> "..." -> Disable workflow.
 name: Refresh forecast data
 
 on:
@@ -16,7 +16,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # commit the refreshed data
+  pages: write      # request a Pages build after the commit
 
 concurrency:
   group: refresh-forecasts
@@ -27,15 +28,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - uses: actions/checkout@v5
       - name: Build data/forecasts.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/build_forecasts.py
+        run: python3 scripts/build_forecasts.py   # standard library only
       - name: Commit if the forecasts changed
+        id: commit
         run: |
           # "generated" changes on every run; compare everything else.
           if git diff --quiet -- data/forecasts.json; then echo "no change"; exit 0; fi
@@ -51,4 +50,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/forecasts.json
           git commit -m "Refresh forecast data from the FluSight hub"
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+      - name: Ask Pages to redeploy
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --jq .status

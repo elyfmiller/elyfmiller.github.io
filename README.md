@@ -17,7 +17,7 @@ Plain HTML, CSS and JS; no build step. Preview locally:
 | `assets/js/forecasts.js` | the forecast chart |
 | `data/forecasts.json` | forecast data, built by the script below |
 | `scripts/build_forecasts.py` | rebuilds the data from `cdcepi/FluSight-forecast-hub` |
-| `.github/workflow-proposals/refresh-forecasts.yml` | weekly refresh, **not enabled** |
+| `.github/workflows/refresh-forecasts.yml` | refreshes the forecast data each week |
 | `CNAME` | custom domain, `elymiller.com` |
 | `sitemap.xml`, `robots.txt` | for search engines; add new pages to the sitemap |
 | `404.html` | page shown for broken links (uses `/`-rooted paths) |
@@ -37,6 +37,7 @@ Standard library only. Set `GITHUB_TOKEN` (e.g. `GITHUB_TOKEN=$(gh auth token)`)
 to avoid the GitHub API's unauthenticated rate limit. Models, quantiles and the
 season start are constants at the top of the script.
 
-To enable the weekly refresh after review:
-
-    git mv .github/workflow-proposals/refresh-forecasts.yml .github/workflows/
+`.github/workflows/refresh-forecasts.yml` runs the script on Thursdays 20:00 UTC
+and Fridays 14:00 UTC, commits the data only when it changed (as
+github-actions[bot]), then asks Pages to redeploy. Run it by hand from the
+Actions tab ("Run workflow"), or turn it off there with "Disable workflow".
