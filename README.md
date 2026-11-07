@@ -14,7 +14,7 @@ Plain HTML, CSS and JS; no build step. Preview locally:
 | `index.html`, `research.html`, `publications.html`, `cv.html`, `forecasts.html` | the pages |
 | `assets/css/site.css` | all styles; colors are CSS variables at the top (light, then dark) |
 | `assets/js/site.js` | dark-mode toggle, publication sort and copy buttons, copy-email button, footer "Updated" date, CV section rail, unfolding lists for printing |
-| `assets/js/forecasts.js` | the forecast chart |
+| `assets/js/forecasts.js` | the forecast chart: one round or all rounds, linear or log scale, state tile map, CSV download; every choice is kept in the link |
 | `assets/js/home.js` | the small US forecast chart on the home page |
 | `assets/icons.svg` | link icons (Lucide, ISC; Simple Icons, CC0) |
 | `data/forecasts.json` | forecast data, built by the script below |
@@ -70,3 +70,16 @@ Actions tab. Exclusions and the reasons for them are commented in the file.
 
 Every page prints in light colors without the header menu or buttons; the CV
 page prints as a single column with the folded lists opened.
+
+## Forecast page links
+
+Every choice on the forecast page is kept in the address, so a link opens the
+same view. Only choices that differ from the defaults appear:
+
+    forecasts.html#loc=AZ                    Arizona, latest round
+    forecasts.html#loc=TX&round=2026-10-24   Texas, an earlier round
+    forecasts.html#loc=AZ&view=all           every round of the season
+    forecasts.html#scale=log&bands=50        log scale, 50% interval only
+    forecasts.html#models=NAU_PyBNF-OracleSIHRS,FluSight-ensemble
+
+`loc` takes postal codes (`AZ`, `DC`, `PR`) or `US`.

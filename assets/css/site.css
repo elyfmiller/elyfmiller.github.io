@@ -286,6 +286,26 @@ section[id] { scroll-margin-top: 80px; }
 .legend .k { display: inline-block; vertical-align: -2px; margin-right: 6px; }
 .chart-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
 .empty { padding: 40px 0; color: var(--muted); text-align: center; }
+/* forecast page: controls + tile map, actions under the chart */
+.fc-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 32px; align-items: start; }
+@media (min-width: 1100px) { .fc-top { grid-template-columns: minmax(0, 1fr) auto; } }
+.control .seg { align-self: flex-start; }
+.control .seg button { font-size: 13px; white-space: nowrap; }
+.control select:disabled { opacity: .5; }
+.fc-map-box { margin: 20px 0 12px; font-size: 13px; color: var(--muted); }
+.fc-map-box > summary { cursor: pointer; margin-bottom: 8px; }
+.fc-map { display: grid; grid-template-columns: repeat(11, 30px); grid-auto-rows: 30px; gap: 3px; }
+.tile {
+  font-family: inherit; font-size: 11px; font-weight: 600; line-height: 1; color: var(--ink-2); cursor: pointer; padding: 0;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+}
+.tile:hover { border-color: var(--accent); color: var(--accent); }
+.tile[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.tile.us { margin-top: 8px; padding: 6px 12px; font-size: 12px; }
+.fc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.fc-actions .btn { cursor: pointer; font-family: inherit; }
+.fc-actions .btn.copied { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.legend .scale-note { color: var(--muted); font-style: italic; }
 details.table-view { margin-top: 16px; font-size: 14px; }
 details.table-view summary { cursor: pointer; color: var(--ink-2); }
 .table-scroll { overflow-x: auto; }
@@ -473,6 +493,8 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
   .skills dd { margin-bottom: 10px; }
   h2 { margin-top: 48px; }
   .control select { min-width: 0; width: 100%; }
+  .fc-map { grid-template-columns: repeat(11, minmax(0, 1fr)); grid-auto-rows: auto; gap: 2px; max-width: 360px; }
+  .fc-map .tile { aspect-ratio: 1; }
   .control { flex: 1 1 9rem; }
   .control:has(.toggles) { flex-basis: 100%; }
   .chip { font-size: 13px; padding: 3px 10px 3px 8px; }
@@ -504,7 +526,7 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
   @page { margin: 16mm 15mm; }
   body { background: #fff; font-size: 10pt; line-height: 1.4; }
   .skip, .site-header .nav, .theme-toggle, .cv-rail, .cv-top, .copy-btn, .pill-links button,
-  .seg, .pub-tools, details.more > summary, .site-footer a { display: none !important; }
+  .seg, .pub-tools, details.more > summary, .site-footer a, .fc-map-box, .fc-actions { display: none !important; }
   .site-header { position: static; border: 0; background: none; }
   .site-header .inner, main, .site-footer .inner { padding-left: 0; padding-right: 0; max-width: none; }
   main { padding-top: 8pt; padding-bottom: 0; }

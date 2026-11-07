@@ -76,15 +76,19 @@
     var was = lab && lab.textContent;
     if (lab) lab.textContent = "Copied";
     var use = btn.querySelector("use");
+    var icon0 = use && (btn._icon || (btn._icon = use.getAttribute("href")));
     if (use) use.setAttribute("href", "assets/icons.svg#check");
     say(what + " copied");
     clearTimeout(btn._t);
     btn._t = setTimeout(function () {
       btn.classList.remove("copied");
       if (lab) lab.textContent = was;
-      if (use) use.setAttribute("href", "assets/icons.svg#copy");
+      if (use) use.setAttribute("href", icon0);
     }, 1600);
   }
+  // shared with forecasts.js ("Copy link")
+  window.Site = { copy: copy, done: done, say: say };
+
   function icon(id) {
     return '<svg class="ic" aria-hidden="true"><use href="assets/icons.svg#' + id + '"/></svg>';
   }
