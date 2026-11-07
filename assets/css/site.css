@@ -30,6 +30,15 @@
   --s-ensemble: #1baf7a;
   --s-baseline: #898781;
 
+  /* rate-change map: FluBNF's scale (flubnf app/ui/static/nau.css), the
+     same in both themes, and its colourblind-safe alternative */
+  --cat-0: #2e7d4f; --cat-1: #7fc97f; --cat-2: #b9b09b; --cat-3: #e8a33d; --cat-4: #c0392b;
+  --cvd-0: #2c7bb6; --cvd-1: #abd9e9; --cvd-2: #b9b09b; --cvd-3: #fdae61; --cvd-4: #d7191c;
+  --map-nodata: #dcd8cd;
+
+  /* background contours (assets/img/topo.svg) */
+  --topo-ink: rgb(47 107 79 / 0.16);
+
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --measure: 46rem;
   --wide: 64rem;
@@ -63,6 +72,8 @@
     --s-groundhog: #d95926;
     --s-ensemble: #199e70;
     --s-baseline: #9a988f;
+    --map-nodata: #2a3038;
+    --topo-ink: rgb(143 209 168 / 0.12);
   }
 }
 :root[data-theme="dark"] {
@@ -88,6 +99,8 @@
   --s-groundhog: #d95926;
   --s-ensemble: #199e70;
   --s-baseline: #9a988f;
+  --map-nodata: #2a3038;
+  --topo-ink: rgb(143 209 168 / 0.12);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -100,6 +113,15 @@ body {
   font-size: 17px;
   line-height: 1.65;
   font-feature-settings: "cv11", "ss01";
+}
+/* site-wide background: unlabelled contour lines of the terrain around
+   Flagstaff (scripts/build_topo.py), drawn as a mask so the colour follows
+   the theme */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--topo-ink);
+  -webkit-mask: url("../img/topo.svg") center / cover no-repeat;
+  mask: url("../img/topo.svg") center / cover no-repeat;
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -258,7 +280,7 @@ section[id] { scroll-margin-top: 80px; }
 .chip:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 .chip.baseline .sw { background: repeating-linear-gradient(90deg, var(--c) 0 4px, transparent 4px 6px); }
 
-.chart-wrap { position: relative; margin: 8px 0 0; }
+.chart-wrap { position: relative; margin: 8px 0 0; scroll-margin-top: 80px; }
 .chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
 .chart-wrap .grid line { stroke: var(--grid); stroke-width: 1; }
 .chart-wrap .axis text { fill: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
@@ -286,22 +308,70 @@ section[id] { scroll-margin-top: 80px; }
 .legend .k { display: inline-block; vertical-align: -2px; margin-right: 6px; }
 .chart-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
 .empty { padding: 40px 0; color: var(--muted); text-align: center; }
-/* forecast page: controls + tile map, actions under the chart */
+/* forecast page: controls + rate-change map, actions under the chart */
 .fc-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 32px; align-items: start; }
-@media (min-width: 1100px) { .fc-top { grid-template-columns: minmax(0, 1fr) auto; } }
+/* wide screens: the map stays in view beside the chart, so a click on a
+   state updates the chart next to it */
+@media (min-width: 1100px) {
+  .fc-top { grid-template-columns: minmax(0, 1fr) minmax(24rem, 31rem); }
+  .fc-top .fc-map-box { margin-top: 0; position: sticky; top: 76px; }
+}
 .control .seg { align-self: flex-start; }
 .control .seg button { font-size: 13px; white-space: nowrap; }
 .control select:disabled { opacity: .5; }
-.fc-map-box { margin: 20px 0 12px; font-size: 13px; color: var(--muted); }
-.fc-map-box > summary { cursor: pointer; margin-bottom: 8px; }
-.fc-map { display: grid; grid-template-columns: repeat(11, 30px); grid-auto-rows: 30px; gap: 3px; }
-.tile {
-  font-family: inherit; font-size: 11px; font-weight: 600; line-height: 1; color: var(--ink-2); cursor: pointer; padding: 0;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+.fc-map-box { margin: 32px 0 12px; font-size: 13px; color: var(--muted); }
+.fc-map-box > summary { cursor: pointer; margin-bottom: 8px; color: var(--ink-2); }
+.fc-map-box > summary .hint { color: var(--muted); }
+.map-card { padding: 16px 18px 12px; }
+.map-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 16px; }
+.map-title { margin: 0; font-weight: 600; font-size: 15px; color: var(--ink); }
+.map-head .meta { margin: 0; font-size: 12.5px; }
+.map-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.map-controls .seg button { font-size: 12.5px; padding: 3px 10px; white-space: nowrap; }
+.map-extra { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px; }
+.map-extra .hint { margin-left: auto; font-size: 12px; }
+.loc-chip {
+  font: inherit; font-size: 12.5px; color: var(--ink-2); background: var(--card); cursor: pointer;
+  border: 1px solid var(--rule-2); border-radius: 999px; padding: 2px 10px 2px 7px;
+  display: inline-flex; align-items: center; gap: 6px;
 }
-.tile:hover { border-color: var(--accent); color: var(--accent); }
-.tile[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-.tile.us { margin-top: 8px; padding: 6px 12px; font-size: 12px; }
+.loc-chip:hover { border-color: var(--accent); color: var(--ink); }
+.loc-chip[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--ink); }
+
+/* the map itself (assets/js/usmap.js) */
+.usmap-wrap { position: relative; }
+.usmap { width: 100%; height: auto; display: block; touch-action: manipulation; }
+.usmap-wrap.zoomed .usmap { cursor: grab; }
+.usmap .st { stroke: var(--card); stroke-width: 1; cursor: pointer; stroke-linejoin: round; transition: fill-opacity .12s; }
+.usmap .st:hover { stroke: var(--ink); stroke-width: 1.6; }
+.usmap .st.sel { stroke: var(--accent); stroke-width: 2.8; }
+.usmap .st:focus { outline: none; }
+.usmap .st:focus-visible { stroke: var(--ink); stroke-width: 3; }
+.usmap .c0, .map-legend .c0, .sw.c0 { fill: var(--cat-0); background: var(--cat-0); }
+.usmap .c1, .map-legend .c1, .sw.c1 { fill: var(--cat-1); background: var(--cat-1); }
+.usmap .c2, .map-legend .c2, .sw.c2 { fill: var(--cat-2); background: var(--cat-2); }
+.usmap .c3, .map-legend .c3, .sw.c3 { fill: var(--cat-3); background: var(--cat-3); }
+.usmap .c4, .map-legend .c4, .sw.c4 { fill: var(--cat-4); background: var(--cat-4); }
+.usmap .nd, .sw.nd { fill: var(--map-nodata); background: var(--map-nodata); }
+.map-cvd .c0 { fill: var(--cvd-0); background: var(--cvd-0); }
+.map-cvd .c1 { fill: var(--cvd-1); background: var(--cvd-1); }
+.map-cvd .c3 { fill: var(--cvd-3); background: var(--cvd-3); }
+.map-cvd .c4 { fill: var(--cvd-4); background: var(--cvd-4); }
+.usmap-tip {
+  position: absolute; pointer-events: none; z-index: 3; min-width: 13rem; max-width: 16rem;
+  background: var(--bg); border: 1px solid var(--rule); border-radius: 10px;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.14); padding: 9px 12px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2);
+}
+.usmap-tip b { color: var(--ink); font-size: 13px; }
+.usmap-tip .muted { color: var(--muted); }
+.cat-rows { list-style: none; padding: 0; margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+.cat-rows li { display: flex; align-items: center; gap: 7px; }
+.cat-rows li.top { color: var(--ink); font-weight: 600; }
+.cat-rows .pct { margin-left: auto; padding-left: 12px; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.map-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 12.5px; color: var(--ink-2); margin: 10px 0 0; }
+.map-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.map-legend .cvd-switch { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; color: var(--muted); }
 .fc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .fc-actions .btn { cursor: pointer; font-family: inherit; }
 .fc-actions .btn.copied { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
@@ -357,7 +427,7 @@ details.more[open] > summary::before { content: "–"; }
 details.more[open] > summary .closed, details.more:not([open]) > summary .opened { display: none; }
 
 /* ---------- home: current work strip ---------- */
-.featured { margin-top: 56px; display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.featured { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: 0 clamp(32px, 5vw, 72px); margin-top: 64px; }
 .home-grid > section { margin-top: 0; padding-bottom: 48px; }
 .home-grid > section h2 { margin-top: 0; }
@@ -365,7 +435,27 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
 .featured a.card:hover { border-color: var(--accent); transform: translateY(-1px); }
 .featured .card h3 { margin: 6px 0 4px; font-size: 1rem; }
 .featured .card .meta { margin: 0; font-size: 13px; }
-.featured .spark { grid-column: 1 / -1; padding: 20px 22px 14px; }
+.spark { padding: 20px 22px 14px; }
+/* home: the forecast chart and the map side by side on wide screens */
+.home-fc { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+.home-fc .map-card .go { font-size: 14px; color: var(--accent); }
+.home-fc .map-card > .meta { margin: 2px 0 0; font-size: 12.5px; }
+
+/* home: sections the reader can fold away (open by default) */
+details.fold > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: flex-end; gap: 10px;
+  margin: 0 0 20px; width: fit-content;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary h2 { margin: 0; }
+details.fold + details.fold { margin-top: 56px; }
+details.fold:not([open]) > summary { margin-bottom: 0; }
+.chev {
+  width: 18px; height: 18px; margin-bottom: 2px; fill: none; stroke: var(--muted);
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .15s;
+}
+details.fold:not([open]) .chev { transform: rotate(-90deg); }
+details.fold > summary:hover .chev { stroke: var(--accent); }
 .spark-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .spark-head h3 { margin: 0; font-size: 1.05rem; }
 .spark-head .meta { margin: 0; }
@@ -380,9 +470,10 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
 .spark text.lab { fill: var(--ink-2); font-size: 12px; font-weight: 500; }
 @media (min-width: 1100px) {
   .featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .featured .spark { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
-  .featured .spark .spark-plot { flex: 1; display: flex; align-items: flex-end; }
-  .featured .spark .spark-plot svg { width: 100%; }
+  .home-fc { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+  .home-fc .spark { display: flex; flex-direction: column; }
+  .home-fc .spark .spark-plot { flex: 1; display: flex; align-items: center; }
+  .home-fc .spark .spark-plot svg { width: 100%; }
 }
 
 /* ---------- research: project cards ---------- */
@@ -493,13 +584,14 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
   .skills dd { margin-bottom: 10px; }
   h2 { margin-top: 48px; }
   .control select { min-width: 0; width: 100%; }
-  .fc-map { grid-template-columns: repeat(11, minmax(0, 1fr)); grid-auto-rows: auto; gap: 2px; max-width: 360px; }
-  .fc-map .tile { aspect-ratio: 1; }
+  .map-card { padding: 12px; }
+  .map-controls .seg button { font-size: 12px; padding: 3px 7px; }
+  .map-extra .hint { display: none; }
   .control { flex: 1 1 9rem; }
   .control:has(.toggles) { flex-basis: 100%; }
   .chip { font-size: 13px; padding: 3px 10px 3px 8px; }
   .featured, .project-grid, .award-grid { grid-template-columns: 1fr; }
-  .featured .spark { padding: 16px; }
+  .spark { padding: 16px; }
   .project { padding: 18px; }
   .project-head { flex-direction: column-reverse; gap: 6px; }
   .pub-list > li { grid-template-columns: 1fr; }
@@ -525,6 +617,7 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
   }
   @page { margin: 16mm 15mm; }
   body { background: #fff; font-size: 10pt; line-height: 1.4; }
+  body::before, .chev { display: none; }
   .skip, .site-header .nav, .theme-toggle, .cv-rail, .cv-top, .copy-btn, .pill-links button,
   .seg, .pub-tools, details.more > summary, .site-footer a, .fc-map-box, .fc-actions { display: none !important; }
   .site-header { position: static; border: 0; background: none; }

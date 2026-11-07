@@ -103,11 +103,54 @@
     if (meta) meta.textContent = "Observed (NHSN) and FluBNF forecasts · round of " + fmtDate(R, true);
   }
 
+  // ---- the rate-change map: the latest round, the week ending on the
+  // reference date (horizon 0, as FluBNF's home outlook); a click opens that
+  // state on the forecast page ----
+  var MAPM = { oracle: "NAU_PyBNF-OracleSIHRS", groundhog: "NAU_PyBNF-GroundHogCGR" };
+  var mapModel = "oracle", map;
+  function paintMap() {
+    if (!map) return;
+    var id = MAPM[mapModel], rounds = Object.keys((D.cat_probs || {})[id] || {}).sort();
+    var r = rounds[rounds.length - 1];
+    if (!r) return;
+    map.paint(window.USMap.cards(D, id, r, 0), null);
+    document.getElementById("home-map-model").textContent = D.models[id].label;
+    document.getElementById("home-map-when").textContent = "Round of " + fmtDate(t(r), true) +
+      " · change from the week ending " + fmtDate(t(r) - 7 * DAY) + " to the week ending " + fmtDate(t(r));
+    document.querySelectorAll("#home-map-models button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.v === mapModel));
+    });
+  }
+  function setupMap(geo) {
+    var host = document.getElementById("home-map");
+    if (!host || !geo || !window.USMap || !D.cat_probs) {
+      var card = document.getElementById("home-map-card");
+      if (card) card.hidden = true;
+      return;
+    }
+    map = window.USMap(host, geo, {
+      label: "States, coloured by forecast rate change; each opens that state's forecast",
+      hint: "click for this state's forecast",
+      onPick: function (f) {
+        location.href = "forecasts.html#loc=" + (window.USMap.POSTAL[f] || f) + (mapModel === "oracle" ? "" : "&map=" + mapModel);
+      }
+    });
+    window.USMap.legend(document.getElementById("home-map-legend"));
+    document.getElementById("home-map-models").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]");
+      if (b) { mapModel = b.dataset.v; paintMap(); }
+    });
+    paintMap();
+  }
+
+  var geo = fetch("data/us-states.json").then(function (r) { return r.ok ? r.json() : null; }, function () { return null; });
   fetch("data/forecasts.json").then(function (r) { return r.json(); }).then(function (d) {
     D = d; draw();
+    geo.then(setupMap);
     document.addEventListener("themechange", draw);
     if ("ResizeObserver" in window) new ResizeObserver(function () {
-      if (Math.abs(Math.round(plot.clientWidth) - lastW) > 4) draw();
+      // a folded section has no width: wait until it opens again
+      if (plot.clientWidth && Math.abs(Math.round(plot.clientWidth) - lastW) > 4) draw();
     }).observe(plot);
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
   }).catch(function () {});

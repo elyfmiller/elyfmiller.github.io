@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/usmap.js" defer></script>
   <script src="assets/js/forecasts.js" defer></script>
 </head>
 <body>
@@ -51,53 +52,72 @@
   <p class="lede todo">page intro: what FluSight is and what you submit each week</p>
 
   <div class="fc-top">
-  <form class="controls" id="fc-controls" onsubmit="return false">
-    <label class="control">Location
-      <select id="fc-loc" aria-label="Location"></select>
-    </label>
-    <div class="control">View
-      <div class="seg" id="fc-view" role="group" aria-label="View">
-        <button type="button" data-v="round" aria-pressed="true">One round</button>
-        <button type="button" data-v="all" aria-pressed="false">All rounds</button>
+    <div class="fc-main">
+    <form class="controls" id="fc-controls" onsubmit="return false">
+      <label class="control">Location
+        <select id="fc-loc" aria-label="Location"></select>
+      </label>
+      <div class="control">View
+        <div class="seg" id="fc-view" role="group" aria-label="View">
+          <button type="button" data-v="round" aria-pressed="true">One round</button>
+          <button type="button" data-v="all" aria-pressed="false">All rounds</button>
+        </div>
       </div>
-    </div>
-    <label class="control">Round (reference date)
-      <select id="fc-round" aria-label="Forecast round"></select>
-    </label>
-    <div class="control">Models
-      <div class="toggles" id="fc-models" role="group" aria-label="Models"></div>
-    </div>
-    <div class="control">Intervals
-      <div class="toggles" role="group" aria-label="Prediction intervals">
-        <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i50" checked><span class="sw"></span>50%</label>
-        <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i95" checked><span class="sw" style="opacity:.45"></span>95%</label>
+      <label class="control">Round (reference date)
+        <select id="fc-round" aria-label="Forecast round"></select>
+      </label>
+      <div class="control">Models
+        <div class="toggles" id="fc-models" role="group" aria-label="Models"></div>
       </div>
-    </div>
-    <div class="control">Scale
-      <div class="seg" id="fc-scale" role="group" aria-label="Scale">
-        <button type="button" data-v="linear" aria-pressed="true">Linear</button>
-        <button type="button" data-v="log" aria-pressed="false">Log</button>
+      <div class="control">Intervals
+        <div class="toggles" role="group" aria-label="Prediction intervals">
+          <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i50" checked><span class="sw"></span>50%</label>
+          <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i95" checked><span class="sw" style="opacity:.45"></span>95%</label>
+        </div>
       </div>
-    </div>
-  </form>
-  <details class="fc-map-box" id="fc-map-box">
-    <summary>Pick a state on the map</summary>
-    <div class="fc-map" id="fc-map" role="group" aria-label="States"></div>
-    <button type="button" class="tile us" id="fc-map-us" aria-pressed="false">Whole US</button>
-  </details>
-  </div>
+      <div class="control">Scale
+        <div class="seg" id="fc-scale" role="group" aria-label="Scale">
+          <button type="button" data-v="linear" aria-pressed="true">Linear</button>
+          <button type="button" data-v="log" aria-pressed="false">Log</button>
+        </div>
+      </div>
+    </form>
 
-  <div class="chart-wrap" id="fc-chart" aria-live="polite">
-    <p class="empty">Loading forecasts…</p>
+    <div class="chart-wrap" id="fc-chart" aria-live="polite">
+      <p class="empty">Loading forecasts…</p>
+    </div>
+    <ul class="legend" id="fc-legend" aria-label="Chart key"></ul>
+    <div class="fc-actions">
+      <button type="button" class="btn" id="fc-link"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#link"/></svg><span class="lab">Copy link to this view</span></button>
+      <button type="button" class="btn" id="fc-csv"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#download"/></svg>Download CSV</button>
+    </div>
+    <p class="chart-note" id="fc-note"></p>
+    <!-- TODO(Ely): optional caption under the chart (how to read it) -->
+    <p class="chart-note todo">optional caption: how to read the chart</p>
+    </div>
+
+    <details class="fc-map-box" id="fc-map-box" open>
+      <summary>Rate-change map <span class="hint">· pick a state</span></summary>
+      <div class="map-card card">
+        <div class="map-head">
+          <p class="map-title"><span id="fc-map-model">Oracle SIHRS</span> categorical forecast</p>
+          <p class="meta" id="fc-map-when"></p>
+        </div>
+        <div class="map-controls">
+          <div class="seg" id="fc-map-models" role="group" aria-label="Map model"></div>
+          <div class="seg" id="fc-map-weeks" role="group" aria-label="Map target week"></div>
+        </div>
+        <div id="fc-map"></div>
+        <div class="map-extra" role="group" aria-label="More locations">
+          <button type="button" class="loc-chip" data-loc="US" aria-pressed="false"><span class="sw"></span>Whole US</button>
+          <button type="button" class="loc-chip" data-loc="11" aria-pressed="false"><span class="sw"></span>DC</button>
+          <button type="button" class="loc-chip" data-loc="72" aria-pressed="false"><span class="sw"></span>Puerto Rico</button>
+          <span class="hint">Ctrl/⌘ + scroll to zoom · drag to pan · double-click to reset</span>
+        </div>
+        <p class="map-legend" id="fc-map-legend"></p>
+      </div>
+    </details>
   </div>
-  <ul class="legend" id="fc-legend" aria-label="Chart key"></ul>
-  <div class="fc-actions">
-    <button type="button" class="btn" id="fc-link"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#link"/></svg><span class="lab">Copy link to this view</span></button>
-    <button type="button" class="btn" id="fc-csv"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#download"/></svg>Download CSV</button>
-  </div>
-  <p class="chart-note" id="fc-note"></p>
-  <!-- TODO(Ely): optional caption under the chart (how to read it) -->
-  <p class="chart-note todo">optional caption: how to read the chart</p>
 
   <details class="table-view">
     <summary>Show as a table</summary>

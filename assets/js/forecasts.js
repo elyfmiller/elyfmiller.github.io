@@ -5,8 +5,8 @@
 // Two views: one round (with its 50%/95% intervals), or every round of the
 // season at once (each round's median; intervals for the latest round only).
 // Linear or log scale. Everything chosen is kept in the link
-// (forecasts.html#loc=AZ&view=all&scale=log ...), and a tile map of the
-// states doubles as the location picker.
+// (forecasts.html#loc=AZ&view=all&scale=log ...). The rate-change map
+// (assets/js/usmap.js, after FluBNF's) doubles as the location picker.
 (function () {
   "use strict";
 
@@ -21,25 +21,13 @@
   var NS = "http://www.w3.org/2000/svg";
 
   // FIPS code -> postal code (links use postal codes; old FIPS links still work)
-  var POSTAL = { "01": "AL", "02": "AK", "04": "AZ", "05": "AR", "06": "CA", "08": "CO", "09": "CT", "10": "DE",
-    "11": "DC", "12": "FL", "13": "GA", "15": "HI", "16": "ID", "17": "IL", "18": "IN", "19": "IA", "20": "KS",
-    "21": "KY", "22": "LA", "23": "ME", "24": "MD", "25": "MA", "26": "MI", "27": "MN", "28": "MS", "29": "MO",
-    "30": "MT", "31": "NE", "32": "NV", "33": "NH", "34": "NJ", "35": "NM", "36": "NY", "37": "NC", "38": "ND",
-    "39": "OH", "40": "OK", "41": "OR", "42": "PA", "44": "RI", "45": "SC", "46": "SD", "47": "TN", "48": "TX",
-    "49": "UT", "50": "VT", "51": "VA", "53": "WA", "54": "WV", "55": "WI", "56": "WY", "72": "PR", "US": "US" };
-  // tile map: [column, row] on an 11 x 8 grid
-  var TILES = {
-    AK: [0, 0], ME: [10, 0],
-    WI: [5, 1], VT: [9, 1], NH: [10, 1],
-    WA: [0, 2], ID: [1, 2], MT: [2, 2], ND: [3, 2], MN: [4, 2], IL: [5, 2], MI: [6, 2], NY: [8, 2], MA: [9, 2],
-    OR: [0, 3], NV: [1, 3], WY: [2, 3], SD: [3, 3], IA: [4, 3], IN: [5, 3], OH: [6, 3], PA: [7, 3], NJ: [8, 3], CT: [9, 3], RI: [10, 3],
-    CA: [0, 4], UT: [1, 4], CO: [2, 4], NE: [3, 4], MO: [4, 4], KY: [5, 4], WV: [6, 4], VA: [7, 4], MD: [8, 4], DE: [9, 4],
-    AZ: [1, 5], NM: [2, 5], KS: [3, 5], AR: [4, 5], TN: [5, 5], NC: [6, 5], SC: [7, 5], DC: [8, 5],
-    OK: [3, 6], LA: [4, 6], MS: [5, 6], AL: [6, 6], GA: [7, 6],
-    HI: [0, 7], TX: [3, 7], FL: [8, 7], PR: [10, 7]
-  };
+  var POSTAL = window.USMap.POSTAL;
+  // map models: link key -> hub model ID
+  var MAPM = { oracle: "NAU_PyBNF-OracleSIHRS", groundhog: "NAU_PyBNF-GroundHogCGR",
+    ensemble: "FluSight-ensemble", baseline: "FluSight-baseline" };
+  var MAPM_SHORT = { oracle: "Oracle SIHRS", groundhog: "Groundhog", ensemble: "Ensemble", baseline: "Baseline" };
 
-  var D, state = {}, rounds = [];
+  var D, GEO, map, state = {}, rounds = [];
   var $ = function (id) { return document.getElementById(id); };
 
   // ---------- helpers ----------
@@ -83,7 +71,8 @@
   function readHash() {
     var p = new URLSearchParams(location.hash.slice(1));
     return { loc: p.get("loc"), round: p.get("round"), models: p.get("models"),
-      view: p.get("view"), scale: p.get("scale"), bands: p.get("bands") };
+      view: p.get("view"), scale: p.get("scale"), bands: p.get("bands"),
+      map: p.get("map"), week: p.get("week") };
   }
   function linkParams() {
     var p = new URLSearchParams();
@@ -94,6 +83,8 @@
     if (on.join() !== def.join()) p.set("models", on.join(",") || "none");
     if (state.log) p.set("scale", "log");
     if (!(state.i50 && state.i95)) p.set("bands", [state.i50 ? "50" : "", state.i95 ? "95" : ""].filter(Boolean).join(",") || "none");
+    if (state.mapM !== "oracle") p.set("map", state.mapM);
+    if (state.mapH) p.set("week", String(state.mapH));
     return p.toString();
   }
   function writeHash() {
@@ -111,6 +102,8 @@
     state.log = h.scale === "log";
     var b = h.bands == null ? ["50", "95"] : h.bands.split(",");
     state.i50 = b.indexOf("50") >= 0; state.i95 = b.indexOf("95") >= 0;
+    state.mapM = MAPM[h.map] && D.models[MAPM[h.map]] ? h.map : "oracle";
+    state.mapH = /^[0-3]$/.test(h.week || "") ? +h.week : 0;
   }
 
   // ---------- data for the current selection ----------
@@ -369,27 +362,66 @@
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
-  // ---------- tile map ----------
+  // ---------- rate-change map ----------
+  // The map shows the chart's round (the latest one in the all-rounds view).
+  function mapRound() { return state.view === "all" ? rounds[0] : state.round; }
+  function pickLoc(f) {
+    state.loc = f; sync(); update();
+    // one column (map under the chart): bring the chart back into view
+    var c = $("fc-chart");
+    if (!matchMedia("(min-width: 1100px)").matches && c.getBoundingClientRect().top < 0)
+      c.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
   function buildMap() {
-    var grid = $("fc-map");
-    if (!grid) return;
-    D.locations.forEach(function (l) {
-      var p = POSTAL[l.id], pos = TILES[p];
-      if (!pos) return;
+    var host = $("fc-map");
+    if (!host || !GEO) return;
+    map = window.USMap(host, GEO, { onPick: pickLoc, pressed: true, label: "States, coloured by forecast rate change" });
+    window.USMap.legend($("fc-map-legend"));
+    var ms = $("fc-map-models");
+    Object.keys(MAPM).forEach(function (k) {
+      if (!D.models[MAPM[k]]) return;
       var b = document.createElement("button");
-      b.type = "button"; b.className = "tile"; b.textContent = p;
-      b.dataset.loc = l.id;
-      b.style.gridColumn = pos[0] + 1; b.style.gridRow = pos[1] + 1;
-      b.setAttribute("aria-label", l.name); b.title = l.name;
-      grid.appendChild(b);
+      b.type = "button"; b.dataset.v = k; b.textContent = MAPM_SHORT[k];
+      ms.appendChild(b);
     });
-    grid.addEventListener("click", function (e) {
-      var b = e.target.closest("button[data-loc]");
-      if (!b) return;
-      state.loc = b.dataset.loc; sync(); update();
+    ms.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]"); if (!b) return;
+      state.mapM = b.dataset.v; sync(); writeHash();
     });
-    var us = $("fc-map-us");
-    if (us) us.addEventListener("click", function () { state.loc = "US"; sync(); update(); });
+    var ws = $("fc-map-weeks");
+    [0, 1, 2, 3].forEach(function (hz) {
+      var b = document.createElement("button");
+      b.type = "button"; b.dataset.v = String(hz); ws.appendChild(b);
+    });
+    ws.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]"); if (!b) return;
+      state.mapH = +b.dataset.v; sync(); writeHash();
+    });
+    document.querySelectorAll(".map-extra .loc-chip").forEach(function (b) {
+      if (!D.observed[b.dataset.loc]) { b.hidden = true; return; }
+      b.addEventListener("click", function () { pickLoc(b.dataset.loc); });
+    });
+  }
+  function paintMap() {
+    if (!map) return;
+    var r = mapRound(), id = MAPM[state.mapM];
+    var c = window.USMap.cards(D, id, r, state.mapH);
+    map.paint(c, state.loc);
+    $("fc-map-model").textContent = MAPM_SHORT[state.mapM] === "Ensemble" ? "FluSight ensemble"
+      : MAPM_SHORT[state.mapM] === "Baseline" ? "FluSight baseline" : MAPM_SHORT[state.mapM];
+    $("fc-map-when").textContent = "Round of " + long(t(r)) + " · change from the week ending " +
+      short(t(r) - WEEK) + " to the week ending " + short(t(r) + state.mapH * WEEK);
+    $("fc-map-weeks").querySelectorAll("button").forEach(function (b) {
+      b.textContent = short(t(r) + (+b.dataset.v) * WEEK);
+      b.setAttribute("aria-label", "Week ending " + long(t(r) + (+b.dataset.v) * WEEK));
+    });
+    document.querySelectorAll(".map-extra .loc-chip").forEach(function (b) {
+      var d = c[b.dataset.loc] || { cat: -1 };
+      b.querySelector(".sw").className = "sw " + (d.cat < 0 ? "nd" : "c" + d.cat);
+      b.querySelector(".sw").style.opacity = d.cat < 0 ? 1 : (0.55 + 0.45 * d.p).toFixed(2);
+      b.setAttribute("aria-pressed", String(b.dataset.loc === state.loc));
+      b.title = d.cat < 0 ? "no forecast" : window.USMap.CATS[d.cat] + " " + Math.round(d.p * 100) + "%";
+    });
   }
 
   // ---------- controls ----------
@@ -404,10 +436,8 @@
     $("fc-i50").checked = state.i50; $("fc-i95").checked = state.i95;
     $("fc-models").querySelectorAll("input[data-m]").forEach(function (i) { i.checked = !!state.on[i.dataset.m]; });
     seg("fc-view", state.view); seg("fc-scale", state.log ? "log" : "linear");
-    document.querySelectorAll("#fc-map .tile").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.dataset.loc === state.loc));
-    });
-    var us = $("fc-map-us"); if (us) us.setAttribute("aria-pressed", String(state.loc === "US"));
+    seg("fc-map-models", state.mapM); seg("fc-map-weeks", String(state.mapH));
+    paintMap();
   }
   function setup() {
     var locSel = $("fc-loc"), roundSel = $("fc-round"), box = $("fc-models");
@@ -453,19 +483,18 @@
     // a pasted link, or the browser's back/forward buttons
     addEventListener("hashchange", function () { applyHash(); sync(); render(); });
 
-    // map open only where it sits beside the controls; elsewhere it would push the chart down
-    var md = $("fc-map-box");
-    if (md && matchMedia("(min-width: 1100px)").matches) md.open = true;
 
     var last = 0;
     new ResizeObserver(function () { var w = $("fc-chart").clientWidth; if (Math.abs(w - last) > 4) { last = w; render(); } }).observe($("fc-chart"));
   }
-  function update() { writeHash(); render(); }
+  function update() { writeHash(); paintMap(); render(); }
 
   document.addEventListener("DOMContentLoaded", function () {
+    var geo = fetch("data/us-states.json").then(function (r) { return r.ok ? r.json() : null; }, function () { return null; });
     fetch("data/forecasts.json", { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (data) { D = data; setup(); render(); })
+      .then(function (data) { D = data; return geo; })
+      .then(function (g) { GEO = g; setup(); render(); })
       .catch(function (e) {
         $("fc-chart").innerHTML = '<p class="empty">Could not load forecast data (' + e.message + ").</p>";
       });

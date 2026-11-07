@@ -49,6 +49,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/usmap.js" defer></script>
   <script src="assets/js/home.js" defer></script>
 </head>
 <body>
@@ -83,25 +84,6 @@
         <li><a class="todo-link" href="#"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#scholar"/></svg>Google Scholar</a></li>
       </ul>
     </div>
-  </section>
-
-  <section class="featured" aria-label="Current work">
-    <div class="card spark" id="home-spark">
-      <div class="spark-head">
-        <h3>US flu hospital admissions</h3>
-        <a class="go" href="forecasts.html">Explore by state →</a>
-      </div>
-      <p class="meta spark-meta">Observed (NHSN) and FluBNF forecasts</p>
-      <div class="spark-plot"></div>
-    </div>
-    <a class="card" href="research.html#flubnf"><span class="badge live">Live</span>
-      <h3>FluBNF</h3><p class="meta">Influenza hospitalization forecasts for CDC FluSight</p></a>
-    <a class="card" href="research.html#pybnf"><span class="badge">Ongoing</span>
-      <h3>PyBioNetFit</h3><p class="meta">Calibrating rule-based models</p></a>
-    <a class="card" href="research.html#bngsim"><span class="badge">Manuscript in prep</span>
-      <h3>BNGsim benchmarking</h3><p class="meta">With the Hlavacek group, Los Alamos National Laboratory</p></a>
-    <a class="card" href="research.html#llm-agents"><span class="badge">Manuscript in prep</span>
-      <h3>Large language model agents</h3><p class="meta">Evaluating how well large language model agents rebuild published rule-based signaling models in BioNetGen</p></a>
   </section>
 
   <div class="home-grid">
@@ -140,6 +122,50 @@
     <p class="todo">personal interests, hobbies, anything you want visitors to know</p>
   </section>
   </div>
+
+  <!-- folded sections: open by default; the reader can close either -->
+  <details class="fold" id="home-forecasts" open>
+    <summary><h2>Forecasts</h2><svg class="chev" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg></summary>
+    <div class="home-fc">
+      <div class="card spark" id="home-spark">
+        <div class="spark-head">
+          <h3>US flu hospital admissions</h3>
+          <a class="go" href="forecasts.html">Explore by state →</a>
+        </div>
+        <p class="meta spark-meta">Observed (NHSN) and FluBNF forecasts</p>
+        <div class="spark-plot"></div>
+      </div>
+      <div class="card map-card" id="home-map-card">
+        <div class="map-head">
+          <p class="map-title"><span id="home-map-model">Oracle SIHRS</span> categorical forecast</p>
+          <a class="go" href="forecasts.html">Open the map →</a>
+        </div>
+        <p class="meta" id="home-map-when"></p>
+        <div class="map-controls">
+          <div class="seg" id="home-map-models" role="group" aria-label="Map model">
+            <button type="button" data-v="oracle" aria-pressed="true">Oracle SIHRS</button>
+            <button type="button" data-v="groundhog" aria-pressed="false">Groundhog</button>
+          </div>
+        </div>
+        <div id="home-map"></div>
+        <p class="map-legend" id="home-map-legend"></p>
+      </div>
+    </div>
+  </details>
+
+  <details class="fold" id="home-research" open>
+    <summary><h2>Research</h2><svg class="chev" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg></summary>
+    <div class="featured">
+      <a class="card" href="research.html#flubnf"><span class="badge live">Live</span>
+        <h3>FluBNF</h3><p class="meta">Influenza hospitalization forecasts for CDC FluSight</p></a>
+      <a class="card" href="research.html#pybnf"><span class="badge">Ongoing</span>
+        <h3>PyBioNetFit</h3><p class="meta">Calibrating rule-based models</p></a>
+      <a class="card" href="research.html#bngsim"><span class="badge">Manuscript in prep</span>
+        <h3>BNGsim benchmarking</h3><p class="meta">With the Hlavacek group, Los Alamos National Laboratory</p></a>
+      <a class="card" href="research.html#llm-agents"><span class="badge">Manuscript in prep</span>
+        <h3>Large language model agents</h3><p class="meta">Evaluating how well large language model agents rebuild published rule-based signaling models in BioNetGen</p></a>
+    </div>
+  </details>
 </main>
 
 <footer class="site-footer">
