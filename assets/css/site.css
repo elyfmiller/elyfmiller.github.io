@@ -184,6 +184,15 @@ p.todo, li.todo, div.todo { display: block; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 500; }
 .btn.primary:hover { color: var(--bg); filter: brightness(1.08); }
 .ic { width: 16px; height: 16px; flex: none; color: var(--muted); }
+.links li.has-copy { display: inline-flex; gap: 4px; }
+.copy-btn {
+  display: inline-grid; place-items: center; align-self: stretch; aspect-ratio: 1; min-width: 32px; padding: 0; cursor: pointer;
+  border: 1px solid var(--rule-2); border-radius: 50%; background: var(--card); color: var(--ink);
+}
+.copy-btn:hover { border-color: var(--accent); }
+.copy-btn:hover .ic { color: var(--accent); }
+.copy-btn .ic { width: 14px; height: 14px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 a:hover .ic, .btn.primary .ic { color: currentColor; }
 .links .todo-link { color: var(--todo); font-style: italic; border-style: dashed; }
 
@@ -223,6 +232,7 @@ section[id] { scroll-margin-top: 80px; }
 .site-footer { border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
 .site-footer .inner { max-width: var(--page); margin: 0 auto; padding: 24px var(--gutter); display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: space-between; }
 .site-footer a { color: var(--muted); }
+.site-footer .updated { margin-right: auto; }
 
 /* ---------- forecast page ---------- */
 .controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; margin: 24px 0 12px; }
@@ -308,7 +318,14 @@ table.data th { font-weight: 600; color: var(--ink-2); font-size: 13px; }
   display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500;
   padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule-2); color: var(--ink); text-decoration: none;
 }
-.pill-links a:hover { border-color: var(--accent); color: var(--accent); }
+.pill-links a, .pill-links button { font-family: inherit; background: var(--card); cursor: pointer; }
+.pill-links button {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500;
+  padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule-2); color: var(--ink-2);
+}
+.pill-links a:hover, .pill-links button:hover { border-color: var(--accent); color: var(--accent); }
+.pill-links button.copied, .copy-btn.copied { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.pill-links button.copied .ic, .copy-btn.copied .ic { color: var(--accent); }
 .pill-links .ic { width: 13px; height: 13px; }
 details.more { margin-top: 6px; }
 details.more > summary {
@@ -470,4 +487,41 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
   .cv-body .cv-row .when { text-align: left; padding: 0 0 4px 22px; border-left: 2px solid var(--rule); margin: 0; }
   .cv-body .cv-row:last-of-type .when { border-left-color: var(--rule); }
   .hero .photo { box-shadow: 0 0 0 5px var(--accent-soft); }
+}
+
+/* ---------- print (mainly the CV page) ---------- */
+/* Paper is always light: black ink, the pine accent for dots and dates.
+   site.js opens the folded "N more" lists before printing. */
+@media print {
+  :root, :root:not([data-theme="light"]), :root[data-theme="dark"] {
+    color-scheme: light;
+    --bg: #fff; --surface: #fff; --card: #fff;
+    --ink: #000; --ink-2: #222; --muted: #555;
+    --rule: #d0d0d0; --rule-2: #bbb;
+    --accent: #2f6b4f; --accent-soft: #e4ede5; --accent-ink: #24563f; --todo: #777;
+    --shadow: none;
+  }
+  @page { margin: 16mm 15mm; }
+  body { background: #fff; font-size: 10pt; line-height: 1.4; }
+  .skip, .site-header .nav, .theme-toggle, .cv-rail, .cv-top, .copy-btn, .pill-links button,
+  .seg, .pub-tools, details.more > summary, .site-footer a { display: none !important; }
+  .site-header { position: static; border: 0; background: none; }
+  .site-header .inner, main, .site-footer .inner { padding-left: 0; padding-right: 0; max-width: none; }
+  main { padding-top: 8pt; padding-bottom: 0; }
+  .cv-layout, .pub-layout { display: block; }
+  h1 { font-size: 22pt; }
+  h2 { margin-top: 18pt; break-after: avoid; }
+  h3 { break-after: avoid; }
+  main h2::before { display: none; }
+  main > p, main section > p, .lede, .cv-text, .cv-body .cv-row h3, .cv-body .cv-row .meta,
+  .cv-body .cv-row ul, .pub-list > li > div { max-width: none; }
+  .cv-body .cv-row { grid-template-columns: 6.5rem 1fr; gap: 0 18px; }
+  .cv-row ul { font-size: 9.5pt; }
+  .cv-row li { margin-bottom: 3pt; }
+  .cv-row h3, .cv-row .meta { break-after: avoid; }
+  .cv-row li, .award, .skill-groups > *, .pub-list > li, .card { break-inside: avoid; box-shadow: none; }
+  .cv-body .cv-row > div:last-child { padding-bottom: 14pt; }
+  a { color: inherit; text-decoration: none; }
+  .site-footer { border-top: 1px solid var(--rule); }
+  .todo, p.todo { display: none; }
 }

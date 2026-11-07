@@ -1,0 +1,38 @@
+# Checks every link on the site once a week. If any link is broken the run
+# fails, GitHub emails the repo owner, and the run's summary page lists the
+# broken links. Turn it off from the Actions tab with "Disable workflow".
+name: Check links
+
+on:
+  schedule:
+    - cron: "0 15 * * 1"   # Mondays 15:00 UTC (8 am in Arizona)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # 403: several publishers (PNAS, MDPI, Oxford, medRxiv) refuse automated
+      #      requests that doi.org forwards to them, though the links work.
+      # 429: rate limited, not broken.
+      # LinkedIn and Google Scholar block automated checks outright; the font
+      # hosts serve the typeface, not pages anyone visits.
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          fail: true
+          args: >-
+            --no-progress
+            --max-retries 3
+            --timeout 30
+            --accept 200..=299,403,429
+            --exclude linkedin\.com
+            --exclude scholar\.google\.com
+            --exclude fonts\.googleapis\.com
+            --exclude fonts\.gstatic\.com
+            --root-dir ${{ github.workspace }}
+            './*.html'
