@@ -143,9 +143,12 @@ a:hover { text-decoration-thickness: 2px; }
   display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
 }
 .brand { font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 10px; }
+/* the San Francisco Peaks mark (scripts/build_icons.py), cut out of an
+   accent tile so it follows the theme */
 .brand::before {
-  content: "EM"; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px;
-  background: var(--accent); color: var(--bg); font-size: 12px; font-weight: 700; letter-spacing: -0.02em;
+  content: ""; flex: none; width: 28px; height: 28px; background: var(--accent);
+  -webkit-mask: url("../img/mark.svg") center / contain no-repeat;
+  mask: url("../img/mark.svg") center / contain no-repeat;
 }
 .nav { display: flex; gap: 4px 18px; flex-wrap: wrap; margin-left: auto; align-items: center; }
 .nav a { color: var(--ink-2); text-decoration: none; font-size: 15px; padding: 2px 0; }
