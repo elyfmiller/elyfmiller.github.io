@@ -222,7 +222,9 @@ p.todo, li.todo, div.todo { display: block; }
 .photo-slot {
   display: grid; place-items: center; color: var(--todo); font-size: 13px; font-style: italic; text-align: center; padding: 16px;
 }
-.pronouns { color: var(--muted); font-weight: 400; font-size: 0.55em; letter-spacing: 0; margin-left: 6px; white-space: nowrap; }
+.name-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; margin: 0 0 8px; }
+.name-line h1 { margin: 0; }
+.pronouns { color: var(--muted); font-weight: 400; font-size: clamp(1.2rem, 3vw, 1.65rem); letter-spacing: -0.01em; white-space: nowrap; }
 .affil { margin: 4px 0 16px; color: var(--ink-2); }
 /* home: the NIH T32 traineeship, a tinted pill between the affiliation and the links */
 .honor { margin: -4px 0 18px; }
@@ -478,10 +480,11 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
 
 /* ---------- home: current work strip ---------- */
 .featured { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-/* home: the bio and "Outside the lab" in a wide column, with research
-   interests and "Now" as a sidebar that stays in view beside them. On narrow
-   screens the two wrappers dissolve and the four sections stack in reading
-   order: about, interests, now, outside. */
+/* home: the bio in a wide column, with research interests, "Now" and
+   "Outside the lab" as a sidebar of cards beside it; the two columns end
+   level (the last card stretches, or the bio's column does). On narrow
+   screens the wrappers dissolve and the sections stack in reading order:
+   about, interests, now, outside. */
 .home-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 clamp(32px, 5vw, 72px); margin-top: 64px; }
 .home-grid section { margin-top: 0; padding-bottom: 40px; }
 .home-grid section h2 { margin-top: 0; }
@@ -493,10 +496,16 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
 .side-card p { font-size: 16px; }
 @media (max-width: 959px) { .side-card { margin-bottom: 40px; } .home-grid section.side-card { padding-bottom: 24px; } }
 @media (min-width: 960px) {
-  .home-grid { grid-template-columns: minmax(0, 1.7fr) minmax(20rem, 1fr); align-items: start; }
-  .home-main, .home-side { display: block; }
-  .home-side { position: sticky; top: 88px; }
+  .home-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; margin-bottom: 48px; }
+  .home-main { display: block; }
+  .home-side { display: flex; flex-direction: column; }
   .home-side section { padding-bottom: 24px; }
+  .home-side .side-card:last-child { flex: 1; }
+  .home-main .h-about { padding-bottom: 0; }
+  .home-side .side-card { padding: 18px 22px 20px; }
+  .home-side .side-card + .side-card { margin-top: 14px; }
+  .home-side .side-card p { font-size: 15px; }
+  .home-side .side-card h2::before { margin-bottom: 10px; }
 }
 .featured .card { display: block; text-decoration: none; color: var(--ink); transition: border-color .15s, transform .15s; }
 .featured a.card:hover { border-color: var(--accent); transform: translateY(-1px); }

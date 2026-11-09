@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ely F. Miller</title>
+  <title>Ely F. Miller · PhD student, Northern Arizona University</title>
   <meta name="description" content="I am a PhD student studying infectious disease forecasting and cancer metabolism through mechanistic modeling at Northern Arizona University.">
   <link rel="canonical" href="https://elymiller.com/">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="images/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/icon-192.png" type="image/png" sizes="192x192">
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
@@ -28,9 +29,16 @@
     "@type": "Person",
     "@id": "https://elymiller.com/#ely",
     "name": "Ely F. Miller",
-    "alternateName": ["Ely Miller", "Ely Finn Miller"],
+    "alternateName": [
+      "Ely Miller",
+      "Ely Finn Miller"
+    ],
+    "givenName": "Ely",
+    "additionalName": "Finn",
+    "familyName": "Miller",
     "url": "https://elymiller.com/",
     "image": "https://elymiller.com/images/ely.jpg",
+    "description": "PhD student studying infectious disease forecasting and cancer metabolism through mechanistic modeling at Northern Arizona University.",
     "jobTitle": "PhD student, Biological Sciences",
     "award": "NIH T32 G-RISE Predoctoral Trainee (2026)",
     "affiliation": {
@@ -38,12 +46,51 @@
       "name": "Northern Arizona University",
       "url": "https://nau.edu"
     },
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Northern Arizona University",
+        "url": "https://nau.edu"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Santa Fe Community College"
+      }
+    ],
+    "knowsAbout": [
+      "Infectious disease forecasting",
+      "Influenza forecasting",
+      "Mechanistic modeling",
+      "Systems biology",
+      "Cancer modeling",
+      "Model parameterization and optimization",
+      "Rule-based modeling",
+      "BioNetGen",
+      "PyBioNetFit"
+    ],
     "email": "mailto:efm46@nau.edu",
     "sameAs": [
       "https://orcid.org/0000-0003-3480-8377",
       "https://github.com/elyfmiller",
-      "https://linkedin.com/in/elymiller"
+      "https://linkedin.com/in/elymiller",
+      "https://scholar.google.com/citations?user=mEPuj_oAAAAJ"
     ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://elymiller.com/#site",
+    "name": "Ely F. Miller",
+    "alternateName": [
+      "Ely Miller",
+      "elymiller.com"
+    ],
+    "url": "https://elymiller.com/",
+    "about": {
+      "@id": "https://elymiller.com/#ely"
+    }
   }
   </script>
   <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
@@ -75,7 +122,7 @@
   <section class="hero">
     <picture><source type="image/webp" srcset="images/ely-368.webp"><img class="photo" src="images/ely-368.jpg" alt="Ely F. Miller" width="184" height="184" fetchpriority="high"></picture>
     <div>
-      <h1>Ely F. Miller <span class="pronouns">he/him</span></h1>
+      <div class="name-line"><h1>Ely F. Miller</h1><span class="pronouns">he/him</span></div>
       <p class="affil">PhD student, Biological Sciences<br>Northern Arizona University</p>
       <!-- Award: CV (Honors and awards, 2026); link: the Arizona Daily Sun story on the grant -->
       <p class="honor"><a href="https://azdailysun.com/news/local/northern-arizona-university-receives-nih-grant-to-support-ph-d-students-in-health-fields/article_e944cf55-12d0-4fd2-a37a-ffa39444e0c6.html"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#award"/></svg><span><strong>NIH T32 G-RISE Predoctoral Trainee</strong> · 2026</span></a></p>
@@ -98,12 +145,6 @@
       <p>I am currently working on my PhD dissertation under Dr. Richard Posner, and I also collaborate with Dr. Spencer Fox (NAU; infectious disease forecasting), Dr. Ye Chen (NAU; mathematics and model parameterization algorithms), Dr. Matthew Salanga (NAU; arsenic and uranium toxicity, mitochondrial fusion and fission in disease), and Dr. Paul Keim (NAU Regents’ Professor, Pathogen and Microbiome Institute; historical classification and mutational lineage of <i>Clostridium botulinum</i>).</p>
       <p>Currently, I am developing FluBioNetFit (FluBNF), a wrapper for PyBioNetFit (PyBNF), model-fitting software for biological models written in the BioNetGen Language (BNGL), to make it easier to build and fit epidemiological models for real-time epidemic and pandemic forecasting. Most of my work aims to improve the speed and accuracy of mechanistic forecasting, so that one day we have fast and accurate methods that enable better predictions of epidemics and, hopefully, patient-specific treatment for various diseases.</p>
     </section>
-
-    <section class="h-outside" id="outside">
-      <h2>Outside the lab</h2>
-      <p>On a typical Saturday in Flagstaff, you can find me visiting local art and farmers markets with my girlfriend, or out on a hike with our two dogs.</p>
-      <p>In my free time away from academics and work, I read fantasy books (currently <i>The Blood of Old Kings</i> series by Sung-il Kim), play video games (e.g., Fallout, Warhammer, and Warhammer 40K), spend time with my family, or have a pint at my local breweries.</p>
-    </section>
     </div>
     <aside class="home-side" aria-label="At a glance">
     <section class="h-interests side-card" id="interests">
@@ -125,6 +166,12 @@
         <li><a href="forecasts.html">Live flu forecasts →</a></li>
         <li><a href="research.html">Research →</a></li>
       </ul>
+    </section>
+
+    <section class="h-outside side-card" id="outside">
+      <h2>Outside the lab</h2>
+      <p>On a typical Saturday in Flagstaff, you can find me visiting local art and farmers markets with my girlfriend, or out on a hike with our two dogs.</p>
+      <p>In my free time away from academics and work, I read fantasy books (currently <i>The Blood of Old Kings</i> series by Sung-il Kim), play video games (e.g., Fallout, Warhammer, and Warhammer 40K), spend time with my family, or have a pint at my local breweries.</p>
     </section>
     </aside>
   </div>
