@@ -48,9 +48,9 @@
 <main id="main" class="wide">
   <p class="eyebrow">Forecasts · CDC FluSight 2026–27</p>
   <h1>Weekly influenza hospital admissions</h1>
-  <!-- TODO(Ely): page intro, 2–3 sentences: what FluSight is, what these two
-       models are, and that they are submitted every week -->
-  <p class="lede todo">page intro: what FluSight is and what you submit each week</p>
+  <p class="lede">The CDC’s FluSight competition collects the best influenza forecasts possible from contributing teams across the United States, so they can be used for hospital preparedness (e.g., staffing, supplies, bed capacity) and for producing and distributing vaccines (e.g., timing pharmacy advertisements for the flu shot).</p>
+  <p class="lede">My team (NAU_PyBNF) submits a four-week forecast every week: the current week plus three weeks ahead.</p>
+  <p class="lede">These forecasts offer real-time insight into the current state of influenza transmission across the nation and in individual U.S. states and territories, so that larger institutions (e.g., the CDC, hospitals) and individuals can make informed decisions about travel, vaccination, supplies, staffing, and more.</p>
 
   <div class="fc-top">
     <div class="fc-main">
@@ -93,8 +93,7 @@
       <button type="button" class="btn" id="fc-csv"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#download"/></svg>Download CSV</button>
     </div>
     <p class="chart-note" id="fc-note"></p>
-    <!-- TODO(Ely): optional caption under the chart (how to read it) -->
-    <p class="chart-note todo">optional caption: how to read the chart</p>
+    <p class="chart-note">Forecasts like the ones submitted to FluSight are probabilistic. Instead of predicting a single value for influenza hospitalizations over the next few weeks, we submit a range of values based on the noise in the data and the error in our models (a prediction interval). The first thing to look at is the median forecast, the solid line: what we believe is most likely over the next few weeks. The shaded bands around it are our prediction intervals: admissions could go that high or that low, depending on how transmission plays out over the next few weeks.</p>
     </div>
 
     <details class="fc-map-box" id="fc-map-box" open>
@@ -132,15 +131,15 @@
       <article class="card" style="--c:var(--s-oracle)">
         <h3><span class="sw"></span>Oracle SIHRS</h3>
         <p class="meta"><code>NAU_PyBNF-OracleSIHRS</code> · mechanistic</p>
-        <!-- TODO(Ely): 2–3 sentence description (SIHRS + Liu–West filter + Oracle step) -->
-        <p class="todo">model description</p>
+        <p>The SIHRS model my team submits every week assumes that flu is transmitted directly from person to person, that individual immunity to flu strains (e.g., H3N2, H1N1) wanes over time, and that some people can be reinfected in future epidemics.</p>
+        <p>The model is fitted with a Liu–West particle filter: an algorithm that parameterizes the model from real-time data, carrying about 10,000 possible epidemic scenarios and weighting each one by how closely it matches the observed data.</p>
         <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-OracleSIHRS.yml">Model card on the hub</a>
       </article>
       <article class="card" style="--c:var(--s-groundhog)">
         <h3><span class="sw"></span>Groundhog</h3>
         <p class="meta"><code>NAU_PyBNF-GroundHogCGR</code> · empirical</p>
-        <!-- TODO(Ely): 2–3 sentence description (calendar-conditional growth ratios) -->
-        <p class="todo">model description</p>
+        <p>The Groundhog Calendar Growth Ratio model (GroundHogCGR) is a purely empirical model that we compare our mechanistic models against: it uses only historical data, and the patterns within that data, to predict the future.</p>
+        <p>Specifically, it takes donor growth (the growth of influenza hospitalizations) from past seasons within a five-week window of the current date, and assumes that the new growth of an epidemic can be explained by similar calendar-pinned growth in past seasons.</p>
         <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-GroundHogCGR.yml">Model card on the hub</a>
       </article>
     </div>
@@ -148,20 +147,18 @@
 
   <section>
     <h2>Diseases</h2>
-    <!-- Status per the flubnf repo: influenza is the live target; the COVID-19
-         port was tested and archived (docs/MODEL-PROVENANCE.md §5); RSV is a
-         planned direction. TODO(Ely): how each is described is your call. -->
+    <!-- Status and wording from Ely (2026-11-09). -->
     <div class="disease">
       <div><h3 style="margin:0">Influenza</h3><span class="status live">Live</span></div>
-      <p class="todo">how you describe the influenza work</p>
+      <p>Submitting weekly forecasts since October 7, 2026, and beating the FluSight baseline (relative scores below 1.0).</p>
     </div>
     <div class="disease">
-      <div><h3 style="margin:0">COVID-19</h3><span class="status">Tested, archived</span></div>
-      <p class="todo">how you describe the COVID-19 port</p>
+      <div><h3 style="margin:0">COVID-19</h3><span class="status">In testing</span></div>
+      <p>Currently in testing.</p>
     </div>
     <div class="disease">
-      <div><h3 style="margin:0">RSV</h3><span class="status">Planned</span></div>
-      <p class="todo">how you describe the RSV plans</p>
+      <div><h3 style="margin:0">RSV</h3><span class="status">In testing</span></div>
+      <p>Currently in testing.</p>
     </div>
   </section>
 </main>
