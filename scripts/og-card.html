@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- Source of images/og-card.jpg, the link-preview card (1200 x 630).
+     Rendered by scripts/build_og_card.py; not a page of the site. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>og card</title>
+<style>
+  @font-face { font-family: "Inter"; font-weight: 400 700; font-display: block;
+    src: url("../assets/fonts/inter-latin.woff2") format("woff2"); }
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden; position: relative;
+    background: #faf8f3; color: #1b1d1a;
+    font-family: "Inter", system-ui, sans-serif; font-feature-settings: "cv11", "ss01";
+  }
+  .topo {
+    position: absolute; inset: 0; background: rgb(47 107 79 / 0.30);
+    -webkit-mask: url("../assets/img/topo.svg") center / cover no-repeat;
+    mask: url("../assets/img/topo.svg") center / cover no-repeat;
+  }
+  /* clear the lines behind the photo and the text, like a map label */
+  .clear {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 560px 300px at 640px 330px, #faf8f3 55%, rgb(250 248 243 / 0) 100%);
+  }
+  .bar { position: absolute; left: 0; right: 0; top: 0; height: 12px; background: #2f6b4f; }
+  .wrap { position: absolute; inset: 0; display: flex; align-items: center; gap: 64px; padding: 0 96px; }
+  .photo {
+    width: 300px; height: 300px; border-radius: 50%; object-fit: cover; flex: none;
+    box-shadow: 0 0 0 10px #e4ede5;
+  }
+  .mark {
+    width: 56px; height: 56px; background: #2f6b4f; margin-bottom: 26px;
+    -webkit-mask: url("../assets/img/mark.svg") center / contain no-repeat;
+    mask: url("../assets/img/mark.svg") center / contain no-repeat;
+  }
+  h1 { font-size: 76px; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 18px; line-height: 1; }
+  p { margin: 0; font-size: 33px; line-height: 1.4; color: #4d5249; }
+  .url { margin-top: 30px; color: #2f6b4f; font-weight: 500; font-size: 30px; }
+</style>
+</head>
+<body>
+  <div class="topo"></div>
+  <div class="clear"></div>
+  <div class="bar"></div>
+  <div class="wrap">
+    <img class="photo" src="../images/ely.jpg" alt="">
+    <div>
+      <div class="mark"></div>
+      <h1>Ely F. Miller</h1>
+      <p>PhD student, Biological Sciences<br>Northern Arizona University</p>
+      <p class="url">elymiller.com</p>
+    </div>
+  </div>
+</body>
+</html>

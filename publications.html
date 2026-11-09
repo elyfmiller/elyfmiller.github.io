@@ -10,6 +10,8 @@
   <link rel="icon" href="images/icon.svg" type="image/svg+xml">
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#2f6b4f">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ely F. Miller">
   <meta property="og:title" content="Publications · Ely F. Miller">
@@ -549,9 +551,7 @@
   </script>
   <!-- citations:end -->
   <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/site.js" defer></script>
 </head>
@@ -563,6 +563,8 @@
     <nav class="nav" aria-label="Main">
       <a href="./">Home</a>
       <a href="research.html">Research</a>
+      <a href="software.html">Software</a>
+      <a href="teaching.html">Teaching</a>
       <a href="publications.html" aria-current="page">Publications</a>
       <a href="forecasts.html">Forecasts</a>
       <a href="cv.html">CV</a>
@@ -630,6 +632,10 @@
 
   <section id="presentations">
     <h2>Presentations</h2>
+    <!-- TODO(Ely): any talks or posters missing below (title, venue, month, oral
+         or poster), and links to slides or poster PDFs you can share (put the
+         files in files/ and link them). Add the same entries to cv.html#presentations. -->
+    <p class="todo">optional: talks or posters missing from this list, and links to slides or poster PDFs</p>
     <ol class="pub-list">
       <li><span class="yr">2026</span>
         <div><span class="ttl">Where's the Flu? Rule Based Forecasting of Influenza Mediated Hospitalizations <span class="badge">Oral</span></span>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Software · Ely F. Miller</title>
+  <meta name="description" content="Software by Ely F. Miller, Northern Arizona University.">
+  <link rel="canonical" href="https://elymiller.com/software.html">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#2f6b4f">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ely F. Miller">
+  <meta property="og:title" content="Software · Ely F. Miller">
+  <meta property="og:description" content="Software by Ely F. Miller, Northern Arizona University.">
+  <meta property="og:url" content="https://elymiller.com/software.html">
+  <meta property="og:image" content="https://elymiller.com/images/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ely F. Miller, PhD student, Biological Sciences, Northern Arizona University">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="./">Ely F. Miller</a>
+    <nav class="nav" aria-label="Main">
+      <a href="./">Home</a>
+      <a href="research.html">Research</a>
+      <a href="software.html" aria-current="page">Software</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="publications.html">Publications</a>
+      <a href="forecasts.html">Forecasts</a>
+      <a href="cv.html">CV</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+  </div>
+</header>
+
+<main id="main" class="medium">
+  <p class="eyebrow">Software</p>
+  <h1>Code and tools</h1>
+  <!-- TODO(Ely): page intro, 1–2 sentences: why you build tools, or who they are for -->
+  <p class="lede todo">page intro: why you build these tools, and for whom</p>
+
+  <!-- "My part" text is Ely's CV bullets (cv.html, Research experience),
+       verbatim. Repositories, languages and licences checked on GitHub
+       2026-11-09. Each card's one-line summary is Ely's to write. -->
+  <section style="margin-top:48px">
+    <h2>Lead developer</h2>
+    <div class="project-list">
+    <article class="project" id="flubnf">
+      <div class="project-head">
+        <div><h3>FluBNF</h3>
+          <p class="meta">Python · MIT licence · 2026–present</p></div>
+        <span class="badge live">In use weekly</span>
+      </div>
+      <!-- TODO(Ely): one or two sentences on what FluBNF does -->
+      <p class="lead todo">what it does, in one or two sentences</p>
+      <div class="project-foot">
+        <p class="people"><strong>My part:</strong> Developed FluBNF (an open-source, PyBNF-based influenza forecasting tool) and now submit weekly forecasts of laboratory-confirmed influenza hospital admissions using two models to the CDC FluSight challenge for the 2026-27 season.</p>
+        <ul class="pill-links">
+          <li><a href="https://github.com/elyfmiller/flubnf"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>Code</a></li>
+          <li><a href="forecasts.html"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>Live forecasts</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="project" id="cmodel-flu">
+      <div class="project-head">
+        <div><h3>LosAlamos_NAU-CModel_Flu, 2025–26</h3>
+          <p class="meta">BNGL and PyBNF · Los Alamos National Laboratory and NAU</p></div>
+        <span class="badge">2025–26 season</span>
+      </div>
+      <!-- TODO(Ely): one or two sentences on this model, and your role in it -->
+      <p class="lead todo">what this model was, and your role</p>
+      <div class="project-foot">
+        <ul class="pill-links">
+          <li><a href="https://github.com/elyfmiller/LosAlamos_NAU-CModel_Flu-2025-2026"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>Models and submissions</a></li>
+        </ul>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contributor</h2>
+    <div class="project-grid">
+    <article class="project" id="pybnf">
+      <div class="project-head">
+        <div><h3>PyBioNetFit (PyBNF)</h3>
+          <p class="meta">Python · Los Alamos National Laboratory</p></div>
+      </div>
+      <!-- TODO(Ely): one or two sentences on what PyBNF does -->
+      <p class="lead todo">what it does, in one or two sentences</p>
+      <div class="project-foot">
+        <p class="people"><strong>My part:</strong> Implemented a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</p>
+        <ul class="pill-links">
+          <li><a href="https://github.com/lanl/PyBNF"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>lanl/PyBNF</a></li>
+          <li><a href="https://pybnf.readthedocs.io/"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>Docs</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="project" id="bngsim">
+      <div class="project-head">
+        <div><h3>BNGsim</h3>
+          <p class="meta">C++17 and Python · Los Alamos National Laboratory</p></div>
+        <span class="badge">Manuscript in prep</span>
+      </div>
+      <!-- TODO(Ely): one or two sentences on what BNGsim does -->
+      <p class="lead todo">what it does, in one or two sentences</p>
+      <div class="project-foot">
+        <p class="people"><strong>My part:</strong> Designed and implemented a multi-engine benchmark suite for BNGsim (an open-sourced C++17 simulation engine for BioNetGen rule-based models) to evaluate and compare the performance of other simulators, including libRoadRunner, AMICI, COPASI, and SciPy.</p>
+        <ul class="pill-links">
+          <li><a href="https://github.com/lanl/bngsim"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>lanl/bngsim</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="project" id="microhub">
+      <div class="project-head">
+        <div><h3>MicroHub</h3>
+          <p class="meta">R and Shiny · Dr. Spencer Fox's group, NAU</p></div>
+      </div>
+      <!-- TODO(Ely): one or two sentences on what MicroHub does -->
+      <p class="lead todo">what it does, in one or two sentences</p>
+      <div class="project-foot">
+        <p class="people"><strong>My part:</strong> Enhanced the MicroHub application through improvements to the user interface, increased functionality, and expanded capabilities, including automatically generated reports, producing time-series plots, supporting multiple languages, etc.</p>
+        <ul class="pill-links">
+          <li><a href="https://github.com/sjfox/microhub"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>sjfox/microhub</a></li>
+          <li><a href="teaching.html#chile"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>Trainings</a></li>
+        </ul>
+      </div>
+    </article>
+    <article class="project" id="this-site">
+      <div class="project-head">
+        <div><h3>This website</h3>
+          <p class="meta">HTML, CSS and JavaScript · no build step</p></div>
+      </div>
+      <!-- TODO(Ely): optional sentence about the site, or delete this line -->
+      <p class="lead todo">optional: a sentence about the site</p>
+      <div class="project-foot">
+        <ul class="pill-links">
+          <li><a href="https://github.com/elyfmiller/elyfmiller.github.io"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>Source</a></li>
+        </ul>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section>
+    <ul class="links">
+      <li><a href="https://github.com/elyfmiller">All repositories on GitHub →</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <span>© <span id="year">2026</span> Ely F. Miller</span>
+    <a href="https://github.com/elyfmiller/elyfmiller.github.io">Site source</a>
+  </div>
+</footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0192b30b4e644f01b9b6b299fce53ac3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

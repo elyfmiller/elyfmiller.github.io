@@ -11,10 +11,10 @@ Plain HTML, CSS and JS; no build step. Preview locally:
 
 | Path | What |
 | --- | --- |
-| `index.html`, `research.html`, `publications.html`, `cv.html`, `forecasts.html` | the pages |
+| `index.html`, `research.html`, `software.html`, `teaching.html`, `publications.html`, `forecasts.html`, `cv.html` | the pages; every page has the same menu, so a new page goes into each one's `<nav>` |
 | `assets/css/site.css` | all styles; colors are CSS variables at the top (light, then dark) |
 | `assets/js/site.js` | dark-mode toggle, publication sort and copy buttons, copy-email button, footer "Updated" date, CV section rail, unfolding lists for printing |
-| `assets/js/forecasts.js` | the forecast chart: one round or all rounds, linear or log scale, CSV download; the rate-change map picks the state; every choice is kept in the link |
+| `assets/js/forecasts.js` | the forecast chart: one round or all rounds, linear or log scale, CSV download; the summary line above the chart and the rate-change map (which picks the state); every choice is kept in the link |
 | `assets/js/usmap.js` | the rate-change map (after FluBNF's), shared by the forecast and home pages |
 | `assets/js/home.js` | the small US forecast chart and the map on the home page |
 | `assets/img/topo.svg` | the background: contour lines around Flagstaff, built by `scripts/build_topo.py` |
@@ -29,8 +29,10 @@ Plain HTML, CSS and JS; no build step. Preview locally:
 | `CNAME` | custom domain, `elymiller.com` |
 | `sitemap.xml`, `robots.txt` | for search engines; add new pages to the sitemap |
 | `404.html` | page shown for broken links (uses `/`-rooted paths) |
-| `images/og-card.jpg` | link-preview card |
-| `favicon.ico`, `images/icon.svg`, `images/favicon-32.png`, `images/apple-touch-icon.png`, `assets/img/mark.svg` | site icons and the header mark (the San Francisco Peaks), all built by `scripts/build_icons.py` (needs `rsvg-convert` and Pillow) |
+| `images/og-card.jpg` | link-preview card, rendered from `scripts/og-card.html` by `scripts/build_og_card.py` (needs Google Chrome and Pillow) |
+| `images/ely.jpg`, `images/ely-368.*` | photo: the full size for search engines and the card, a 368 px JPEG and WebP for the home page |
+| `assets/fonts/` | Inter (SIL Open Font License, `OFL.txt`), served from the site rather than Google Fonts |
+| `favicon.ico`, `images/icon*.{svg,png}`, `images/favicon-32.png`, `images/apple-touch-icon.png`, `site.webmanifest`, `assets/img/mark.svg` | site icons, the home-screen manifest and the header mark (the San Francisco Peaks), all built by `scripts/build_icons.py` (needs `rsvg-convert` and Pillow) |
 
 Placeholders for text are marked `<!-- TODO(Ely): ... -->` in the HTML and
 show on the page as grey bracketed hints. Find them all with:
@@ -57,7 +59,9 @@ quantile grid, the same way FluBNF does for every model
 (`flubnf/app/core/categorical.py`; checked against it to 1e-16). The baseline
 is the week before the reference date in the hub's current target data, so an
 older round can shift slightly when the hub revises a week. The maps color
-each state by its most likely category, stronger the more likely it is.
+each state by its most likely category, stronger the more likely it is; the
+line above the forecast chart gives the same numbers for the chosen place at
+each of the four weeks.
 
 ## Background
 

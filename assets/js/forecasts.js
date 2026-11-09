@@ -403,6 +403,7 @@
     });
   }
   function paintMap() {
+    paintSummary();
     if (!map) return;
     var r = mapRound(), id = MAPM[state.mapM];
     var c = window.USMap.cards(D, id, r, state.mapH);
@@ -422,6 +423,50 @@
       b.setAttribute("aria-pressed", String(b.dataset.loc === state.loc));
       b.title = d.cat < 0 ? "no forecast" : window.USMap.CATS[d.cat] + " " + Math.round(d.p * 100) + "%";
     });
+  }
+
+  // One line above the chart: for the chosen place and map model, the most
+  // likely rate-change category at each of the four weeks (the same numbers
+  // the map shows), with the map's week picked. Click a week to pick it.
+  function paintSummary() {
+    var box = $("fc-summary");
+    if (!box || !D.cat_probs) return;
+    var r = mapRound(), id = MAPM[state.mapM], CATS = window.USMap.CATS;
+    var cs = [0, 1, 2, 3].map(function (hz) { return window.USMap.cards(D, id, r, hz)[state.loc] || { cat: -1 }; });
+    box.textContent = "";
+    if (cs.every(function (c) { return c.cat < 0; })) { box.hidden = true; return; }
+    box.hidden = false;
+    var head = document.createElement("p"), sel = cs[state.mapH];
+    head.className = "fc-sum-head";
+    var b = document.createElement("strong");
+    b.textContent = locName(state.loc);
+    head.appendChild(b);
+    var rest = " · " + (MAPM_SHORT[state.mapM] === "Ensemble" ? "FluSight ensemble" : MAPM_SHORT[state.mapM] === "Baseline" ? "FluSight baseline" : MAPM_SHORT[state.mapM]) + ": ";
+    rest += sel.cat < 0 ? "no forecast for the week ending " + short(t(r) + state.mapH * WEEK)
+      : "most likely " + CATS[sel.cat] + " (" + Math.round(sel.p * 100) + "%) by the week ending " + sel.target +
+        (sel.base != null ? ", from " + fmt(sel.base) + " admissions in the week ending " + sel.baseDay : "");
+    head.appendChild(document.createTextNode(rest));
+    box.appendChild(head);
+    var ul = document.createElement("ul");
+    ul.className = "fc-sum-weeks";
+    cs.forEach(function (c, hz) {
+      var li = document.createElement("li"), btn = document.createElement("button");
+      btn.type = "button"; btn.dataset.v = String(hz);
+      btn.setAttribute("aria-pressed", String(hz === state.mapH));
+      var sw = document.createElement("span");
+      sw.className = "sw " + (c.cat < 0 ? "nd" : "c" + c.cat);
+      if (c.cat >= 0) sw.style.opacity = (0.55 + 0.45 * c.p).toFixed(2);
+      var wk = document.createElement("span");
+      wk.className = "wk"; wk.textContent = short(t(r) + hz * WEEK);
+      btn.appendChild(sw); btn.appendChild(wk);
+      btn.appendChild(document.createTextNode(c.cat < 0 ? "no forecast" : CATS[c.cat] + " " + Math.round(c.p * 100) + "%"));
+      li.appendChild(btn); ul.appendChild(li);
+    });
+    ul.addEventListener("click", function (e) {
+      var x = e.target.closest("button[data-v]"); if (!x) return;
+      state.mapH = +x.dataset.v; sync(); writeHash();
+    });
+    box.appendChild(ul);
   }
 
   // ---------- controls ----------

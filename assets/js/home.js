@@ -143,8 +143,9 @@
     paintMap();
   }
 
-  var geo = fetch("data/us-states.json").then(function (r) { return r.ok ? r.json() : null; }, function () { return null; });
-  fetch("data/forecasts.json").then(function (r) { return r.json(); }).then(function (d) {
+  // the data is for the folded sections below the bio, so it waits behind the page itself
+  var geo = fetch("data/us-states.json", { priority: "low" }).then(function (r) { return r.ok ? r.json() : null; }, function () { return null; });
+  fetch("data/forecasts.json", { priority: "low" }).then(function (r) { return r.json(); }).then(function (d) {
     D = d; draw();
     geo.then(setupMap);
     document.addEventListener("themechange", draw);

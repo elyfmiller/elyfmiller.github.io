@@ -7,6 +7,10 @@ Writes:
     favicon.ico                  16, 32 and 48 px, for everything else
     images/favicon-32.png        32 px PNG
     images/apple-touch-icon.png  180 px, square (iOS rounds the corners)
+    images/icon-192.png, icon-512.png   for site.webmanifest (Android home
+                                 screen; "maskable", so the peaks stay inside
+                                 the safe circle)
+    site.webmanifest             name, colours and icons for "Add to Home Screen"
     assets/img/mark.svg          header mark, used as a CSS mask so it takes
                                  the theme's accent colour (see .brand::before)
 
@@ -14,6 +18,7 @@ Needs rsvg-convert (librsvg; `brew install librsvg`) and Pillow:
     python3 scripts/build_icons.py
 """
 import io
+import json
 import subprocess
 from pathlib import Path
 
@@ -50,8 +55,19 @@ def main():
     png(ICON, 32).save(ROOT / "images" / "favicon-32.png", optimize=True)
     png(TOUCH, 180).convert("RGB").save(ROOT / "images" / "apple-touch-icon.png", optimize=True)
     png(ICON, 48).save(ROOT / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    for n in (192, 512):
+        png(TOUCH, n).convert("RGB").save(ROOT / "images" / f"icon-{n}.png", optimize=True)
+    manifest = {
+        "name": "Ely F. Miller", "short_name": "Ely Miller",
+        "start_url": "/", "scope": "/", "display": "minimal-ui",
+        "theme_color": PINE, "background_color": PAPER,
+        "icons": [{"src": f"/images/icon-{n}.png", "sizes": f"{n}x{n}", "type": "image/png",
+                   "purpose": "any maskable"} for n in (192, 512)],
+    }
+    (ROOT / "site.webmanifest").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print("wrote images/icon.svg, favicon.ico, images/favicon-32.png, "
-          "images/apple-touch-icon.png, assets/img/mark.svg")
+          "images/apple-touch-icon.png, images/icon-192.png, images/icon-512.png, "
+          "site.webmanifest, assets/img/mark.svg")
 
 
 if __name__ == "__main__":

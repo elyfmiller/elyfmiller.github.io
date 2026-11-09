@@ -1,6 +1,26 @@
 /* elymiller.com — one stylesheet for every page.
    One sans-serif (Inter, system fallback), one accent (pine), light + dark. */
 
+/* Inter (SIL Open Font License, assets/fonts/OFL.txt), served from this site:
+   the variable 400-700 files Google Fonts serves, Latin and Latin Extended.
+   "Inter Fallback" is Arial resized to Inter's metrics, so the text does not
+   jump when the web font arrives. */
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/inter-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica");
+  size-adjust: 107.06%; ascent-override: 90.49%; descent-override: 22.56%; line-gap-override: 0%;
+}
+
+
 /* Palette "Ponderosa": warm paper, pine-green accent; dark mode is a
    Flagstaff dark-sky night. Chart series colors are validated against both
    surfaces (scripts: dataviz validate_palette.js). */
@@ -37,9 +57,9 @@
   --map-nodata: #dcd8cd;
 
   /* background contours (assets/img/topo.svg) */
-  --topo-ink: rgb(47 107 79 / 0.16);
+  --topo-ink: rgb(47 107 79 / 0.24);
 
-  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --measure: 46rem;
   --wide: 64rem;
   --page: 90rem;                          /* widest the layout grows */
@@ -73,7 +93,7 @@
     --s-ensemble: #199e70;
     --s-baseline: #9a988f;
     --map-nodata: #2a3038;
-    --topo-ink: rgb(143 209 168 / 0.12);
+    --topo-ink: rgb(143 209 168 / 0.18);
   }
 }
 :root[data-theme="dark"] {
@@ -100,7 +120,7 @@
   --s-ensemble: #199e70;
   --s-baseline: #9a988f;
   --map-nodata: #2a3038;
-  --topo-ink: rgb(143 209 168 / 0.12);
+  --topo-ink: rgb(143 209 168 / 0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -123,6 +143,11 @@ body::before {
   -webkit-mask: url("../img/topo.svg") center / cover no-repeat;
   mask: url("../img/topo.svg") center / cover no-repeat;
 }
+/* a halo in the page colour around text that sits on the contours, the way
+   a printed topo map clears the lines behind its labels; controls and tinted
+   chips keep their own backgrounds and get none */
+main, .site-footer { text-shadow: 0 0 2px var(--bg), 0 0 6px var(--bg), 0 0 12px var(--bg); }
+main :is(button, .btn, .tags, .seg, .chip, .loc-chip, .fc-sum-weeks, .badge, .pill-links, .usmap-tip, svg, input, select, code) { text-shadow: none; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
@@ -333,6 +358,19 @@ section[id] { scroll-margin-top: 80px; }
 .map-controls .seg button { font-size: 12.5px; padding: 3px 10px; white-space: nowrap; }
 .map-extra { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px; }
 .map-extra .hint { margin-left: auto; font-size: 12px; }
+/* forecast page: one-line summary above the chart (forecasts.js paintSummary) */
+.fc-summary { margin: 4px 0 14px; }
+.fc-sum-head { margin: 0 0 8px; font-size: 15px; color: var(--ink-2); max-width: none; }
+.fc-sum-head strong { color: var(--ink); font-weight: 600; }
+.fc-sum-weeks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.fc-sum-weeks button {
+  display: inline-flex; align-items: center; gap: 7px; font: inherit; font-size: 13px; cursor: pointer;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--rule-2); background: var(--card); color: var(--ink-2);
+}
+.fc-sum-weeks button:hover { border-color: var(--accent); color: var(--ink); }
+.fc-sum-weeks button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--ink); }
+.fc-sum-weeks .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+.fc-sum-weeks .wk { font-weight: 600; color: var(--ink); }
 .loc-chip {
   font: inherit; font-size: 12.5px; color: var(--ink-2); background: var(--card); cursor: pointer;
   border: 1px solid var(--rule-2); border-radius: 999px; padding: 2px 10px 2px 7px;
@@ -576,6 +614,9 @@ details.fold > summary:hover .chev { stroke: var(--accent); }
 
 /* ---------- phone width ---------- */
 @media (max-width: 640px) {
+  .fc-sum-weeks { display: grid; grid-template-columns: 1fr 1fr; }
+  .fc-sum-weeks button { font-size: 12px; padding: 3px 8px; gap: 5px; width: 100%; }
+  .fc-sum-weeks .sw { width: 9px; height: 9px; }
   body { font-size: 16px; }
   .site-header .inner { padding-top: 12px; padding-bottom: 12px; gap: 8px 16px; }
   .nav { margin-left: 0; width: 100%; gap: 4px 16px; }
@@ -621,6 +662,7 @@ details.fold > summary:hover .chev { stroke: var(--accent); }
   @page { margin: 16mm 15mm; }
   body { background: #fff; font-size: 10pt; line-height: 1.4; }
   body::before, .chev { display: none; }
+  main, .site-footer { text-shadow: none; }
   .skip, .site-header .nav, .theme-toggle, .cv-rail, .cv-top, .copy-btn, .pill-links button,
   .seg, .pub-tools, details.more > summary, .site-footer a, .fc-map-box, .fc-actions { display: none !important; }
   .site-header { position: static; border: 0; background: none; }
