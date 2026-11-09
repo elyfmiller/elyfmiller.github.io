@@ -224,6 +224,15 @@ p.todo, li.todo, div.todo { display: block; }
 }
 .pronouns { color: var(--muted); font-weight: 400; font-size: 0.55em; letter-spacing: 0; margin-left: 6px; white-space: nowrap; }
 .affil { margin: 4px 0 16px; color: var(--ink-2); }
+/* home: the NIH T32 traineeship, a tinted pill between the affiliation and the links */
+.honor { margin: -4px 0 18px; }
+.honor a {
+  display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px 5px 10px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent-ink); font-size: 15px; text-decoration: none; text-shadow: none;
+}
+.honor a:hover { box-shadow: inset 0 0 0 1px var(--accent); }
+.honor strong { font-weight: 600; }
+.honor .ic { width: 17px; height: 17px; flex: none; color: inherit; }
 .links { display: flex; flex-wrap: wrap; gap: 8px 10px; padding: 0; margin: 0; list-style: none; }
 .links a, .btn {
   display: inline-flex; align-items: center; gap: 7px;
@@ -469,9 +478,26 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
 
 /* ---------- home: current work strip ---------- */
 .featured { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: 0 clamp(32px, 5vw, 72px); margin-top: 64px; }
-.home-grid > section { margin-top: 0; padding-bottom: 48px; }
-.home-grid > section h2 { margin-top: 0; }
+/* home: the bio and "Outside the lab" in a wide column, with research
+   interests and "Now" as a sidebar that stays in view beside them. On narrow
+   screens the two wrappers dissolve and the four sections stack in reading
+   order: about, interests, now, outside. */
+.home-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 clamp(32px, 5vw, 72px); margin-top: 64px; }
+.home-grid section { margin-top: 0; padding-bottom: 40px; }
+.home-grid section h2 { margin-top: 0; }
+.home-main, .home-side { display: contents; }
+.h-about { order: 1; } .h-interests { order: 2; } .h-now { order: 3; } .h-outside { order: 4; }
+.side-card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px 24px 24px; box-shadow: var(--shadow); }
+.home-side .side-card + .side-card { margin-top: 16px; }
+.side-card h2 { font-size: 1.15rem; }
+.side-card p { font-size: 16px; }
+@media (max-width: 959px) { .side-card { margin-bottom: 40px; } .home-grid section.side-card { padding-bottom: 24px; } }
+@media (min-width: 960px) {
+  .home-grid { grid-template-columns: minmax(0, 1.7fr) minmax(20rem, 1fr); align-items: start; }
+  .home-main, .home-side { display: block; }
+  .home-side { position: sticky; top: 88px; }
+  .home-side section { padding-bottom: 24px; }
+}
 .featured .card { display: block; text-decoration: none; color: var(--ink); transition: border-color .15s, transform .15s; }
 .featured a.card:hover { border-color: var(--accent); transform: translateY(-1px); }
 .featured .card h3 { margin: 6px 0 4px; font-size: 1rem; }
@@ -614,6 +640,8 @@ details.fold > summary:hover .chev { stroke: var(--accent); }
 
 /* ---------- phone width ---------- */
 @media (max-width: 640px) {
+  .honor a { font-size: 13px; gap: 6px; padding: 5px 12px 5px 9px; }
+  .honor .ic { width: 15px; height: 15px; }
   .fc-sum-weeks { display: grid; grid-template-columns: 1fr 1fr; }
   .fc-sum-weeks button { font-size: 12px; padding: 3px 8px; gap: 5px; width: 100%; }
   .fc-sum-weeks .sw { width: 9px; height: 9px; }

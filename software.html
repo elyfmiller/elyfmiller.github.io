@@ -48,8 +48,10 @@
 <main id="main" class="medium">
   <p class="eyebrow">Software</p>
   <h1>Code and tools</h1>
-  <!-- TODO(Ely): page intro, 1–2 sentences: why you build tools, or who they are for -->
-  <p class="lede todo">page intro: why you build these tools, and for whom</p>
+  <!-- Intro and card summaries: Ely's words (drafts, 2026-11-09), edited for
+       grammar and length with his OK. -->
+  <p class="lede">Like many fields, systems biology has no single required tool: there are many ways to build a model and fit it to data. But standardizing the workflows behind that work, for the sake of repeatability and reliability, takes tools, and good tools make seemingly intangible tasks, such as building complex models and parameterizing them, more tangible.</p>
+  <p class="lede">These tools are for anyone interested in the mechanisms behind why things happen (e.g., how diseases spread, or why diseases like cancer arise) who wants to use computational modeling to fill gaps in our knowledge, or to predict how these systems will behave.</p>
 
   <!-- "My part" text is Ely's CV bullets (cv.html, Research experience),
        verbatim. Repositories, languages and licences checked on GitHub
@@ -63,10 +65,9 @@
           <p class="meta">Python · MIT licence · 2026–present</p></div>
         <span class="badge live">In use weekly</span>
       </div>
-      <!-- TODO(Ely): one or two sentences on what FluBNF does -->
-      <p class="lead todo">what it does, in one or two sentences</p>
+      <p class="lead">An interface for using PyBNF to fit epidemiological models, for both retrospective analyses and real-time forecasts.</p>
       <div class="project-foot">
-        <p class="people"><strong>My part:</strong> Developed FluBNF (an open-source, PyBNF-based influenza forecasting tool) and now submit weekly forecasts of laboratory-confirmed influenza hospital admissions using two models to the CDC FluSight challenge for the 2026-27 season.</p>
+        <p class="people"><strong>My part:</strong> Main developer. Developed FluBNF (an open-source, PyBNF-based influenza forecasting tool) and now submit weekly forecasts of laboratory-confirmed influenza hospital admissions using two models to the CDC FluSight challenge for the 2026-27 season.</p>
         <ul class="pill-links">
           <li><a href="https://github.com/elyfmiller/flubnf"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>Code</a></li>
           <li><a href="forecasts.html"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>Live forecasts</a></li>
@@ -79,9 +80,10 @@
           <p class="meta">BNGL and PyBNF · Los Alamos National Laboratory and NAU</p></div>
         <span class="badge">2025–26 season</span>
       </div>
-      <!-- TODO(Ely): one or two sentences on this model, and your role in it -->
-      <p class="lead todo">what this model was, and your role</p>
+      <!-- Model description: the repository README. -->
+      <p class="lead">A compartmental SIR model with a time-dependent transmission rate, fitted to hospitalization data by Bayesian inference in PyBNF, submitted to CDC FluSight for the 2025–26 season.</p>
       <div class="project-foot">
+        <p class="people"><strong>My part:</strong> As a graduate student and teaching assistant, I made the team's submissions with an earlier model and pipeline. After I received the NIH T32 G-RISE traineeship, that time went into building FluBNF, and a new model and algorithm, for the 2026–27 FluSight season.</p>
         <ul class="pill-links">
           <li><a href="https://github.com/elyfmiller/LosAlamos_NAU-CModel_Flu-2025-2026"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>Models and submissions</a></li>
         </ul>
@@ -97,11 +99,11 @@
       <div class="project-head">
         <div><h3>PyBioNetFit (PyBNF)</h3>
           <p class="meta">Python · Los Alamos National Laboratory</p></div>
+        <span class="badge">Manuscript in prep</span>
       </div>
-      <!-- TODO(Ely): one or two sentences on what PyBNF does -->
-      <p class="lead todo">what it does, in one or two sentences</p>
+      <p class="lead">Parameterizes biological models using quantitative data (e.g., time series), qualitative data (e.g., inequality constraints), and a likelihood function.</p>
       <div class="project-foot">
-        <p class="people"><strong>My part:</strong> Implemented a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</p>
+        <p class="people"><strong>My part:</strong> Co-developer. Implemented a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</p>
         <ul class="pill-links">
           <li><a href="https://github.com/lanl/PyBNF"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>lanl/PyBNF</a></li>
           <li><a href="https://pybnf.readthedocs.io/"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>Docs</a></li>
@@ -114,10 +116,10 @@
           <p class="meta">C++17 and Python · Los Alamos National Laboratory</p></div>
         <span class="badge">Manuscript in prep</span>
       </div>
-      <!-- TODO(Ely): one or two sentences on what BNGsim does -->
-      <p class="lead todo">what it does, in one or two sentences</p>
+      <!-- Summary: the repository's own description (lanl/bngsim). -->
+      <p class="lead">An embeddable simulation library for biochemical reaction networks.</p>
       <div class="project-foot">
-        <p class="people"><strong>My part:</strong> Designed and implemented a multi-engine benchmark suite for BNGsim (an open-sourced C++17 simulation engine for BioNetGen rule-based models) to evaluate and compare the performance of other simulators, including libRoadRunner, AMICI, COPASI, and SciPy.</p>
+        <p class="people"><strong>My part:</strong> Co-developer. Designed and implemented a multi-engine benchmark suite for BNGsim (an open-sourced C++17 simulation engine for BioNetGen rule-based models) to compare its performance with other simulators, including libRoadRunner, AMICI, COPASI, and SciPy; ran the benchmarks; and helped with debugging.</p>
         <ul class="pill-links">
           <li><a href="https://github.com/lanl/bngsim"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>lanl/bngsim</a></li>
         </ul>
@@ -128,10 +130,10 @@
         <div><h3>MicroHub</h3>
           <p class="meta">R and Shiny · Dr. Spencer Fox's group, NAU</p></div>
       </div>
-      <!-- TODO(Ely): one or two sentences on what MicroHub does -->
-      <p class="lead todo">what it does, in one or two sentences</p>
+      <!-- Summary: Ely's CV (MicroHub entry). -->
+      <p class="lead">A forecasting application written in R and Shiny, inspired by collaborative forecasting hubs like FluSight.</p>
       <div class="project-foot">
-        <p class="people"><strong>My part:</strong> Enhanced the MicroHub application through improvements to the user interface, increased functionality, and expanded capabilities, including automatically generated reports, producing time-series plots, supporting multiple languages, etc.</p>
+        <p class="people"><strong>My part:</strong> Tester and trainer. Used MicroHub for international forecast submissions and co-delivered technical trainings on it with the CDC and PAHO in 2026. Also enhanced the MicroHub application through improvements to the user interface, increased functionality, and expanded capabilities, including automatically generated reports, producing time-series plots, supporting multiple languages, etc.</p>
         <ul class="pill-links">
           <li><a href="https://github.com/sjfox/microhub"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>sjfox/microhub</a></li>
           <li><a href="teaching.html#chile"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg>Trainings</a></li>
@@ -143,8 +145,6 @@
         <div><h3>This website</h3>
           <p class="meta">HTML, CSS and JavaScript · no build step</p></div>
       </div>
-      <!-- TODO(Ely): optional sentence about the site, or delete this line -->
-      <p class="lead todo">optional: a sentence about the site</p>
       <div class="project-foot">
         <ul class="pill-links">
           <li><a href="https://github.com/elyfmiller/elyfmiller.github.io"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#github"/></svg>Source</a></li>
