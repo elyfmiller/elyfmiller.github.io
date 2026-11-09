@@ -1,6 +1,6 @@
 # elyfmiller.github.io — rules for Claude
 
-Personal academic website for Ely F. Miller (they/them), PhD student, Biological Sciences, Northern Arizona University. Hosted on GitHub Pages from `elyfmiller/elyfmiller.github.io`; custom domain `elymiller.com` planned (Ely buys it themselves). BIO 558 assignment: due Nov 12, 2026; revise and finalize by Dec 9, 2026.
+Personal academic website for Ely F. Miller (he/him), PhD student, Biological Sciences, Northern Arizona University. Hosted on GitHub Pages from `elyfmiller/elyfmiller.github.io`; custom domain `elymiller.com` planned (Ely buys it himself). BIO 558 assignment: due Nov 12, 2026; revise and finalize by Dec 9, 2026.
 
 ## Commits and pushes
 - Author and committer: `Ely F. Miller <efm46@nau.edu>` (set in this repo's local git config). Push with Ely's own `gh` login, account `elyfmiller`.

@@ -133,6 +133,7 @@
         <p class="meta"><code>NAU_PyBNF-OracleSIHRS</code> · mechanistic</p>
         <p>The SIHRS model my team submits every week assumes that flu is transmitted directly from person to person, that individual immunity to flu strains (e.g., H3N2, H1N1) wanes over time, and that some people can be reinfected in future epidemics.</p>
         <p>The model is fitted with a Liu–West particle filter: an algorithm that parameterizes the model from real-time data, carrying about 10,000 possible epidemic scenarios and weighting each one by how closely it matches the observed data.</p>
+        <p>The Oracle step then takes growth ratios from the GroundHogCGR model’s bank of past seasons and blends them, half and half, into each of the 10,000 particle trajectories after each new week of real-time data. This gives the mechanistic model, which is fitted only to this season’s data, a “sense” of what growth may look like based on past seasons.</p>
         <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-OracleSIHRS.yml">Model card on the hub</a>
       </article>
       <article class="card" style="--c:var(--s-groundhog)">
