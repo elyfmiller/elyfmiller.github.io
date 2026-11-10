@@ -8,7 +8,8 @@ Reads, from https://github.com/cdcepi/FluSight-forecast-hub (main branch):
 Writes a compact JSON file for forecasts.html: for every model, round
 (reference_date) and location, the 2.5/25/50/75/97.5% quantiles for
 horizons 0-3 of target "wk inc flu hosp", plus observed weekly admissions
-since SEASON_START.
+since SEASON_START, and last season's admissions moved forward 52 weeks
+(same week of the year, same weekday) for the chart's comparison line.
 
 It also writes, for the map, each forecast's chances of FluSight's five
 rate-change categories (large decrease .. large increase), worked out from
@@ -39,6 +40,7 @@ HUB_REPO = "cdcepi/FluSight-forecast-hub"
 HUB_BRANCH = "main"
 TARGET = "wk inc flu hosp"
 SEASON_START = "2026-08-01"  # rounds and observations before this are left out
+PREV_SHIFT = 364              # days back to the same week of last season (52 weeks)
 HORIZONS = (0, 1, 2, 3)
 QUANTILES = ("0.025", "0.25", "0.5", "0.75", "0.975")
 
@@ -184,13 +186,18 @@ def read_forecast(text, grids=None):
 
 
 def read_target(text):
+    """-> {location: {date: value}} for every week in the file, and names"""
     obs, names = {}, {}
     for row in csv.DictReader(io.StringIO(text)):
-        if row["date"] < SEASON_START or row["value"] in ("", "NA"):
+        if row["value"] in ("", "NA"):
             continue
         obs.setdefault(row["location"], {})[row["date"]] = num(row["value"])
         names[row["location"]] = row["location_name"]
     return obs, names
+
+
+def shift(day, days):
+    return (datetime.strptime(day, "%Y-%m-%d") + timedelta(days=days)).strftime("%Y-%m-%d")
 
 
 def main():
@@ -200,8 +207,17 @@ def main():
     args = ap.parse_args()
     hub = LocalHub(args.hub) if args.hub else RemoteHub()
 
-    obs, names = read_target(hub.read_text("target-data/target-hospital-admissions.csv"))
+    every, names = read_target(hub.read_text("target-data/target-hospital-admissions.csv"))
+    obs = {k: {d: v for d, v in s.items() if d >= SEASON_START} for k, s in every.items()}
+    obs = {k: s for k, s in obs.items() if s}
+    names = {k: names[k] for k in obs}
     dates = sorted({d for series in obs.values() for d in series})
+    # last season on this season's calendar, through 3 weeks past the latest
+    # observed week so the forecast weeks have a comparison too
+    prev_dates, d = [], SEASON_START
+    while dates and d <= shift(dates[-1], 21):
+        prev_dates.append(d)
+        d = shift(d, 7)
     pop = {r["location"]: float(r["population"])
            for r in csv.DictReader(io.StringIO(hub.read_text("auxiliary-data/locations.csv")))
            if r.get("population")}
@@ -249,6 +265,11 @@ def main():
         "locations": [{"id": k, "name": names[k]} for k in locs],
         "obs_dates": dates,
         "observed": {k: [obs[k].get(d) for d in dates] for k in locs},
+        "last_season": {
+            "shift_days": PREV_SHIFT,
+            "dates": prev_dates,
+            "observed": {k: [every[k].get(shift(d, -PREV_SHIFT)) for d in prev_dates] for k in locs},
+        },
         "forecasts": forecasts,
         "categories": CATS,
         "cat_probs": cats,

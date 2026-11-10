@@ -67,6 +67,12 @@
           <button type="button" data-v="all" aria-pressed="false">All rounds</button>
         </div>
       </div>
+      <div class="control">Window
+        <div class="seg" id="fc-span" role="group" aria-label="Time window">
+          <button type="button" data-v="recent" aria-pressed="true">Recent</button>
+          <button type="button" data-v="season" aria-pressed="false">Whole season</button>
+        </div>
+      </div>
       <label class="control">Round (reference date)
         <select id="fc-round" aria-label="Forecast round"></select>
       </label>
@@ -77,6 +83,11 @@
         <div class="toggles" role="group" aria-label="Prediction intervals">
           <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i50" checked><span class="sw"></span>50%</label>
           <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i95" checked><span class="sw" style="opacity:.45"></span>95%</label>
+        </div>
+      </div>
+      <div class="control">Compare
+        <div class="toggles" role="group" aria-label="Comparison">
+          <label class="chip prev" style="--c:var(--muted)"><input type="checkbox" id="fc-prev" checked><span class="sw"></span>Last season</label>
         </div>
       </div>
       <div class="control">Scale
@@ -96,6 +107,7 @@
     <ul class="legend" id="fc-legend" aria-label="Chart key"></ul>
     <div class="fc-actions">
       <button type="button" class="btn" id="fc-link"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#link"/></svg><span class="lab">Copy link to this view</span></button>
+      <button type="button" class="btn" id="fc-png"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#image"/></svg>Save as image</button>
       <button type="button" class="btn" id="fc-csv"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#download"/></svg>Download CSV</button>
     </div>
     <p class="chart-note" id="fc-note"></p>

@@ -318,8 +318,15 @@ section[id] { scroll-margin-top: 80px; }
 .chip:has(input:not(:checked)) .sw { background: transparent; box-shadow: inset 0 0 0 1.5px var(--c); }
 .chip:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 .chip.baseline .sw { background: repeating-linear-gradient(90deg, var(--c) 0 4px, transparent 4px 6px); }
+.chip.prev .sw { background: radial-gradient(circle, var(--c) 1.3px, transparent 1.6px) 0 50% / 4px 4px repeat-x; }
 
-.chart-wrap { position: relative; margin: 8px 0 0; scroll-margin-top: 80px; }
+/* the chart sits on a solid card so the background contours stay out of the data */
+.chart-wrap {
+  position: relative; margin: 8px 0 0; scroll-margin-top: 80px;
+  --chart-surface: var(--card); background: var(--card); text-shadow: none;
+  border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 14px 8px 6px 4px;
+}
 .chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
 .chart-wrap .grid line { stroke: var(--grid); stroke-width: 1; }
 .chart-wrap .axis text { fill: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
@@ -331,6 +338,26 @@ section[id] { scroll-margin-top: 80px; }
 .chart-wrap .obs-dot.later { fill: var(--chart-surface); stroke: var(--obs); stroke-width: 1.5; }
 .chart-wrap .crosshair { stroke: var(--muted); stroke-width: 1; }
 .chart-wrap .dlabel { font-size: 12px; fill: var(--ink-2); }
+.chart-wrap .dlabel[data-model] { cursor: default; }
+.chart-wrap .band-lab, .chart-wrap .prev-lab { fill: var(--muted); }
+.chart-wrap .lead { fill: none; stroke: var(--muted); stroke-width: 1; opacity: .6; }
+.chart-wrap .band-edge { fill: none; stroke-width: 1; stroke-opacity: .55; stroke-linejoin: round; }
+.chart-wrap .halo { fill: none; stroke: var(--chart-surface); stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; }
+.chart-wrap .prev-line { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 0.1 4.5; opacity: .85; }
+/* the latest observed week, in words; a ring of the background keeps it legible over lines */
+.chart-wrap .anno, .chart-wrap .dlabel { paint-order: stroke; stroke: var(--chart-surface); stroke-width: 4px; stroke-linejoin: round; }
+.chart-wrap .anno { font-size: 12px; fill: var(--muted); }
+.chart-wrap .anno .v { fill: var(--ink); font-weight: 600; }
+/* hovering a model fades the others */
+.chart-wrap [data-model] { transition: opacity .15s; }
+.chart-wrap svg.focusing [data-model]:not(.is-focus) { opacity: .15; }
+/* after a change of place, round or view: the fans open out from the reference line */
+@media (prefers-reduced-motion: no-preference) {
+  .chart-wrap svg.enter .fc-bands, .chart-wrap svg.enter .fc-lines { animation: fc-reveal .7s cubic-bezier(.2, .7, .2, 1) both; }
+  .chart-wrap svg.enter .fc-obs, .chart-wrap svg.enter .fc-prev, .chart-wrap svg.enter .anno { animation: fc-fade .35s ease-out both; }
+}
+@keyframes fc-reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes fc-fade { from { opacity: 0; } to { opacity: 1; } }
 .tooltip {
   position: absolute; pointer-events: none; z-index: 3;
   background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
@@ -343,6 +370,7 @@ section[id] { scroll-margin-top: 80px; }
 .tooltip td + td { text-align: right; padding-left: 12px; }
 .tooltip .key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
 .tooltip .rng { color: var(--muted); font-size: 12px; }
+.tooltip .key.prev { background: none; height: 0; width: 12px; border-top: 2.5px dotted var(--muted); border-radius: 0; vertical-align: 3px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); margin: 12px 0 0; padding: 0; list-style: none; }
 .legend .k { display: inline-block; vertical-align: -2px; margin-right: 6px; }
 .chart-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
