@@ -475,6 +475,23 @@ table.data th { font-weight: 600; color: var(--ink-2); font-size: 13px; }
 .card h3 { margin: 0 0 2px; display: flex; align-items: center; gap: 8px; }
 .card h3 .sw { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: none; }
 .card code { font-size: 13px; color: var(--muted); }
+/* forecast page: relative WIS table (data/scores.json) */
+.scores-card { margin-top: 16px; padding-top: 10px; }
+table.scores { margin-top: 0; font-size: 15px; }
+table.scores thead th { text-align: right; vertical-align: bottom; }
+table.scores thead th[colspan] { text-align: center; border-bottom-color: var(--rule-2); }
+table.scores thead th:first-child { text-align: left; }
+table.scores tbody th { text-align: left; font-weight: 600; font-size: 15px; color: var(--ink); }
+table.scores tbody th .sw { width: 12px; height: 12px; border-radius: 3px; background: var(--c); vertical-align: -1px; margin-right: 8px; }
+table.scores tr.ref th, table.scores tr.ref td { color: var(--muted); font-weight: 400; }
+table.scores tbody tr:last-child > * { border-bottom: 0; }
+table.scores + table.scores { margin-top: 18px; }
+@media (max-width: 560px) {
+  .scores-card { padding-left: 14px; padding-right: 14px; }
+  table.scores, table.scores tbody th { font-size: 14px; }
+  table.scores th, table.scores td { padding-left: 5px; padding-right: 5px; }
+}
+.scores-note { font-size: 13px; color: var(--muted); margin: 10px 0 0; max-width: var(--prose); }
 .disease { display: grid; grid-template-columns: 9rem 1fr; gap: 4px 24px; padding: 14px 0; border-top: 1px solid var(--rule); }
 .disease:first-of-type { border-top: 0; }
 .status { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }

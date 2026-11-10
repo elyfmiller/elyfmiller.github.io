@@ -180,6 +180,17 @@
         </div>
       </section>
 
+      <section id="scores">
+        <h2>Scores</h2>
+        <!-- Shown at Ely's request (2026-11-10). Filled by forecasts.js from data/scores.json,
+             which scripts/build_scores.py builds each week from the FluSight dashboard's published scores.
+             TODO(Ely): optional sentence on what the scores mean, if wanted. -->
+        <div class="card scores-card">
+          <div class="table-scroll" id="fc-scores"><p class="empty">Loading scores…</p></div>
+          <p class="scores-note" id="fc-scores-note"></p>
+        </div>
+      </section>
+
       <section>
         <h2>Diseases</h2>
         <!-- Status and wording from Ely (2026-11-09). -->

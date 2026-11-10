@@ -710,8 +710,71 @@
   }
   function update(anim) { writeHash(); paintMap(); render(anim); }
 
+  // ---------- scores (data/scores.json, from the FluSight dashboard) ----------
+  function cell(row, tag, text, attrs) {
+    var c = document.createElement(tag);
+    c.textContent = text;
+    for (var k in attrs || {}) c.setAttribute(k, attrs[k]);
+    row.appendChild(c);
+    return c;
+  }
+  // one table with the given sets side by side, e.g. [["United States", levels.national]]
+  function scoreTable(S, sets) {
+    var tbl = document.createElement("table"), thead = tbl.createTHead(), tb = tbl.createTBody();
+    tbl.className = "data scores";
+    var h1 = thead.insertRow(), h2 = thead.insertRow();
+    cell(h1, "th", "Model", { rowspan: 2, scope: "col" });
+    sets.forEach(function (s) {
+      cell(h1, "th", s[0], { colspan: 2, scope: "colgroup" });
+      cell(h2, "th", NARROW.matches ? "relWIS" : "Relative WIS", { scope: "col" });
+      cell(h2, "th", "Rank", { scope: "col" });
+    });
+    Object.keys(SERIES).forEach(function (id) {
+      if (!sets.some(function (s) { return s[1].rows[id]; })) return;
+      var tr = tb.insertRow();
+      if (id.indexOf("FluSight-") === 0) tr.className = "ref";
+      var th = cell(tr, "th", "", { scope: "row" }), sw = document.createElement("span");
+      sw.className = "sw"; sw.style.setProperty("--c", SERIES[id].color);
+      th.appendChild(sw); th.appendChild(document.createTextNode(S.labels[id] || id));
+      sets.forEach(function (s) {
+        var r = s[1].rows[id];
+        cell(tr, "td", r ? r.rel.toFixed(2) : "–");
+        cell(tr, "td", r ? r.rank + " of " + s[1].models : "–");
+      });
+    });
+    return tbl;
+  }
+  var NARROW = window.matchMedia("(max-width: 560px)");
+  function paintScores(S) {
+    var box = $("fc-scores"), note = $("fc-scores-note");
+    if (!box) return;
+    var nat = S.levels.national, st = S.levels.state, sets = [["United States", nat], ["States", st]];
+    function draw() {
+      box.innerHTML = "";
+      // phones: one table per set, stacked, so nothing scrolls sideways
+      (NARROW.matches ? sets.map(function (s) { return [s]; }) : [sets])
+        .forEach(function (g) { box.appendChild(scoreTable(S, g)); });
+    }
+    draw();
+    if (NARROW.addEventListener) NARROW.addEventListener("change", draw);
+    var rs = nat.rounds, season = S.season.replace("-", "–").replace(/–(\d\d)(\d\d)$/, "–$2");
+    note.innerHTML = "";
+    note.appendChild(document.createTextNode(
+      "Relative WIS (weighted interval score) for the " + season + " season as of " + long(t(S.updated)) +
+      (rs.length ? ", forecast rounds " + short(t(rs[0])) + " to " + short(t(rs[rs.length - 1])) : "") +
+      ". 1.00 is the FluSight baseline; lower is better. Rank is among all models scored. Source: "));
+    var a = document.createElement("a");
+    a.href = S.source; a.textContent = "FluSight dashboard";
+    note.appendChild(a);
+    note.appendChild(document.createTextNode("."));
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
-    var geo = fetch("data/us-states.json").then(function (r) { return r.ok ? r.json() : null; }, function () { return null; });
+    fetch("data/scores.json", { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(paintScores)
+      .catch(function (e) { if ($("fc-scores")) $("fc-scores").innerHTML = '<p class="empty">Could not load scores (' + e.message + ").</p>"; });
+    var geo =fetch("data/us-states.json").then(function (r) { return r.ok ? r.json() : null; }, function () { return null; });
     fetch("data/forecasts.json", { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) { D = data; return geo; })

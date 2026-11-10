@@ -1,8 +1,12 @@
 # Enabled by Ely, 2026-11-06.
 #
 # What it does: twice a week (and on demand from the Actions tab) it rebuilds
-# data/forecasts.json from cdcepi/FluSight-forecast-hub and, only if the data
+# data/forecasts.json from cdcepi/FluSight-forecast-hub and data/scores.json
+# from the FluSight dashboard's published scores (reichlab/flusight-dashboard,
+# branch predevals/data; added 2026-11-10 at Ely's request) and, only if the data
 # changed, commits it to main as github-actions[bot], then asks Pages to redeploy.
+# The dashboard has refreshed its scores on Tuesdays to Thursdays (most often
+# Thursday ~18:40 UTC), so the Thursday run usually picks them up.
 # Timing: the hub merges a round's forecasts and the FluSight ensemble on
 # Wednesday/Thursday (ensemble PR for 2026-11-07 merged Thu 2026-11-05 13:15 UTC),
 # so Thursday 20:00 UTC catches the round; Friday 14:00 UTC catches late merges.
@@ -33,23 +37,36 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/build_forecasts.py   # standard library only
-      - name: Commit if the forecasts changed
+      - name: Build data/scores.json
+        continue-on-error: true   # if the dashboard is unreachable, keep the last scores and still refresh the forecasts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/build_scores.py      # standard library only
+      - name: Commit if the data changed
         id: commit
         run: |
-          # "generated" changes on every run; compare everything else.
-          if git diff --quiet -- data/forecasts.json; then echo "no change"; exit 0; fi
-          if ! python3 - <<'PY'
+          # "generated" changes on every run; compare everything else, file by file.
+          changed=""
+          for f in data/forecasts.json data/scores.json; do
+            if git diff --quiet -- "$f" && git ls-files --error-unmatch "$f" >/dev/null 2>&1; then continue; fi
+            if python3 - "$f" <<'PY'
           import json, subprocess, sys
-          old = json.loads(subprocess.check_output(["git", "show", "HEAD:data/forecasts.json"]))
-          new = json.load(open("data/forecasts.json"))
+          f = sys.argv[1]
+          try:
+              old = json.loads(subprocess.check_output(["git", "show", f"HEAD:{f}"], stderr=subprocess.DEVNULL))
+          except subprocess.CalledProcessError:
+              sys.exit(0)   # a new file
+          new = json.load(open(f))
           old.pop("generated", None); new.pop("generated", None)
           sys.exit(0 if old != new else 1)   # 0 = the data really changed
           PY
-          then git checkout -- data/forecasts.json; echo "only the timestamp moved"; exit 0; fi
+            then changed="$changed $f"; else git checkout -- "$f"; fi
+          done
+          if [ -z "$changed" ]; then echo "no change (or only the timestamps moved)"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/forecasts.json
-          git commit -m "Refresh forecast data from the FluSight hub"
+          git add $changed
+          git commit -m "Refresh forecast data and scores from FluSight"
           git pull --rebase origin main
           git push origin HEAD:main
           echo "pushed=true" >> "$GITHUB_OUTPUT"
