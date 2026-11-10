@@ -89,8 +89,9 @@
       </div>
       <p class="lead">Implementing a Liu–West particle filter for sequential Bayesian parameter estimation in PyBNF (now public in the Los Alamos National Laboratory PyBioNetFit (LANL/PyBNF) repository as of October 2026).</p>
       <details class="more">
-        <summary><span class="closed">3 more details</span><span class="opened">Show less</span></summary>
+        <summary><span class="closed">4 more details</span><span class="opened">Show less</span></summary>
         <ul>
+          <li>Implementing an IBIS (iterated batch importance sampling) particle filter in PyBNF, which targets the exact posterior, unlike the Liu–West filter, which approximates it.</li>
           <li>Developing and benchmarking Bayesian MCMC samplers including Adaptive Metropolis, DREAM(ZS) and preconditioned DREAM for calibrating rule-based systems biology models in PyBNF across a broad range of analytical targets and BioNetGen models of differing dimensionality/cost.</li>
           <li>Automated and improved a previously manual MEK isoform signaling model (reaching faster convergence and improved fits to data). Manuscript published in <a href="https://doi.org/10.3389/fimmu.2026.1663008"><em>Frontiers (2026).</em></a></li>
           <li>Building Slurm-based pipelines on the NAU Monsoon high-performance computing cluster, enabling multi-day parallel sampling runs. This includes resumable checkpoints, automated result collection, and failure diagnostics.</li>
