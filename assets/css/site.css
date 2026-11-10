@@ -377,12 +377,28 @@ section[id] { scroll-margin-top: 80px; }
 .empty { padding: 40px 0; color: var(--muted); text-align: center; }
 /* forecast page: controls + rate-change map, actions under the chart */
 .fc-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 32px; align-items: start; }
-/* wide screens: the map stays in view beside the chart, so a click on a
-   state updates the chart next to it */
+/* wide screens: the map sits in a right-hand column beside everything below
+   the intro (chart, table, models, diseases) and stays in view while the page
+   scrolls, so a click on a state updates the chart next to it. Narrower
+   screens: chart, then map, then the rest. */
+.fc-more { min-width: 0; }
 @media (min-width: 1100px) {
   .fc-top { grid-template-columns: minmax(0, 1fr) minmax(24rem, 31rem); }
-  .fc-top .fc-map-box { margin-top: 0; position: sticky; top: 76px; }
+  .fc-top .fc-main { grid-column: 1; grid-row: 1; }
+  .fc-top .fc-more { grid-column: 1; grid-row: 2; }
+  .fc-top .fc-map-box { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; }
 }
+/* follow the page only when the whole map fits on screen */
+@media (min-width: 1100px) and (min-height: 680px) {
+  .fc-top .fc-map-box { position: sticky; top: 76px; }
+}
+/* shorter text up front: Ely's longer paragraphs open with "+" */
+.fc-about { margin: 2px 0 8px; }
+.fc-about[open] > summary { margin-bottom: 4px; }
+.fc-howto { margin-top: 10px; }
+.fc-howto p { font-size: 14px; color: var(--ink-2); max-width: var(--prose); margin: 6px 0 0; }
+.model-cards details.more p { margin: 8px 0 0; }
+.model-cards details.more { margin: 4px 0 10px; }
 .control .seg { align-self: flex-start; }
 .control .seg button { font-size: 13px; white-space: nowrap; }
 .control select:disabled { opacity: .5; }

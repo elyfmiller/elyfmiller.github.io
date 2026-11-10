@@ -51,9 +51,13 @@
 <main id="main" class="wide">
   <p class="eyebrow">Forecasts · CDC FluSight 2026–27</p>
   <h1>Weekly influenza hospital admissions</h1>
-  <p class="lede">The CDC’s FluSight competition collects the best influenza forecasts possible from contributing teams across the United States, so they can be used for hospital preparedness (e.g., staffing, supplies, bed capacity) and for producing and distributing vaccines (e.g., timing pharmacy advertisements for the flu shot).</p>
   <p class="lede">My team (NAU_PyBNF) submits a four-week forecast every week: the current week plus three weeks ahead.</p>
-  <p class="lede">These forecasts offer real-time insight into the current state of influenza transmission across the nation and in individual U.S. states and territories, so that larger institutions (e.g., the CDC, hospitals) and individuals can make informed decisions about travel, vaccination, supplies, staffing, and more.</p>
+  <!-- Ely's other two intro paragraphs, folded so the chart comes sooner -->
+  <details class="more fc-about">
+    <summary><span class="closed">About FluSight and why these forecasts matter</span><span class="opened">Show less</span></summary>
+    <p class="lede">The CDC’s FluSight competition collects the best influenza forecasts possible from contributing teams across the United States, so they can be used for hospital preparedness (e.g., staffing, supplies, bed capacity) and for producing and distributing vaccines (e.g., timing pharmacy advertisements for the flu shot).</p>
+    <p class="lede">These forecasts offer real-time insight into the current state of influenza transmission across the nation and in individual U.S. states and territories, so that larger institutions (e.g., the CDC, hospitals) and individuals can make informed decisions about travel, vaccination, supplies, staffing, and more.</p>
+  </details>
 
   <div class="fc-top">
     <div class="fc-main">
@@ -111,7 +115,10 @@
       <button type="button" class="btn" id="fc-csv"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#download"/></svg>Download CSV</button>
     </div>
     <p class="chart-note" id="fc-note"></p>
-    <p class="chart-note">Forecasts like the ones submitted to FluSight are probabilistic. Instead of predicting a single value for influenza hospitalizations over the next few weeks, we submit a range of values based on the noise in the data and the error in our models (a prediction interval). The first thing to look at is the median forecast, the solid line: what we believe is most likely over the next few weeks. The shaded bands around it are our prediction intervals: admissions could go that high or that low, depending on how transmission plays out over the next few weeks.</p>
+    <details class="more fc-howto">
+      <summary><span class="closed">How to read this chart</span><span class="opened">Show less</span></summary>
+      <p>Forecasts like the ones submitted to FluSight are probabilistic. Instead of predicting a single value for influenza hospitalizations over the next few weeks, we submit a range of values based on the noise in the data and the error in our models (a prediction interval). The first thing to look at is the median forecast, the solid line: what we believe is most likely over the next few weeks. The shaded bands around it are our prediction intervals: admissions could go that high or that low, depending on how transmission plays out over the next few weeks.</p>
+    </details>
     </div>
 
     <details class="fc-map-box" id="fc-map-box" open>
@@ -135,51 +142,59 @@
         <p class="map-legend" id="fc-map-legend"></p>
       </div>
     </details>
+
+    <div class="fc-more">
+      <details class="table-view">
+        <summary>Show as a table</summary>
+        <div class="table-scroll" id="fc-table"></div>
+      </details>
+
+      <section style="margin-top:72px">
+        <h2>The models</h2>
+        <!-- Model names and IDs: hub model-metadata cards (flubnf repo, model-metadata/). -->
+        <div class="model-cards">
+          <article class="card" style="--c:var(--s-oracle)">
+            <h3><span class="sw"></span>Oracle SIHRS</h3>
+            <p class="meta"><code>NAU_PyBNF-OracleSIHRS</code> · mechanistic</p>
+            <p>The SIHRS model my team submits every week assumes that flu is transmitted directly from person to person, that individual immunity to flu strains (e.g., H3N2, H1N1) wanes over time, and that some people can be reinfected in future epidemics.</p>
+            <details class="more">
+              <summary><span class="closed">How it is fitted</span><span class="opened">Show less</span></summary>
+              <p>The model is fitted with a Liu–West particle filter: an algorithm that parameterizes the model from real-time data, carrying about 10,000 possible epidemic scenarios and weighting each one by how closely it matches the observed data.</p>
+              <p>The Oracle step then takes growth ratios from the GroundHogCGR model’s bank of past seasons and blends them, half and half, into each of the 10,000 particle trajectories after each new week of real-time data. This gives the mechanistic model, which is fitted only to this season’s data, a “sense” of what growth may look like based on past seasons.</p>
+            </details>
+            <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-OracleSIHRS.yml">Model card on the hub</a>
+          </article>
+          <article class="card" style="--c:var(--s-groundhog)">
+            <h3><span class="sw"></span>Groundhog</h3>
+            <p class="meta"><code>NAU_PyBNF-GroundHogCGR</code> · empirical</p>
+            <p>The Groundhog Calendar Growth Ratio model (GroundHogCGR) is a purely empirical model that we compare our mechanistic models against: it uses only historical data, and the patterns within that data, to predict the future.</p>
+            <details class="more">
+              <summary><span class="closed">How it works</span><span class="opened">Show less</span></summary>
+              <p>Specifically, it takes donor growth (the growth of influenza hospitalizations) from past seasons within a five-week window of the current date, and assumes that the new growth of an epidemic can be explained by similar calendar-pinned growth in past seasons.</p>
+            </details>
+            <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-GroundHogCGR.yml">Model card on the hub</a>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Diseases</h2>
+        <!-- Status and wording from Ely (2026-11-09). -->
+        <div class="disease">
+          <div><h3 style="margin:0">Influenza</h3><span class="status live">Live</span></div>
+          <p>Submitting weekly forecasts since October 7, 2026, and beating the FluSight baseline (relative scores below 1.0).</p>
+        </div>
+        <div class="disease">
+          <div><h3 style="margin:0">COVID-19</h3><span class="status">In testing</span></div>
+          <p>Currently in testing.</p>
+        </div>
+        <div class="disease">
+          <div><h3 style="margin:0">RSV</h3><span class="status">In testing</span></div>
+          <p>Currently in testing.</p>
+        </div>
+      </section>
+    </div>
   </div>
-
-  <details class="table-view">
-    <summary>Show as a table</summary>
-    <div class="table-scroll" id="fc-table"></div>
-  </details>
-
-  <section style="margin-top:72px">
-    <h2>The models</h2>
-    <!-- Model names and IDs: hub model-metadata cards (flubnf repo, model-metadata/). -->
-    <div class="model-cards">
-      <article class="card" style="--c:var(--s-oracle)">
-        <h3><span class="sw"></span>Oracle SIHRS</h3>
-        <p class="meta"><code>NAU_PyBNF-OracleSIHRS</code> · mechanistic</p>
-        <p>The SIHRS model my team submits every week assumes that flu is transmitted directly from person to person, that individual immunity to flu strains (e.g., H3N2, H1N1) wanes over time, and that some people can be reinfected in future epidemics.</p>
-        <p>The model is fitted with a Liu–West particle filter: an algorithm that parameterizes the model from real-time data, carrying about 10,000 possible epidemic scenarios and weighting each one by how closely it matches the observed data.</p>
-        <p>The Oracle step then takes growth ratios from the GroundHogCGR model’s bank of past seasons and blends them, half and half, into each of the 10,000 particle trajectories after each new week of real-time data. This gives the mechanistic model, which is fitted only to this season’s data, a “sense” of what growth may look like based on past seasons.</p>
-        <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-OracleSIHRS.yml">Model card on the hub</a>
-      </article>
-      <article class="card" style="--c:var(--s-groundhog)">
-        <h3><span class="sw"></span>Groundhog</h3>
-        <p class="meta"><code>NAU_PyBNF-GroundHogCGR</code> · empirical</p>
-        <p>The Groundhog Calendar Growth Ratio model (GroundHogCGR) is a purely empirical model that we compare our mechanistic models against: it uses only historical data, and the patterns within that data, to predict the future.</p>
-        <p>Specifically, it takes donor growth (the growth of influenza hospitalizations) from past seasons within a five-week window of the current date, and assumes that the new growth of an epidemic can be explained by similar calendar-pinned growth in past seasons.</p>
-        <a href="https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/NAU_PyBNF-GroundHogCGR.yml">Model card on the hub</a>
-      </article>
-    </div>
-  </section>
-
-  <section>
-    <h2>Diseases</h2>
-    <!-- Status and wording from Ely (2026-11-09). -->
-    <div class="disease">
-      <div><h3 style="margin:0">Influenza</h3><span class="status live">Live</span></div>
-      <p>Submitting weekly forecasts since October 7, 2026, and beating the FluSight baseline (relative scores below 1.0).</p>
-    </div>
-    <div class="disease">
-      <div><h3 style="margin:0">COVID-19</h3><span class="status">In testing</span></div>
-      <p>Currently in testing.</p>
-    </div>
-    <div class="disease">
-      <div><h3 style="margin:0">RSV</h3><span class="status">In testing</span></div>
-      <p>Currently in testing.</p>
-    </div>
-  </section>
 </main>
 
 <footer class="site-footer">
