@@ -65,45 +65,48 @@
       <label class="control">Location
         <select id="fc-loc" aria-label="Location"></select>
       </label>
-      <div class="control">View
-        <div class="seg" id="fc-view" role="group" aria-label="View">
-          <button type="button" data-v="round" aria-pressed="true">One round</button>
-          <button type="button" data-v="all" aria-pressed="false">All rounds</button>
-        </div>
-      </div>
-      <div class="control">Window
-        <div class="seg" id="fc-span" role="group" aria-label="Time window">
-          <button type="button" data-v="recent" aria-pressed="true">Recent</button>
-          <button type="button" data-v="season" aria-pressed="false">Whole season</button>
-        </div>
-      </div>
       <label class="control">Round (reference date)
         <select id="fc-round" aria-label="Forecast round"></select>
       </label>
       <div class="control">Models
         <div class="toggles" id="fc-models" role="group" aria-label="Models"></div>
       </div>
-      <div class="control">Intervals
-        <div class="toggles" role="group" aria-label="Prediction intervals">
-          <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i50" checked><span class="sw"></span>50%</label>
-          <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i95" checked><span class="sw" style="opacity:.45"></span>95%</label>
+      <!-- less-used options, folded; opens by itself when a link sets one of them -->
+      <details class="more fc-opts" id="fc-opts">
+        <summary><span class="closed">More options</span><span class="opened">Fewer options</span></summary>
+        <div class="controls">
+          <div class="control">View
+            <div class="seg" id="fc-view" role="group" aria-label="View">
+              <button type="button" data-v="round" aria-pressed="true">One round</button>
+              <button type="button" data-v="all" aria-pressed="false">All rounds</button>
+            </div>
+          </div>
+          <div class="control">Window
+            <div class="seg" id="fc-span" role="group" aria-label="Time window">
+              <button type="button" data-v="recent" aria-pressed="true">Recent</button>
+              <button type="button" data-v="season" aria-pressed="false">Whole season</button>
+            </div>
+          </div>
+          <div class="control">Intervals
+            <div class="toggles" role="group" aria-label="Prediction intervals">
+              <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i50" checked><span class="sw"></span>50%</label>
+              <label class="chip" style="--c:var(--muted)"><input type="checkbox" id="fc-i95" checked><span class="sw" style="opacity:.45"></span>95%</label>
+            </div>
+          </div>
+          <div class="control">Compare
+            <div class="toggles" role="group" aria-label="Comparison">
+              <label class="chip prev" style="--c:var(--muted)"><input type="checkbox" id="fc-prev" checked><span class="sw"></span>Last season</label>
+            </div>
+          </div>
+          <div class="control">Scale
+            <div class="seg" id="fc-scale" role="group" aria-label="Scale">
+              <button type="button" data-v="linear" aria-pressed="true">Linear</button>
+              <button type="button" data-v="log" aria-pressed="false">Log</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="control">Compare
-        <div class="toggles" role="group" aria-label="Comparison">
-          <label class="chip prev" style="--c:var(--muted)"><input type="checkbox" id="fc-prev" checked><span class="sw"></span>Last season</label>
-        </div>
-      </div>
-      <div class="control">Scale
-        <div class="seg" id="fc-scale" role="group" aria-label="Scale">
-          <button type="button" data-v="linear" aria-pressed="true">Linear</button>
-          <button type="button" data-v="log" aria-pressed="false">Log</button>
-        </div>
-      </div>
+      </details>
     </form>
-
-    <!-- filled from the data by forecasts.js (paintSummary) -->
-    <div class="fc-summary" id="fc-summary" aria-live="polite" hidden></div>
 
     <div class="chart-wrap" id="fc-chart" aria-live="polite">
       <p class="empty">Loading forecasts…</p>

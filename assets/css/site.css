@@ -147,7 +147,7 @@ body::before {
    a printed topo map clears the lines behind its labels; controls and tinted
    chips keep their own backgrounds and get none */
 main, .site-footer { text-shadow: 0 0 2px var(--bg), 0 0 6px var(--bg), 0 0 12px var(--bg); }
-main :is(button, .btn, .tags, .seg, .chip, .loc-chip, .fc-sum-weeks, .badge, .pill-links, .usmap-tip, svg, input, select, code) { text-shadow: none; }
+main :is(button, .btn, .tags, .seg, .chip, .loc-chip, .badge, .pill-links, .usmap-tip, svg, input, select, code) { text-shadow: none; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
@@ -402,6 +402,9 @@ section[id] { scroll-margin-top: 80px; }
 .control .seg { align-self: flex-start; }
 .control .seg button { font-size: 13px; white-space: nowrap; }
 .control select:disabled { opacity: .5; }
+/* forecast page: the less-used chart options sit in a "More options" fold */
+.controls .fc-opts { flex-basis: 100%; margin: 0; }
+.fc-opts > .controls { margin: 10px 0 0; }
 .fc-map-box { margin: 32px 0 12px; font-size: 13px; color: var(--muted); }
 .fc-map-box > summary { cursor: pointer; margin-bottom: 8px; color: var(--ink-2); }
 .fc-map-box > summary .hint { color: var(--muted); }
@@ -413,19 +416,6 @@ section[id] { scroll-margin-top: 80px; }
 .map-controls .seg button { font-size: 12.5px; padding: 3px 10px; white-space: nowrap; }
 .map-extra { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px; }
 .map-extra .hint { margin-left: auto; font-size: 12px; }
-/* forecast page: one-line summary above the chart (forecasts.js paintSummary) */
-.fc-summary { margin: 4px 0 14px; }
-.fc-sum-head { margin: 0 0 8px; font-size: 15px; color: var(--ink-2); max-width: none; }
-.fc-sum-head strong { color: var(--ink); font-weight: 600; }
-.fc-sum-weeks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-.fc-sum-weeks button {
-  display: inline-flex; align-items: center; gap: 7px; font: inherit; font-size: 13px; cursor: pointer;
-  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--rule-2); background: var(--card); color: var(--ink-2);
-}
-.fc-sum-weeks button:hover { border-color: var(--accent); color: var(--ink); }
-.fc-sum-weeks button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--ink); }
-.fc-sum-weeks .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; }
-.fc-sum-weeks .wk { font-weight: 600; color: var(--ink); }
 .loc-chip {
   font: inherit; font-size: 12.5px; color: var(--ink-2); background: var(--card); cursor: pointer;
   border: 1px solid var(--rule-2); border-radius: 999px; padding: 2px 10px 2px 7px;
@@ -558,7 +548,6 @@ details.more[open] > summary .closed, details.more:not([open]) > summary .opened
 .spark { padding: 20px 22px 14px; }
 /* home: the forecast chart and the map side by side on wide screens */
 .home-fc { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
-.home-fc .map-card .go { font-size: 14px; color: var(--accent); }
 .home-fc .map-card > .meta { margin: 2px 0 0; font-size: 12.5px; }
 
 /* home: sections the reader can fold away (open by default) */
@@ -695,9 +684,6 @@ details.fold > summary:hover .chev { stroke: var(--accent); }
 @media (max-width: 640px) {
   .honor a { font-size: 13px; gap: 6px; padding: 5px 12px 5px 9px; }
   .honor .ic { width: 15px; height: 15px; }
-  .fc-sum-weeks { display: grid; grid-template-columns: 1fr 1fr; }
-  .fc-sum-weeks button { font-size: 12px; padding: 3px 8px; gap: 5px; width: 100%; }
-  .fc-sum-weeks .sw { width: 9px; height: 9px; }
   body { font-size: 16px; }
   .site-header .inner { padding-top: 12px; padding-bottom: 12px; gap: 8px 16px; }
   .nav { margin-left: 0; width: 100%; gap: 4px 16px; }
