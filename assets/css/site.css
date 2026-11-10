@@ -26,24 +26,24 @@
    surfaces (scripts: dataviz validate_palette.js). */
 :root {
   color-scheme: light;
-  --bg: #faf8f3;
-  --surface: #f2efe7;
-  --card: #fffdf9;
+  --bg: #f3eee2;
+  --surface: #ebe5d6;
+  --card: #f9f6ee;
   --ink: #1b1d1a;
   --ink-2: #4d5249;
-  --muted: #676b60;
-  --rule: #e4e0d5;
-  --rule-2: #d5d0c2;
+  --muted: #5f6358;
+  --rule: #ddd6c6;
+  --rule-2: #cdc5b3;
   --accent: #2f6b4f;          /* the one accent: pine */
-  --accent-soft: #e4ede5;
+  --accent-soft: #dfe8dc;
   --accent-ink: #24563f;
   --todo: #7c7f75;
   --shadow: 0 1px 2px rgb(40 36 20 / 0.04), 0 4px 16px rgb(40 36 20 / 0.05);
 
   /* chart roles (validated categorical slots 1-3 + neutral baseline) */
-  --chart-surface: #faf8f3;
-  --grid: #ebe7dc;
-  --axis: #c6c1b3;
+  --chart-surface: #f3eee2;
+  --grid: #e3ddcf;
+  --axis: #bdb6a5;
   --obs: #1b1d1a;
   --s-oracle: #2a78d6;
   --s-groundhog: #eb6834;
@@ -54,10 +54,10 @@
      same in both themes, and its colourblind-safe alternative */
   --cat-0: #2e7d4f; --cat-1: #7fc97f; --cat-2: #b9b09b; --cat-3: #e8a33d; --cat-4: #c0392b;
   --cvd-0: #2c7bb6; --cvd-1: #abd9e9; --cvd-2: #b9b09b; --cvd-3: #fdae61; --cvd-4: #d7191c;
-  --map-nodata: #dcd8cd;
+  --map-nodata: #d6d0c2;
 
   /* background contours (assets/img/topo.svg) */
-  --topo-ink: rgb(47 107 79 / 0.24);
+  --topo-ink: rgb(47 107 79 / 0.38);
 
   --font: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --measure: 46rem;
