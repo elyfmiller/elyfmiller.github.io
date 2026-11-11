@@ -27,6 +27,17 @@
         document.dispatchEvent(new CustomEvent("themechange"));
       });
     }
+    // phone menu (one sideways-scrolling row): bring the current page into view,
+    // and drop the edge fade once the row is scrolled to its end
+    var nav = document.querySelector(".site-header .nav");
+    if (nav) {
+      var fade = function () { nav.classList.toggle("at-end", nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 2); };
+      var cur = nav.querySelector('[aria-current="page"]');
+      if (cur && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = Math.max(0, cur.offsetLeft - nav.offsetLeft - nav.clientWidth / 2 + cur.offsetWidth / 2);
+      nav.addEventListener("scroll", fade, { passive: true });
+      addEventListener("resize", fade);
+      fade();
+    }
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
     setupSort();

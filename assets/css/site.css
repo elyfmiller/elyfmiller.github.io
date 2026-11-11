@@ -529,6 +529,12 @@ details.more > summary::before { content: "+"; font-weight: 600; width: 1em; tex
 details.more[open] > summary::before { content: "–"; }
 details.more[open] > summary .closed, details.more:not([open]) > summary .opened { display: none; }
 
+/* home: links straight to CV sections, under the profile links */
+.cv-jump { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; font-size: 14px; align-items: baseline; }
+.cv-jump span { color: var(--muted); }
+.cv-jump a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 3px; }
+.cv-jump a:hover { color: var(--accent-ink); text-decoration-color: currentColor; }
+
 /* ---------- home: current work strip ---------- */
 .featured { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 /* home: the bio in a wide column, with research interests, "Now" and
@@ -703,7 +709,15 @@ details.fold > summary:hover .chev { stroke: var(--accent); }
   .honor .ic { width: 15px; height: 15px; }
   body { font-size: 16px; }
   .site-header .inner { padding-top: 12px; padding-bottom: 12px; gap: 8px 16px; }
-  .nav { margin-left: 0; width: 100%; gap: 4px 16px; }
+  /* phones: the header scrolls away with the page, and the menu is one row
+     that scrolls sideways (fades at the edge while more is hidden there) */
+  .site-header { position: static; }
+  .nav { margin-left: 0; width: 100%; gap: 16px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+         padding: 2px 0 6px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent);
+         mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent); }
+  .nav.at-end { -webkit-mask-image: none; mask-image: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: none; white-space: nowrap; }
   .theme-toggle { position: absolute; right: 16px; top: 10px; }
   .site-header .inner { position: relative; padding-right: 60px; }
   .hero { grid-template-columns: 1fr; gap: 20px; }
